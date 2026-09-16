@@ -1,0 +1,14 @@
+# Entornos virtuales
+venv/
+env/
+
+# Archivos de caché de Python
+__pycache__/
+*.pyc
+
+# Archivos del sistema operativo
+.DS_Store
+
+# (Opcional) Si tus Excels pesaran gigabytes, los ignorarías aquí, 
+# pero como son reportes pequeños de la SBS, puedes dejarlos 
+# para que tu profesor los vea en GitHub.
