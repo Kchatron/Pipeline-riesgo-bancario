@@ -1,0 +1,1297 @@
+fecha_id,banco_id,tipo_credito_id,indicador_id,valor
+2023-01,BBVA,Consumo,Morosidad,2.917016583645418
+2023-01,BBVA,Hipotecario,Morosidad,2.275151571829891
+2023-01,BCP,Consumo,Morosidad,2.588294293727074
+2023-01,BCP,Hipotecario,Morosidad,2.6593795164184573
+2023-01,Scotiabank,Consumo,Morosidad,2.215350885619963
+2023-01,Scotiabank,Hipotecario,Morosidad,2.642476460555822
+2023-01,Interbank,Consumo,Morosidad,3.262398058184975
+2023-01,Interbank,Hipotecario,Morosidad,2.584511826120231
+2023-01,Mibanco,Consumo,Morosidad,2.476608340265389
+2023-01,Mibanco,Hipotecario,Morosidad,4.8316191383788825
+2023-01,Total Banca Múltiple,Consumo,Morosidad,2.8426228680688883
+2023-01,Total Banca Múltiple,Hipotecario,Morosidad,2.620410242969367
+2023-01,BBVA,Consumo,Créditos Directos Totales,2747250.90261
+2023-01,BBVA,Hipotecario,Créditos Directos Totales,13963968.845
+2023-01,BCP,Consumo,Créditos Directos Totales,5103129.36461
+2023-01,BCP,Hipotecario,Créditos Directos Totales,19405108.931
+2023-01,Scotiabank,Consumo,Créditos Directos Totales,1015965.84809
+2023-01,Scotiabank,Hipotecario,Créditos Directos Totales,10274632.111
+2023-01,Interbank,Consumo,Créditos Directos Totales,3024349.42121
+2023-01,Interbank,Hipotecario,Créditos Directos Totales,9066204.745
+2023-01,Mibanco,Consumo,Créditos Directos Totales,44639.14684
+2023-01,Mibanco,Hipotecario,Créditos Directos Totales,445514.871
+2023-01,Total Banca Múltiple,Consumo,Créditos Directos Totales,15274960.087190002
+2023-01,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,57994617.253
+2023-01,BBVA,Consumo,Tasa Activa MN,39.23
+2023-01,BBVA,Hipotecario,Tasa Activa MN,9.65
+2023-01,BCP,Consumo,Tasa Activa MN,44.75
+2023-01,BCP,Hipotecario,Tasa Activa MN,9.49
+2023-01,Scotiabank,Consumo,Tasa Activa MN,38.27
+2023-01,Scotiabank,Hipotecario,Tasa Activa MN,9.98
+2023-01,Interbank,Consumo,Tasa Activa MN,56.25
+2023-01,Interbank,Hipotecario,Tasa Activa MN,9.72
+2023-01,Mibanco,Consumo,Tasa Activa MN,50.78
+2023-01,Mibanco,Hipotecario,Tasa Activa MN,15.75
+2023-01,Total Banca Múltiple,Consumo,Tasa Activa MN,49.82
+2023-01,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.87
+2023-02,BBVA,Consumo,Morosidad,2.9927857422288837
+2023-02,BBVA,Hipotecario,Morosidad,2.235560360704348
+2023-02,BCP,Consumo,Morosidad,2.5654559166517785
+2023-02,BCP,Hipotecario,Morosidad,2.701427031185907
+2023-02,Scotiabank,Consumo,Morosidad,2.2125672967472347
+2023-02,Scotiabank,Hipotecario,Morosidad,2.669014998258444
+2023-02,Interbank,Consumo,Morosidad,3.239040029038646
+2023-02,Interbank,Hipotecario,Morosidad,2.602747788056919
+2023-02,Mibanco,Consumo,Morosidad,2.149227718453292
+2023-02,Mibanco,Hipotecario,Morosidad,4.751718398717767
+2023-02,Total Banca Múltiple,Consumo,Morosidad,2.8410368359891294
+2023-02,Total Banca Múltiple,Hipotecario,Morosidad,2.6294084823458004
+2023-02,BBVA,Consumo,Créditos Directos Totales,2829879.95591
+2023-02,BBVA,Hipotecario,Créditos Directos Totales,13965028.572
+2023-02,BCP,Consumo,Créditos Directos Totales,5195120.182510001
+2023-02,BCP,Hipotecario,Créditos Directos Totales,19478553.558
+2023-02,Scotiabank,Consumo,Créditos Directos Totales,1037917.90649
+2023-02,Scotiabank,Hipotecario,Créditos Directos Totales,10303289.522
+2023-02,Interbank,Consumo,Créditos Directos Totales,3060412.8598
+2023-02,Interbank,Hipotecario,Créditos Directos Totales,9104129.605
+2023-02,Mibanco,Consumo,Créditos Directos Totales,45206.34281
+2023-02,Mibanco,Hipotecario,Créditos Directos Totales,449041.328
+2023-02,Total Banca Múltiple,Consumo,Créditos Directos Totales,15506925.56835
+2023-02,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,58170026.402
+2023-02,BBVA,Consumo,Tasa Activa MN,39.22
+2023-02,BBVA,Hipotecario,Tasa Activa MN,9.74
+2023-02,BCP,Consumo,Tasa Activa MN,44.18
+2023-02,BCP,Hipotecario,Tasa Activa MN,9.82
+2023-02,Scotiabank,Consumo,Tasa Activa MN,37.54
+2023-02,Scotiabank,Hipotecario,Tasa Activa MN,9.54
+2023-02,Interbank,Consumo,Tasa Activa MN,56.45
+2023-02,Interbank,Hipotecario,Tasa Activa MN,9.74
+2023-02,Mibanco,Consumo,Tasa Activa MN,54.81
+2023-02,Mibanco,Hipotecario,Tasa Activa MN,16.66
+2023-02,Total Banca Múltiple,Consumo,Tasa Activa MN,49.26
+2023-02,Total Banca Múltiple,Hipotecario,Tasa Activa MN,10.03
+2023-03,BBVA,Consumo,Morosidad,2.6873821418888393
+2023-03,BBVA,Hipotecario,Morosidad,2.253662794605773
+2023-03,BCP,Consumo,Morosidad,2.7991232788497324
+2023-03,BCP,Hipotecario,Morosidad,2.488414793375327
+2023-03,Scotiabank,Consumo,Morosidad,2.260276281659061
+2023-03,Scotiabank,Hipotecario,Morosidad,2.6467331717895224
+2023-03,Interbank,Consumo,Morosidad,2.9447688067478173
+2023-03,Interbank,Hipotecario,Morosidad,2.602389181982842
+2023-03,Mibanco,Consumo,Morosidad,1.973911791273435
+2023-03,Mibanco,Hipotecario,Morosidad,4.585705954358712
+2023-03,Total Banca Múltiple,Consumo,Morosidad,2.8189507056763787
+2023-03,Total Banca Múltiple,Hipotecario,Morosidad,2.5725217091278263
+2023-03,BBVA,Consumo,Créditos Directos Totales,2901572.83279
+2023-03,BBVA,Hipotecario,Créditos Directos Totales,14003647.725
+2023-03,BCP,Consumo,Créditos Directos Totales,5259008.94487
+2023-03,BCP,Hipotecario,Créditos Directos Totales,19550161.194
+2023-03,Scotiabank,Consumo,Créditos Directos Totales,1045675.35706
+2023-03,Scotiabank,Hipotecario,Créditos Directos Totales,10351713.047
+2023-03,Interbank,Consumo,Créditos Directos Totales,3163471.6761
+2023-03,Interbank,Hipotecario,Créditos Directos Totales,9143465.888
+2023-03,Mibanco,Consumo,Créditos Directos Totales,46765.75127
+2023-03,Mibanco,Hipotecario,Créditos Directos Totales,450362.295
+2023-03,Total Banca Múltiple,Consumo,Créditos Directos Totales,15820311.648970002
+2023-03,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,58392084.076
+2023-03,BBVA,Consumo,Tasa Activa MN,39.89
+2023-03,BBVA,Hipotecario,Tasa Activa MN,9.87
+2023-03,BCP,Consumo,Tasa Activa MN,44.57
+2023-03,BCP,Hipotecario,Tasa Activa MN,9.87
+2023-03,Scotiabank,Consumo,Tasa Activa MN,37.75
+2023-03,Scotiabank,Hipotecario,Tasa Activa MN,9.62
+2023-03,Interbank,Consumo,Tasa Activa MN,57.71
+2023-03,Interbank,Hipotecario,Tasa Activa MN,9.68
+2023-03,Mibanco,Consumo,Tasa Activa MN,55.35
+2023-03,Mibanco,Hipotecario,Tasa Activa MN,16.93
+2023-03,Total Banca Múltiple,Consumo,Tasa Activa MN,49.83
+2023-03,Total Banca Múltiple,Hipotecario,Tasa Activa MN,10.07
+2023-04,BBVA,Consumo,Morosidad,2.4866917758726284
+2023-04,BBVA,Hipotecario,Morosidad,2.2167185914797423
+2023-04,BCP,Consumo,Morosidad,2.8860990592387856
+2023-04,BCP,Hipotecario,Morosidad,2.526662582772748
+2023-04,Scotiabank,Consumo,Morosidad,2.3420557612576527
+2023-04,Scotiabank,Hipotecario,Morosidad,2.6375287219712344
+2023-04,Interbank,Consumo,Morosidad,2.9077191327958567
+2023-04,Interbank,Hipotecario,Morosidad,2.623717300591042
+2023-04,Mibanco,Consumo,Morosidad,2.033647485146925
+2023-04,Mibanco,Hipotecario,Morosidad,4.520161283436257
+2023-04,Total Banca Múltiple,Consumo,Morosidad,2.873536781347493
+2023-04,Total Banca Múltiple,Hipotecario,Morosidad,2.5685381067251907
+2023-04,BBVA,Consumo,Créditos Directos Totales,2962435.73114
+2023-04,BBVA,Hipotecario,Créditos Directos Totales,13989574.14
+2023-04,BCP,Consumo,Créditos Directos Totales,5294606.06517
+2023-04,BCP,Hipotecario,Créditos Directos Totales,19614743.947
+2023-04,Scotiabank,Consumo,Créditos Directos Totales,1060969.06283
+2023-04,Scotiabank,Hipotecario,Créditos Directos Totales,10391058.758
+2023-04,Interbank,Consumo,Créditos Directos Totales,3180136.13543
+2023-04,Interbank,Hipotecario,Créditos Directos Totales,9193967.125
+2023-04,Mibanco,Consumo,Créditos Directos Totales,47058.265479999995
+2023-04,Mibanco,Hipotecario,Créditos Directos Totales,452624.987
+2023-04,Total Banca Múltiple,Consumo,Créditos Directos Totales,16045556.752050001
+2023-04,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,58552660.137
+2023-04,BBVA,Consumo,Tasa Activa MN,39.86
+2023-04,BBVA,Hipotecario,Tasa Activa MN,9.6
+2023-04,BCP,Consumo,Tasa Activa MN,45.44
+2023-04,BCP,Hipotecario,Tasa Activa MN,9.77
+2023-04,Scotiabank,Consumo,Tasa Activa MN,37.93
+2023-04,Scotiabank,Hipotecario,Tasa Activa MN,9.6
+2023-04,Interbank,Consumo,Tasa Activa MN,57.81
+2023-04,Interbank,Hipotecario,Tasa Activa MN,9.76
+2023-04,Mibanco,Consumo,Tasa Activa MN,55.42
+2023-04,Mibanco,Hipotecario,Tasa Activa MN,16.88
+2023-04,Total Banca Múltiple,Consumo,Tasa Activa MN,50.18
+2023-04,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.94
+2023-05,BBVA,Consumo,Morosidad,2.459578130119318
+2023-05,BBVA,Hipotecario,Morosidad,2.3136742287320393
+2023-05,BCP,Consumo,Morosidad,3.2298492422899496
+2023-05,BCP,Hipotecario,Morosidad,2.6473819963244196
+2023-05,Scotiabank,Consumo,Morosidad,2.4956463212493754
+2023-05,Scotiabank,Hipotecario,Morosidad,2.677080907240351
+2023-05,Interbank,Consumo,Morosidad,2.918072713025278
+2023-05,Interbank,Hipotecario,Morosidad,2.7360205889861517
+2023-05,Mibanco,Consumo,Morosidad,2.9106568958799155
+2023-05,Mibanco,Hipotecario,Morosidad,4.523436184984345
+2023-05,Total Banca Múltiple,Consumo,Morosidad,3.0515026497603444
+2023-05,Total Banca Múltiple,Hipotecario,Morosidad,2.673566982997854
+2023-05,BBVA,Consumo,Créditos Directos Totales,3045087.30392
+2023-05,BBVA,Hipotecario,Créditos Directos Totales,14029588.084
+2023-05,BCP,Consumo,Créditos Directos Totales,5392898.04823
+2023-05,BCP,Hipotecario,Créditos Directos Totales,19660484.555
+2023-05,Scotiabank,Consumo,Créditos Directos Totales,1074798.01551
+2023-05,Scotiabank,Hipotecario,Créditos Directos Totales,10440411.382
+2023-05,Interbank,Consumo,Créditos Directos Totales,3248980.0659899996
+2023-05,Interbank,Hipotecario,Créditos Directos Totales,9232013.59
+2023-05,Mibanco,Consumo,Créditos Directos Totales,47422.727100000004
+2023-05,Mibanco,Hipotecario,Créditos Directos Totales,453903.243
+2023-05,Total Banca Múltiple,Consumo,Créditos Directos Totales,16342582.110549998
+2023-05,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,58744907.15800001
+2023-05,BBVA,Consumo,Tasa Activa MN,39.64
+2023-05,BBVA,Hipotecario,Tasa Activa MN,9.48
+2023-05,BCP,Consumo,Tasa Activa MN,48.62
+2023-05,BCP,Hipotecario,Tasa Activa MN,9.66
+2023-05,Scotiabank,Consumo,Tasa Activa MN,37.25
+2023-05,Scotiabank,Hipotecario,Tasa Activa MN,9.46
+2023-05,Interbank,Consumo,Tasa Activa MN,61.31
+2023-05,Interbank,Hipotecario,Tasa Activa MN,9.8
+2023-05,Mibanco,Consumo,Tasa Activa MN,54.95
+2023-05,Mibanco,Hipotecario,Tasa Activa MN,17.14
+2023-05,Total Banca Múltiple,Consumo,Tasa Activa MN,51.72
+2023-05,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.83
+2023-06,BBVA,Consumo,Morosidad,2.3624497942048364
+2023-06,BBVA,Hipotecario,Morosidad,2.2872490657586515
+2023-06,BCP,Consumo,Morosidad,3.2768551616907873
+2023-06,BCP,Hipotecario,Morosidad,2.660870906720497
+2023-06,Scotiabank,Consumo,Morosidad,2.5124144740363827
+2023-06,Scotiabank,Hipotecario,Morosidad,2.622768896610995
+2023-06,Interbank,Consumo,Morosidad,2.840940639263548
+2023-06,Interbank,Hipotecario,Morosidad,2.7146955145964897
+2023-06,Mibanco,Consumo,Morosidad,3.3533669312480163
+2023-06,Mibanco,Hipotecario,Morosidad,4.599333738101044
+2023-06,Total Banca Múltiple,Consumo,Morosidad,3.0208727748276605
+2023-06,Total Banca Múltiple,Hipotecario,Morosidad,2.658027723935661
+2023-06,BBVA,Consumo,Créditos Directos Totales,3147335.80009
+2023-06,BBVA,Hipotecario,Créditos Directos Totales,14081804.755
+2023-06,BCP,Consumo,Créditos Directos Totales,5454703.31668
+2023-06,BCP,Hipotecario,Créditos Directos Totales,19724812.755
+2023-06,Scotiabank,Consumo,Créditos Directos Totales,1101239.84001
+2023-06,Scotiabank,Hipotecario,Créditos Directos Totales,10484538.353
+2023-06,Interbank,Consumo,Créditos Directos Totales,3296895.19414
+2023-06,Interbank,Hipotecario,Créditos Directos Totales,9281402.394
+2023-06,Mibanco,Consumo,Créditos Directos Totales,47283.93089
+2023-06,Mibanco,Hipotecario,Créditos Directos Totales,456565.943
+2023-06,Total Banca Múltiple,Consumo,Créditos Directos Totales,16596542.521140002
+2023-06,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,59002089.31300001
+2023-06,BBVA,Consumo,Tasa Activa MN,39.82
+2023-06,BBVA,Hipotecario,Tasa Activa MN,9.17
+2023-06,BCP,Consumo,Tasa Activa MN,48.56
+2023-06,BCP,Hipotecario,Tasa Activa MN,9.58
+2023-06,Scotiabank,Consumo,Tasa Activa MN,37.37
+2023-06,Scotiabank,Hipotecario,Tasa Activa MN,9.37
+2023-06,Interbank,Consumo,Tasa Activa MN,62.0
+2023-06,Interbank,Hipotecario,Tasa Activa MN,9.64
+2023-06,Mibanco,Consumo,Tasa Activa MN,55.78
+2023-06,Mibanco,Hipotecario,Tasa Activa MN,17.38
+2023-06,Total Banca Múltiple,Consumo,Tasa Activa MN,52.05
+2023-06,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.69
+2023-07,BBVA,Consumo,Morosidad,2.5063474576532343
+2023-07,BBVA,Hipotecario,Morosidad,2.298039827839154
+2023-07,BCP,Consumo,Morosidad,3.463362810927992
+2023-07,BCP,Hipotecario,Morosidad,2.7043994600893844
+2023-07,Scotiabank,Consumo,Morosidad,2.6596302586241296
+2023-07,Scotiabank,Hipotecario,Morosidad,2.5399288725577525
+2023-07,Interbank,Consumo,Morosidad,3.2898925711702445
+2023-07,Interbank,Hipotecario,Morosidad,2.7134850834639583
+2023-07,Mibanco,Consumo,Morosidad,3.4239814335654226
+2023-07,Mibanco,Hipotecario,Morosidad,4.79463376207145
+2023-07,Total Banca Múltiple,Consumo,Morosidad,3.2643505443773875
+2023-07,Total Banca Múltiple,Hipotecario,Morosidad,2.665381666411238
+2023-07,BBVA,Consumo,Créditos Directos Totales,3162676.6464
+2023-07,BBVA,Hipotecario,Créditos Directos Totales,14131740.663
+2023-07,BCP,Consumo,Créditos Directos Totales,5484891.968640001
+2023-07,BCP,Hipotecario,Créditos Directos Totales,19703297.604
+2023-07,Scotiabank,Consumo,Créditos Directos Totales,1112943.8439500001
+2023-07,Scotiabank,Hipotecario,Créditos Directos Totales,10491128.421
+2023-07,Interbank,Consumo,Créditos Directos Totales,3236642.28069
+2023-07,Interbank,Hipotecario,Créditos Directos Totales,9290006.499
+2023-07,Mibanco,Consumo,Créditos Directos Totales,46543.536340000006
+2023-07,Mibanco,Hipotecario,Créditos Directos Totales,454876.723
+2023-07,Total Banca Múltiple,Consumo,Créditos Directos Totales,16618204.09637
+2023-07,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,59041503.029
+2023-07,BBVA,Consumo,Tasa Activa MN,40.22
+2023-07,BBVA,Hipotecario,Tasa Activa MN,9.05
+2023-07,BCP,Consumo,Tasa Activa MN,48.7
+2023-07,BCP,Hipotecario,Tasa Activa MN,9.36
+2023-07,Scotiabank,Consumo,Tasa Activa MN,38.34
+2023-07,Scotiabank,Hipotecario,Tasa Activa MN,9.28
+2023-07,Interbank,Consumo,Tasa Activa MN,62.46
+2023-07,Interbank,Hipotecario,Tasa Activa MN,9.58
+2023-07,Mibanco,Consumo,Tasa Activa MN,57.7
+2023-07,Mibanco,Hipotecario,Tasa Activa MN,18.21
+2023-07,Total Banca Múltiple,Consumo,Tasa Activa MN,52.86
+2023-07,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.55
+2023-08,BBVA,Consumo,Morosidad,2.9107437089016397
+2023-08,BBVA,Hipotecario,Morosidad,2.4474894621936816
+2023-08,BCP,Consumo,Morosidad,3.5432679029870116
+2023-08,BCP,Hipotecario,Morosidad,2.7385903921873886
+2023-08,Scotiabank,Consumo,Morosidad,2.7519931135577482
+2023-08,Scotiabank,Hipotecario,Morosidad,2.5990825286476045
+2023-08,Interbank,Consumo,Morosidad,3.7608517367199723
+2023-08,Interbank,Hipotecario,Morosidad,2.7392897164933823
+2023-08,Mibanco,Consumo,Morosidad,3.895812918871692
+2023-08,Mibanco,Hipotecario,Morosidad,4.900447393756376
+2023-08,Total Banca Múltiple,Consumo,Morosidad,3.48236354820692
+2023-08,Total Banca Múltiple,Hipotecario,Morosidad,2.737861616119944
+2023-08,BBVA,Consumo,Créditos Directos Totales,3242788.95106
+2023-08,BBVA,Hipotecario,Créditos Directos Totales,14222939.28
+2023-08,BCP,Consumo,Créditos Directos Totales,5539740.10295
+2023-08,BCP,Hipotecario,Créditos Directos Totales,19817543.134
+2023-08,Scotiabank,Consumo,Créditos Directos Totales,1163210.9003299999
+2023-08,Scotiabank,Hipotecario,Créditos Directos Totales,10526438.599
+2023-08,Interbank,Consumo,Créditos Directos Totales,3231370.9526799996
+2023-08,Interbank,Hipotecario,Créditos Directos Totales,9347563.73
+2023-08,Mibanco,Consumo,Créditos Directos Totales,46756.79562
+2023-08,Mibanco,Hipotecario,Créditos Directos Totales,453069.408
+2023-08,Total Banca Múltiple,Consumo,Créditos Directos Totales,16801654.74138
+2023-08,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,59368293.923
+2023-08,BBVA,Consumo,Tasa Activa MN,39.74
+2023-08,BBVA,Hipotecario,Tasa Activa MN,9.0
+2023-08,BCP,Consumo,Tasa Activa MN,49.39
+2023-08,BCP,Hipotecario,Tasa Activa MN,9.3
+2023-08,Scotiabank,Consumo,Tasa Activa MN,39.18
+2023-08,Scotiabank,Hipotecario,Tasa Activa MN,9.12
+2023-08,Interbank,Consumo,Tasa Activa MN,62.9
+2023-08,Interbank,Hipotecario,Tasa Activa MN,9.42
+2023-08,Mibanco,Consumo,Tasa Activa MN,59.3
+2023-08,Mibanco,Hipotecario,Tasa Activa MN,18.65
+2023-08,Total Banca Múltiple,Consumo,Tasa Activa MN,53.8
+2023-08,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.44
+2023-09,BBVA,Consumo,Morosidad,2.895967303492802
+2023-09,BBVA,Hipotecario,Morosidad,2.4292682585624634
+2023-09,BCP,Consumo,Morosidad,3.614603187283152
+2023-09,BCP,Hipotecario,Morosidad,2.727362224298982
+2023-09,Scotiabank,Consumo,Morosidad,2.8968291182303747
+2023-09,Scotiabank,Hipotecario,Morosidad,2.6574920128958435
+2023-09,Interbank,Consumo,Morosidad,3.801261749568252
+2023-09,Interbank,Hipotecario,Morosidad,2.7714362024482933
+2023-09,Mibanco,Consumo,Morosidad,3.777324696510578
+2023-09,Mibanco,Hipotecario,Morosidad,5.088945093232145
+2023-09,Total Banca Múltiple,Consumo,Morosidad,3.5485849082201795
+2023-09,Total Banca Múltiple,Hipotecario,Morosidad,2.7489860358162312
+2023-09,BBVA,Consumo,Créditos Directos Totales,3278259.8129499997
+2023-09,BBVA,Hipotecario,Créditos Directos Totales,14419096.692
+2023-09,BCP,Consumo,Créditos Directos Totales,5477722.99834
+2023-09,BCP,Hipotecario,Créditos Directos Totales,20014496.995
+2023-09,Scotiabank,Consumo,Créditos Directos Totales,1177457.60554
+2023-09,Scotiabank,Hipotecario,Créditos Directos Totales,10585912.014
+2023-09,Interbank,Consumo,Créditos Directos Totales,3123969.30522
+2023-09,Interbank,Hipotecario,Créditos Directos Totales,9427917.901
+2023-09,Mibanco,Consumo,Créditos Directos Totales,45494.27045
+2023-09,Mibanco,Hipotecario,Créditos Directos Totales,452660.6
+2023-09,Total Banca Múltiple,Consumo,Créditos Directos Totales,16635187.878520003
+2023-09,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,59923366.294
+2023-09,BBVA,Consumo,Tasa Activa MN,41.77
+2023-09,BBVA,Hipotecario,Tasa Activa MN,8.83
+2023-09,BCP,Consumo,Tasa Activa MN,52.82
+2023-09,BCP,Hipotecario,Tasa Activa MN,9.24
+2023-09,Scotiabank,Consumo,Tasa Activa MN,39.97
+2023-09,Scotiabank,Hipotecario,Tasa Activa MN,9.03
+2023-09,Interbank,Consumo,Tasa Activa MN,62.14
+2023-09,Interbank,Hipotecario,Tasa Activa MN,9.19
+2023-09,Mibanco,Consumo,Tasa Activa MN,58.46
+2023-09,Mibanco,Hipotecario,Tasa Activa MN,17.46
+2023-09,Total Banca Múltiple,Consumo,Tasa Activa MN,54.36
+2023-09,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.27
+2023-10,BBVA,Consumo,Morosidad,3.1642298605579535
+2023-10,BBVA,Hipotecario,Morosidad,2.4997494620160947
+2023-10,BCP,Consumo,Morosidad,3.7399998917518538
+2023-10,BCP,Hipotecario,Morosidad,2.772117341116213
+2023-10,Scotiabank,Consumo,Morosidad,3.1512486075323713
+2023-10,Scotiabank,Hipotecario,Morosidad,2.823136258741079
+2023-10,Interbank,Consumo,Morosidad,4.359300286290792
+2023-10,Interbank,Hipotecario,Morosidad,2.8035758200618988
+2023-10,Mibanco,Consumo,Morosidad,3.449502223014061
+2023-10,Mibanco,Hipotecario,Morosidad,5.011253893581245
+2023-10,Total Banca Múltiple,Consumo,Morosidad,3.7640247528444597
+2023-10,Total Banca Múltiple,Hipotecario,Morosidad,2.8262965089775687
+2023-10,BBVA,Consumo,Créditos Directos Totales,3365799.93213
+2023-10,BBVA,Hipotecario,Créditos Directos Totales,14564103.787
+2023-10,BCP,Consumo,Créditos Directos Totales,5606334.879989999
+2023-10,BCP,Hipotecario,Créditos Directos Totales,20114708.402
+2023-10,Scotiabank,Consumo,Créditos Directos Totales,1208295.51605
+2023-10,Scotiabank,Hipotecario,Créditos Directos Totales,10602005.244
+2023-10,Interbank,Consumo,Créditos Directos Totales,3059384.2699499996
+2023-10,Interbank,Hipotecario,Créditos Directos Totales,9489026.432
+2023-10,Mibanco,Consumo,Créditos Directos Totales,44761.58509
+2023-10,Mibanco,Hipotecario,Créditos Directos Totales,450630.004
+2023-10,Total Banca Múltiple,Consumo,Créditos Directos Totales,16892534.64582
+2023-10,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,60285211.14299999
+2023-10,BBVA,Consumo,Tasa Activa MN,43.25
+2023-10,BBVA,Hipotecario,Tasa Activa MN,8.64
+2023-10,BCP,Consumo,Tasa Activa MN,54.64
+2023-10,BCP,Hipotecario,Tasa Activa MN,9.17
+2023-10,Scotiabank,Consumo,Tasa Activa MN,39.85
+2023-10,Scotiabank,Hipotecario,Tasa Activa MN,9.02
+2023-10,Interbank,Consumo,Tasa Activa MN,63.19
+2023-10,Interbank,Hipotecario,Tasa Activa MN,9.06
+2023-10,Mibanco,Consumo,Tasa Activa MN,57.86
+2023-10,Mibanco,Hipotecario,Tasa Activa MN,17.18
+2023-10,Total Banca Múltiple,Consumo,Tasa Activa MN,54.86
+2023-10,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.13
+2023-11,BBVA,Consumo,Morosidad,3.3146020724454948
+2023-11,BBVA,Hipotecario,Morosidad,2.3591132330944635
+2023-11,BCP,Consumo,Morosidad,3.6812110305614993
+2023-11,BCP,Hipotecario,Morosidad,2.7577436801644626
+2023-11,Scotiabank,Consumo,Morosidad,3.2047886130088363
+2023-11,Scotiabank,Hipotecario,Morosidad,2.7904721967491524
+2023-11,Interbank,Consumo,Morosidad,4.475537876652111
+2023-11,Interbank,Hipotecario,Morosidad,2.8556522174291397
+2023-11,Mibanco,Consumo,Morosidad,3.406523250310469
+2023-11,Mibanco,Hipotecario,Morosidad,5.039837611370601
+2023-11,Total Banca Múltiple,Consumo,Morosidad,3.846745201406366
+2023-11,Total Banca Múltiple,Hipotecario,Morosidad,2.787522686239158
+2023-11,BBVA,Consumo,Créditos Directos Totales,3404868.05205
+2023-11,BBVA,Hipotecario,Créditos Directos Totales,14671194.881
+2023-11,BCP,Consumo,Créditos Directos Totales,5662123.6954
+2023-11,BCP,Hipotecario,Créditos Directos Totales,20149695.967
+2023-11,Scotiabank,Consumo,Créditos Directos Totales,1233045.81901
+2023-11,Scotiabank,Hipotecario,Créditos Directos Totales,10626835.978
+2023-11,Interbank,Consumo,Créditos Directos Totales,2969369.4605
+2023-11,Interbank,Hipotecario,Créditos Directos Totales,9515734.213
+2023-11,Mibanco,Consumo,Créditos Directos Totales,43450.78779
+2023-11,Mibanco,Hipotecario,Créditos Directos Totales,448923.431
+2023-11,Total Banca Múltiple,Consumo,Créditos Directos Totales,16923082.05398
+2023-11,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,60517038.201
+2023-11,BBVA,Consumo,Tasa Activa MN,43.46
+2023-11,BBVA,Hipotecario,Tasa Activa MN,8.56
+2023-11,BCP,Consumo,Tasa Activa MN,54.59
+2023-11,BCP,Hipotecario,Tasa Activa MN,9.44
+2023-11,Scotiabank,Consumo,Tasa Activa MN,40.92
+2023-11,Scotiabank,Hipotecario,Tasa Activa MN,8.95
+2023-11,Interbank,Consumo,Tasa Activa MN,66.2
+2023-11,Interbank,Hipotecario,Tasa Activa MN,9.05
+2023-11,Mibanco,Consumo,Tasa Activa MN,57.86
+2023-11,Mibanco,Hipotecario,Tasa Activa MN,17.84
+2023-11,Total Banca Múltiple,Consumo,Tasa Activa MN,55.33
+2023-11,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.17
+2023-12,BBVA,Consumo,Morosidad,3.3650677645120948
+2023-12,BBVA,Hipotecario,Morosidad,2.058897709749608
+2023-12,BCP,Consumo,Morosidad,3.8401999047678146
+2023-12,BCP,Hipotecario,Morosidad,2.7083596429563546
+2023-12,Scotiabank,Consumo,Morosidad,3.4199541931500885
+2023-12,Scotiabank,Hipotecario,Morosidad,2.8476449644346107
+2023-12,Interbank,Consumo,Morosidad,4.676811122878092
+2023-12,Interbank,Hipotecario,Morosidad,2.78906532704349
+2023-12,Mibanco,Consumo,Morosidad,3.572437965143243
+2023-12,Mibanco,Hipotecario,Morosidad,5.226369032396793
+2023-12,Total Banca Múltiple,Consumo,Morosidad,3.9628179866701396
+2023-12,Total Banca Múltiple,Hipotecario,Morosidad,2.7085476983208334
+2023-12,BBVA,Consumo,Créditos Directos Totales,3415472.8642100003
+2023-12,BBVA,Hipotecario,Créditos Directos Totales,14768114.498
+2023-12,BCP,Consumo,Créditos Directos Totales,5604847.429649999
+2023-12,BCP,Hipotecario,Créditos Directos Totales,20214134.46
+2023-12,Scotiabank,Consumo,Créditos Directos Totales,1243914.0923199998
+2023-12,Scotiabank,Hipotecario,Créditos Directos Totales,10598273.845
+2023-12,Interbank,Consumo,Créditos Directos Totales,2886601.8342600004
+2023-12,Interbank,Hipotecario,Créditos Directos Totales,9547593.389
+2023-12,Mibanco,Consumo,Créditos Directos Totales,42575.190090000004
+2023-12,Mibanco,Hipotecario,Créditos Directos Totales,444611.019
+2023-12,Total Banca Múltiple,Consumo,Créditos Directos Totales,16876215.02773
+2023-12,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,60686900.845000006
+2023-12,BBVA,Consumo,Tasa Activa MN,43.87
+2023-12,BBVA,Hipotecario,Tasa Activa MN,8.53
+2023-12,BCP,Consumo,Tasa Activa MN,55.15
+2023-12,BCP,Hipotecario,Tasa Activa MN,9.77
+2023-12,Scotiabank,Consumo,Tasa Activa MN,41.21
+2023-12,Scotiabank,Hipotecario,Tasa Activa MN,8.77
+2023-12,Interbank,Consumo,Tasa Activa MN,65.89
+2023-12,Interbank,Hipotecario,Tasa Activa MN,9.0
+2023-12,Mibanco,Consumo,Tasa Activa MN,59.52
+2023-12,Mibanco,Hipotecario,Tasa Activa MN,17.61
+2023-12,Total Banca Múltiple,Consumo,Tasa Activa MN,55.56
+2023-12,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.17
+2024-01,BBVA,Consumo,Morosidad,3.652190319074712
+2024-01,BBVA,Hipotecario,Morosidad,2.0939795200215676
+2024-01,BCP,Consumo,Morosidad,3.955649430013339
+2024-01,BCP,Hipotecario,Morosidad,2.729395060209246
+2024-01,Scotiabank,Consumo,Morosidad,3.58095193310722
+2024-01,Scotiabank,Hipotecario,Morosidad,2.86264440365953
+2024-01,Interbank,Consumo,Morosidad,4.869209138671564
+2024-01,Interbank,Hipotecario,Morosidad,2.9750556289200802
+2024-01,Mibanco,Consumo,Morosidad,3.5044188435634505
+2024-01,Mibanco,Hipotecario,Morosidad,5.350137796330777
+2024-01,Total Banca Múltiple,Consumo,Morosidad,4.092183298034931
+2024-01,Total Banca Múltiple,Hipotecario,Morosidad,2.758366935535369
+2024-01,BBVA,Consumo,Créditos Directos Totales,3459557.5621100003
+2024-01,BBVA,Hipotecario,Créditos Directos Totales,14873153.123
+2024-01,BCP,Consumo,Créditos Directos Totales,5689597.82476
+2024-01,BCP,Hipotecario,Créditos Directos Totales,20271209.581
+2024-01,Scotiabank,Consumo,Créditos Directos Totales,1237962.25291
+2024-01,Scotiabank,Hipotecario,Créditos Directos Totales,10582121.72
+2024-01,Interbank,Consumo,Créditos Directos Totales,2799648.5374000003
+2024-01,Interbank,Hipotecario,Créditos Directos Totales,9567251.134
+2024-01,Mibanco,Consumo,Créditos Directos Totales,42200.103619999994
+2024-01,Mibanco,Hipotecario,Créditos Directos Totales,438802.245
+2024-01,Total Banca Múltiple,Consumo,Créditos Directos Totales,16758417.089890001
+2024-01,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,60867533.886999995
+2024-01,BBVA,Consumo,Tasa Activa MN,43.83
+2024-01,BBVA,Hipotecario,Tasa Activa MN,8.41
+2024-01,BCP,Consumo,Tasa Activa MN,57.91
+2024-01,BCP,Hipotecario,Tasa Activa MN,9.6
+2024-01,Scotiabank,Consumo,Tasa Activa MN,41.06
+2024-01,Scotiabank,Hipotecario,Tasa Activa MN,8.84
+2024-01,Interbank,Consumo,Tasa Activa MN,65.77
+2024-01,Interbank,Hipotecario,Tasa Activa MN,8.91
+2024-01,Mibanco,Consumo,Tasa Activa MN,61.25
+2024-01,Mibanco,Hipotecario,Tasa Activa MN,18.06
+2024-01,Total Banca Múltiple,Consumo,Tasa Activa MN,57.45
+2024-01,Total Banca Múltiple,Hipotecario,Tasa Activa MN,9.08
+2024-02,BBVA,Consumo,Morosidad,3.514831670970041
+2024-02,BBVA,Hipotecario,Morosidad,2.100371386284814
+2024-02,BCP,Consumo,Morosidad,3.768928647315204
+2024-02,BCP,Hipotecario,Morosidad,2.7749008854459034
+2024-02,Scotiabank,Consumo,Morosidad,3.591777980931528
+2024-02,Scotiabank,Hipotecario,Morosidad,2.9041183987828822
+2024-02,Interbank,Consumo,Morosidad,4.702385734194252
+2024-02,Interbank,Hipotecario,Morosidad,2.9997849586264578
+2024-02,Mibanco,Consumo,Morosidad,3.553984406127591
+2024-02,Mibanco,Hipotecario,Morosidad,5.6607365736933914
+2024-02,Total Banca Múltiple,Consumo,Morosidad,3.9946739634875335
+2024-02,Total Banca Múltiple,Hipotecario,Morosidad,2.798621100500593
+2024-02,BBVA,Consumo,Créditos Directos Totales,3483822.28889
+2024-02,BBVA,Hipotecario,Créditos Directos Totales,14975176.202
+2024-02,BCP,Consumo,Créditos Directos Totales,5643169.85648
+2024-02,BCP,Hipotecario,Créditos Directos Totales,20355445.771
+2024-02,Scotiabank,Consumo,Créditos Directos Totales,1255784.2431400002
+2024-02,Scotiabank,Hipotecario,Créditos Directos Totales,10536927.396
+2024-02,Interbank,Consumo,Créditos Directos Totales,2754471.7286799997
+2024-02,Interbank,Hipotecario,Créditos Directos Totales,9626488.301
+2024-02,Mibanco,Consumo,Créditos Directos Totales,42006.24661
+2024-02,Mibanco,Hipotecario,Créditos Directos Totales,432564.243
+2024-02,Total Banca Múltiple,Consumo,Créditos Directos Totales,16632817.675679998
+2024-02,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,61078075.852000006
+2024-02,BBVA,Consumo,Tasa Activa MN,43.33
+2024-02,BBVA,Hipotecario,Tasa Activa MN,8.3
+2024-02,BCP,Consumo,Tasa Activa MN,57.81
+2024-02,BCP,Hipotecario,Tasa Activa MN,9.23
+2024-02,Scotiabank,Consumo,Tasa Activa MN,40.13
+2024-02,Scotiabank,Hipotecario,Tasa Activa MN,9.16
+2024-02,Interbank,Consumo,Tasa Activa MN,63.7
+2024-02,Interbank,Hipotecario,Tasa Activa MN,8.84
+2024-02,Mibanco,Consumo,Tasa Activa MN,62.39
+2024-02,Mibanco,Hipotecario,Tasa Activa MN,19.21
+2024-02,Total Banca Múltiple,Consumo,Tasa Activa MN,55.87
+2024-02,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.98
+2024-03,BBVA,Consumo,Morosidad,3.140947064731664
+2024-03,BBVA,Hipotecario,Morosidad,2.0791117654731734
+2024-03,BCP,Consumo,Morosidad,3.978665425126689
+2024-03,BCP,Hipotecario,Morosidad,2.927338769027885
+2024-03,Scotiabank,Consumo,Morosidad,3.554393517799262
+2024-03,Scotiabank,Hipotecario,Morosidad,2.956759590657035
+2024-03,Interbank,Consumo,Morosidad,4.8895775800523555
+2024-03,Interbank,Hipotecario,Morosidad,2.8768341634106176
+2024-03,Mibanco,Consumo,Morosidad,3.793941828071624
+2024-03,Mibanco,Hipotecario,Morosidad,5.935161687334332
+2024-03,Total Banca Múltiple,Consumo,Morosidad,4.034790947002594
+2024-03,Total Banca Múltiple,Hipotecario,Morosidad,2.842266161188661
+2024-03,BBVA,Consumo,Créditos Directos Totales,3445706.7879299996
+2024-03,BBVA,Hipotecario,Créditos Directos Totales,15115815.523
+2024-03,BCP,Consumo,Créditos Directos Totales,5509732.44883
+2024-03,BCP,Hipotecario,Créditos Directos Totales,20326241.829
+2024-03,Scotiabank,Consumo,Créditos Directos Totales,1264270.11797
+2024-03,Scotiabank,Hipotecario,Créditos Directos Totales,10479353.916
+2024-03,Interbank,Consumo,Créditos Directos Totales,2684835.8955
+2024-03,Interbank,Hipotecario,Créditos Directos Totales,9686813.683
+2024-03,Mibanco,Consumo,Créditos Directos Totales,42179.31949
+2024-03,Mibanco,Hipotecario,Créditos Directos Totales,427955.188
+2024-03,Total Banca Múltiple,Consumo,Créditos Directos Totales,16373544.920270003
+2024-03,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,61197684.441999994
+2024-03,BBVA,Consumo,Tasa Activa MN,43.17
+2024-03,BBVA,Hipotecario,Tasa Activa MN,8.3
+2024-03,BCP,Consumo,Tasa Activa MN,57.43
+2024-03,BCP,Hipotecario,Tasa Activa MN,9.18
+2024-03,Scotiabank,Consumo,Tasa Activa MN,41.22
+2024-03,Scotiabank,Hipotecario,Tasa Activa MN,9.21
+2024-03,Interbank,Consumo,Tasa Activa MN,63.09
+2024-03,Interbank,Hipotecario,Tasa Activa MN,8.68
+2024-03,Mibanco,Consumo,Tasa Activa MN,62.44
+2024-03,Mibanco,Hipotecario,Tasa Activa MN,19.38
+2024-03,Total Banca Múltiple,Consumo,Tasa Activa MN,55.89
+2024-03,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.92
+2024-04,BBVA,Consumo,Morosidad,3.2753737280221005
+2024-04,BBVA,Hipotecario,Morosidad,2.257667092166871
+2024-04,BCP,Consumo,Morosidad,4.112970804550734
+2024-04,BCP,Hipotecario,Morosidad,2.9452422417623905
+2024-04,Scotiabank,Consumo,Morosidad,3.6130747399440812
+2024-04,Scotiabank,Hipotecario,Morosidad,2.9534019845930506
+2024-04,Interbank,Consumo,Morosidad,4.8076946694134675
+2024-04,Interbank,Hipotecario,Morosidad,3.102911328469452
+2024-04,Mibanco,Consumo,Morosidad,3.721290834861203
+2024-04,Mibanco,Hipotecario,Morosidad,5.9634020967359795
+2024-04,Total Banca Múltiple,Consumo,Morosidad,4.154766297615069
+2024-04,Total Banca Múltiple,Hipotecario,Morosidad,2.917559976711845
+2024-04,BBVA,Consumo,Créditos Directos Totales,3479041.35149
+2024-04,BBVA,Hipotecario,Créditos Directos Totales,15221396.208
+2024-04,BCP,Consumo,Créditos Directos Totales,5550686.01628
+2024-04,BCP,Hipotecario,Créditos Directos Totales,20409198.361
+2024-04,Scotiabank,Consumo,Créditos Directos Totales,1245037.43478
+2024-04,Scotiabank,Hipotecario,Créditos Directos Totales,10459116.755
+2024-04,Interbank,Consumo,Créditos Directos Totales,2702053.15601
+2024-04,Interbank,Hipotecario,Créditos Directos Totales,9725801.371
+2024-04,Mibanco,Consumo,Créditos Directos Totales,41286.26318
+2024-04,Mibanco,Hipotecario,Créditos Directos Totales,423582.99
+2024-04,Total Banca Múltiple,Consumo,Créditos Directos Totales,16381275.26167
+2024-04,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,61414091.30000001
+2024-04,BBVA,Consumo,Tasa Activa MN,43.3
+2024-04,BBVA,Hipotecario,Tasa Activa MN,8.17
+2024-04,BCP,Consumo,Tasa Activa MN,57.95
+2024-04,BCP,Hipotecario,Tasa Activa MN,9.08
+2024-04,Scotiabank,Consumo,Tasa Activa MN,41.54
+2024-04,Scotiabank,Hipotecario,Tasa Activa MN,9.12
+2024-04,Interbank,Consumo,Tasa Activa MN,63.86
+2024-04,Interbank,Hipotecario,Tasa Activa MN,8.56
+2024-04,Mibanco,Consumo,Tasa Activa MN,61.22
+2024-04,Mibanco,Hipotecario,Tasa Activa MN,18.88
+2024-04,Total Banca Múltiple,Consumo,Tasa Activa MN,56.32
+2024-04,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.83
+2024-05,BBVA,Consumo,Morosidad,3.3174126330208145
+2024-05,BBVA,Hipotecario,Morosidad,2.3069517890576146
+2024-05,BCP,Consumo,Morosidad,4.353841252577306
+2024-05,BCP,Hipotecario,Morosidad,2.95235061337035
+2024-05,Scotiabank,Consumo,Morosidad,3.794899352235017
+2024-05,Scotiabank,Hipotecario,Morosidad,2.9580193781265507
+2024-05,Interbank,Consumo,Morosidad,4.74879608125952
+2024-05,Interbank,Hipotecario,Morosidad,3.155854657228326
+2024-05,Mibanco,Consumo,Morosidad,4.638034934817515
+2024-05,Mibanco,Hipotecario,Morosidad,6.199513806264999
+2024-05,Total Banca Múltiple,Consumo,Morosidad,4.2332164325844515
+2024-05,Total Banca Múltiple,Hipotecario,Morosidad,2.9451675105176975
+2024-05,BBVA,Consumo,Créditos Directos Totales,3462081.85823
+2024-05,BBVA,Hipotecario,Créditos Directos Totales,15359523.298
+2024-05,BCP,Consumo,Créditos Directos Totales,5589838.043810001
+2024-05,BCP,Hipotecario,Créditos Directos Totales,20466155.713
+2024-05,Scotiabank,Consumo,Créditos Directos Totales,1269709.18747
+2024-05,Scotiabank,Hipotecario,Créditos Directos Totales,10461634.44
+2024-05,Interbank,Consumo,Créditos Directos Totales,2726912.34594
+2024-05,Interbank,Hipotecario,Créditos Directos Totales,9762275.434
+2024-05,Mibanco,Consumo,Créditos Directos Totales,39372.10822
+2024-05,Mibanco,Hipotecario,Créditos Directos Totales,420160.707
+2024-05,Total Banca Múltiple,Consumo,Créditos Directos Totales,16428639.6002
+2024-05,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,61658443.546
+2024-05,BBVA,Consumo,Tasa Activa MN,47.39
+2024-05,BBVA,Hipotecario,Tasa Activa MN,8.06
+2024-05,BCP,Consumo,Tasa Activa MN,57.05
+2024-05,BCP,Hipotecario,Tasa Activa MN,9.25
+2024-05,Scotiabank,Consumo,Tasa Activa MN,41.43
+2024-05,Scotiabank,Hipotecario,Tasa Activa MN,8.99
+2024-05,Interbank,Consumo,Tasa Activa MN,63.71
+2024-05,Interbank,Hipotecario,Tasa Activa MN,8.59
+2024-05,Mibanco,Consumo,Tasa Activa MN,61.87
+2024-05,Mibanco,Hipotecario,Tasa Activa MN,18.93
+2024-05,Total Banca Múltiple,Consumo,Tasa Activa MN,57.39
+2024-05,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.8
+2024-06,BBVA,Consumo,Morosidad,2.9747998682257624
+2024-06,BBVA,Hipotecario,Morosidad,2.127591995358098
+2024-06,BCP,Consumo,Morosidad,4.358348202403871
+2024-06,BCP,Hipotecario,Morosidad,2.973718120321371
+2024-06,Scotiabank,Consumo,Morosidad,3.787803154590603
+2024-06,Scotiabank,Hipotecario,Morosidad,2.928244011149109
+2024-06,Interbank,Consumo,Morosidad,4.530000054593832
+2024-06,Interbank,Hipotecario,Morosidad,3.0699478301144585
+2024-06,Mibanco,Consumo,Morosidad,4.299863160846739
+2024-06,Mibanco,Hipotecario,Morosidad,6.456223650250219
+2024-06,Total Banca Múltiple,Consumo,Morosidad,4.124557555265311
+2024-06,Total Banca Múltiple,Hipotecario,Morosidad,2.8979574967618404
+2024-06,BBVA,Consumo,Créditos Directos Totales,3399990.9181399997
+2024-06,BBVA,Hipotecario,Créditos Directos Totales,15596546.449
+2024-06,BCP,Consumo,Créditos Directos Totales,5590749.5256199995
+2024-06,BCP,Hipotecario,Créditos Directos Totales,20702207.887
+2024-06,Scotiabank,Consumo,Créditos Directos Totales,1305826.7672899999
+2024-06,Scotiabank,Hipotecario,Créditos Directos Totales,10490419.817
+2024-06,Interbank,Consumo,Créditos Directos Totales,2711863.67574
+2024-06,Interbank,Hipotecario,Créditos Directos Totales,9827622.968
+2024-06,Mibanco,Consumo,Créditos Directos Totales,37238.329939999996
+2024-06,Mibanco,Hipotecario,Créditos Directos Totales,415525.89
+2024-06,Total Banca Múltiple,Consumo,Créditos Directos Totales,16352368.35154
+2024-06,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,62242238.807
+2024-06,BBVA,Consumo,Tasa Activa MN,48.58
+2024-06,BBVA,Hipotecario,Tasa Activa MN,8.07
+2024-06,BCP,Consumo,Tasa Activa MN,56.15
+2024-06,BCP,Hipotecario,Tasa Activa MN,9.49
+2024-06,Scotiabank,Consumo,Tasa Activa MN,42.13
+2024-06,Scotiabank,Hipotecario,Tasa Activa MN,9.0
+2024-06,Interbank,Consumo,Tasa Activa MN,64.63
+2024-06,Interbank,Hipotecario,Tasa Activa MN,8.77
+2024-06,Mibanco,Consumo,Tasa Activa MN,63.24
+2024-06,Mibanco,Hipotecario,Tasa Activa MN,18.11
+2024-06,Total Banca Múltiple,Consumo,Tasa Activa MN,57.92
+2024-06,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.86
+2024-07,BBVA,Consumo,Morosidad,3.146082693225999
+2024-07,BBVA,Hipotecario,Morosidad,2.236441356655574
+2024-07,BCP,Consumo,Morosidad,4.359234934410653
+2024-07,BCP,Hipotecario,Morosidad,3.0319313183096805
+2024-07,Scotiabank,Consumo,Morosidad,3.8324803170284407
+2024-07,Scotiabank,Hipotecario,Morosidad,2.804388161635213
+2024-07,Interbank,Consumo,Morosidad,4.345119945921542
+2024-07,Interbank,Hipotecario,Morosidad,3.0370588121098914
+2024-07,Mibanco,Consumo,Morosidad,3.895829653217115
+2024-07,Mibanco,Hipotecario,Morosidad,6.412464783759031
+2024-07,Total Banca Múltiple,Consumo,Morosidad,4.043454277871191
+2024-07,Total Banca Múltiple,Hipotecario,Morosidad,2.9146985275672255
+2024-07,BBVA,Consumo,Créditos Directos Totales,3261243.0170500004
+2024-07,BBVA,Hipotecario,Créditos Directos Totales,15558162.443
+2024-07,BCP,Consumo,Créditos Directos Totales,5523597.19276
+2024-07,BCP,Hipotecario,Créditos Directos Totales,20576137.932
+2024-07,Scotiabank,Consumo,Créditos Directos Totales,1242701.3543699998
+2024-07,Scotiabank,Hipotecario,Créditos Directos Totales,10418447.612
+2024-07,Interbank,Consumo,Créditos Directos Totales,2644514.9028000003
+2024-07,Interbank,Hipotecario,Créditos Directos Totales,9891023.826
+2024-07,Mibanco,Consumo,Créditos Directos Totales,34198.992450000005
+2024-07,Mibanco,Hipotecario,Créditos Directos Totales,409234.684
+2024-07,Total Banca Múltiple,Consumo,Créditos Directos Totales,15951387.176549999
+2024-07,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,62071544.356
+2024-07,BBVA,Consumo,Tasa Activa MN,48.02
+2024-07,BBVA,Hipotecario,Tasa Activa MN,8.14
+2024-07,BCP,Consumo,Tasa Activa MN,57.16
+2024-07,BCP,Hipotecario,Tasa Activa MN,9.23
+2024-07,Scotiabank,Consumo,Tasa Activa MN,42.8
+2024-07,Scotiabank,Hipotecario,Tasa Activa MN,9.02
+2024-07,Interbank,Consumo,Tasa Activa MN,65.82
+2024-07,Interbank,Hipotecario,Tasa Activa MN,8.56
+2024-07,Mibanco,Consumo,Tasa Activa MN,62.38
+2024-07,Mibanco,Hipotecario,Tasa Activa MN,17.91
+2024-07,Total Banca Múltiple,Consumo,Tasa Activa MN,58.97
+2024-07,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.79
+2024-08,BBVA,Consumo,Morosidad,2.761859232656609
+2024-08,BBVA,Hipotecario,Morosidad,2.1888040430058604
+2024-08,BCP,Consumo,Morosidad,4.216723377077476
+2024-08,BCP,Hipotecario,Morosidad,2.979728474653486
+2024-08,Scotiabank,Consumo,Morosidad,3.643518318070455
+2024-08,Scotiabank,Hipotecario,Morosidad,2.8092064694471865
+2024-08,Interbank,Consumo,Morosidad,4.194394292602179
+2024-08,Interbank,Hipotecario,Morosidad,2.9622186476105936
+2024-08,Mibanco,Consumo,Morosidad,3.7760987424424832
+2024-08,Mibanco,Hipotecario,Morosidad,6.495712989151643
+2024-08,Total Banca Múltiple,Consumo,Morosidad,3.778100811817612
+2024-08,Total Banca Múltiple,Hipotecario,Morosidad,2.865286606700552
+2024-08,BBVA,Consumo,Créditos Directos Totales,3229308.1652800003
+2024-08,BBVA,Hipotecario,Créditos Directos Totales,15722651.048
+2024-08,BCP,Consumo,Créditos Directos Totales,5441294.01036
+2024-08,BCP,Hipotecario,Créditos Directos Totales,20653978.249
+2024-08,Scotiabank,Consumo,Créditos Directos Totales,1259275.3499200002
+2024-08,Scotiabank,Hipotecario,Créditos Directos Totales,10387610.065
+2024-08,Interbank,Consumo,Créditos Directos Totales,2643134.9166599996
+2024-08,Interbank,Hipotecario,Créditos Directos Totales,9971943.597
+2024-08,Mibanco,Consumo,Créditos Directos Totales,32652.28158
+2024-08,Mibanco,Hipotecario,Créditos Directos Totales,401895.928
+2024-08,Total Banca Múltiple,Consumo,Créditos Directos Totales,15762982.29355
+2024-08,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,62379300.675000004
+2024-08,BBVA,Consumo,Tasa Activa MN,47.35
+2024-08,BBVA,Hipotecario,Tasa Activa MN,8.14
+2024-08,BCP,Consumo,Tasa Activa MN,58.12
+2024-08,BCP,Hipotecario,Tasa Activa MN,9.17
+2024-08,Scotiabank,Consumo,Tasa Activa MN,43.22
+2024-08,Scotiabank,Hipotecario,Tasa Activa MN,8.97
+2024-08,Interbank,Consumo,Tasa Activa MN,65.57
+2024-08,Interbank,Hipotecario,Tasa Activa MN,8.34
+2024-08,Mibanco,Consumo,Tasa Activa MN,62.58
+2024-08,Mibanco,Hipotecario,Tasa Activa MN,17.4
+2024-08,Total Banca Múltiple,Consumo,Tasa Activa MN,59.75
+2024-08,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.71
+2024-09,BBVA,Consumo,Morosidad,2.6821357487940083
+2024-09,BBVA,Hipotecario,Morosidad,2.1396302499230604
+2024-09,BCP,Consumo,Morosidad,3.9895953221189586
+2024-09,BCP,Hipotecario,Morosidad,3.010409445136996
+2024-09,Scotiabank,Consumo,Morosidad,3.4509257287096777
+2024-09,Scotiabank,Hipotecario,Morosidad,2.7865251649633107
+2024-09,Interbank,Consumo,Morosidad,3.977563500472697
+2024-09,Interbank,Hipotecario,Morosidad,2.96253418338697
+2024-09,Mibanco,Consumo,Morosidad,3.5998837421748724
+2024-09,Mibanco,Hipotecario,Morosidad,6.736161264126646
+2024-09,Total Banca Múltiple,Consumo,Morosidad,3.611782278980607
+2024-09,Total Banca Múltiple,Hipotecario,Morosidad,2.860682522948641
+2024-09,BBVA,Consumo,Créditos Directos Totales,3160765.0770799997
+2024-09,BBVA,Hipotecario,Créditos Directos Totales,15868288.64
+2024-09,BCP,Consumo,Créditos Directos Totales,5453598.06713
+2024-09,BCP,Hipotecario,Créditos Directos Totales,20747034.437
+2024-09,Scotiabank,Consumo,Créditos Directos Totales,1219872.6530499998
+2024-09,Scotiabank,Hipotecario,Créditos Directos Totales,10362056.966
+2024-09,Interbank,Consumo,Créditos Directos Totales,2596765.49586
+2024-09,Interbank,Hipotecario,Créditos Directos Totales,10047889.851
+2024-09,Mibanco,Consumo,Créditos Directos Totales,31797.11517
+2024-09,Mibanco,Hipotecario,Créditos Directos Totales,394318.738
+2024-09,Total Banca Múltiple,Consumo,Créditos Directos Totales,15579386.943909999
+2024-09,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,62683865.96999999
+2024-09,BBVA,Consumo,Tasa Activa MN,46.23
+2024-09,BBVA,Hipotecario,Tasa Activa MN,8.01
+2024-09,BCP,Consumo,Tasa Activa MN,57.56
+2024-09,BCP,Hipotecario,Tasa Activa MN,9.03
+2024-09,Scotiabank,Consumo,Tasa Activa MN,42.65
+2024-09,Scotiabank,Hipotecario,Tasa Activa MN,8.75
+2024-09,Interbank,Consumo,Tasa Activa MN,63.89
+2024-09,Interbank,Hipotecario,Tasa Activa MN,8.3
+2024-09,Mibanco,Consumo,Tasa Activa MN,62.33
+2024-09,Mibanco,Hipotecario,Tasa Activa MN,17.56
+2024-09,Total Banca Múltiple,Consumo,Tasa Activa MN,58.66
+2024-09,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.55
+2024-10,BBVA,Consumo,Morosidad,2.8460801972945604
+2024-10,BBVA,Hipotecario,Morosidad,2.154075340283821
+2024-10,BCP,Consumo,Morosidad,4.033947474809891
+2024-10,BCP,Hipotecario,Morosidad,2.9680905861291724
+2024-10,Scotiabank,Consumo,Morosidad,3.322679576789387
+2024-10,Scotiabank,Hipotecario,Morosidad,2.78144278659021
+2024-10,Interbank,Consumo,Morosidad,3.740891153032976
+2024-10,Interbank,Hipotecario,Morosidad,3.0360313707313984
+2024-10,Mibanco,Consumo,Morosidad,3.2817649869328878
+2024-10,Mibanco,Hipotecario,Morosidad,6.815103333110254
+2024-10,Total Banca Múltiple,Consumo,Morosidad,3.5295830258103096
+2024-10,Total Banca Múltiple,Hipotecario,Morosidad,2.86666782468112
+2024-10,BBVA,Consumo,Créditos Directos Totales,3195279.4984
+2024-10,BBVA,Hipotecario,Créditos Directos Totales,16102898.271
+2024-10,BCP,Consumo,Créditos Directos Totales,5565259.49408
+2024-10,BCP,Hipotecario,Créditos Directos Totales,20906015.087
+2024-10,Scotiabank,Consumo,Créditos Directos Totales,1248037.92859
+2024-10,Scotiabank,Hipotecario,Créditos Directos Totales,10348574.119
+2024-10,Interbank,Consumo,Créditos Directos Totales,2649515.4741700003
+2024-10,Interbank,Hipotecario,Créditos Directos Totales,10121721.739
+2024-10,Mibanco,Consumo,Créditos Directos Totales,31443.49359
+2024-10,Mibanco,Hipotecario,Créditos Directos Totales,390174.909
+2024-10,Total Banca Múltiple,Consumo,Créditos Directos Totales,15815013.984549997
+2024-10,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,63166081.163
+2024-10,BBVA,Consumo,Tasa Activa MN,43.85
+2024-10,BBVA,Hipotecario,Tasa Activa MN,7.87
+2024-10,BCP,Consumo,Tasa Activa MN,55.68
+2024-10,BCP,Hipotecario,Tasa Activa MN,8.77
+2024-10,Scotiabank,Consumo,Tasa Activa MN,41.3
+2024-10,Scotiabank,Hipotecario,Tasa Activa MN,8.49
+2024-10,Interbank,Consumo,Tasa Activa MN,60.92
+2024-10,Interbank,Hipotecario,Tasa Activa MN,8.21
+2024-10,Mibanco,Consumo,Tasa Activa MN,61.39
+2024-10,Mibanco,Hipotecario,Tasa Activa MN,16.83
+2024-10,Total Banca Múltiple,Consumo,Tasa Activa MN,55.98
+2024-10,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.39
+2024-11,BBVA,Consumo,Morosidad,2.6513014355559936
+2024-11,BBVA,Hipotecario,Morosidad,2.081688328508856
+2024-11,BCP,Consumo,Morosidad,3.425726737168073
+2024-11,BCP,Hipotecario,Morosidad,2.948511317662658
+2024-11,Scotiabank,Consumo,Morosidad,3.1614230411087303
+2024-11,Scotiabank,Hipotecario,Morosidad,2.765220543619567
+2024-11,Interbank,Consumo,Morosidad,3.3231712919554046
+2024-11,Interbank,Hipotecario,Morosidad,3.0402774286733667
+2024-11,Mibanco,Consumo,Morosidad,3.1144970359818696
+2024-11,Mibanco,Hipotecario,Morosidad,6.902161127366457
+2024-11,Total Banca Múltiple,Consumo,Morosidad,3.1958849917630783
+2024-11,Total Banca Múltiple,Hipotecario,Morosidad,2.837648353264523
+2024-11,BBVA,Consumo,Créditos Directos Totales,3204172.79897
+2024-11,BBVA,Hipotecario,Créditos Directos Totales,16296958.548
+2024-11,BCP,Consumo,Créditos Directos Totales,5583313.1760100005
+2024-11,BCP,Hipotecario,Créditos Directos Totales,20965326.134
+2024-11,Scotiabank,Consumo,Créditos Directos Totales,1293076.80629
+2024-11,Scotiabank,Hipotecario,Créditos Directos Totales,10340247.268
+2024-11,Interbank,Consumo,Créditos Directos Totales,2645563.27274
+2024-11,Interbank,Hipotecario,Créditos Directos Totales,10173191.33
+2024-11,Mibanco,Consumo,Créditos Directos Totales,30933.850280000002
+2024-11,Mibanco,Hipotecario,Créditos Directos Totales,386800.957
+2024-11,Total Banca Múltiple,Consumo,Créditos Directos Totales,16016957.246240005
+2024-11,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,63485784.548
+2024-11,BBVA,Consumo,Tasa Activa MN,44.53
+2024-11,BBVA,Hipotecario,Tasa Activa MN,7.72
+2024-11,BCP,Consumo,Tasa Activa MN,56.52
+2024-11,BCP,Hipotecario,Tasa Activa MN,8.6
+2024-11,Scotiabank,Consumo,Tasa Activa MN,41.7
+2024-11,Scotiabank,Hipotecario,Tasa Activa MN,8.19
+2024-11,Interbank,Consumo,Tasa Activa MN,61.76
+2024-11,Interbank,Hipotecario,Tasa Activa MN,8.21
+2024-11,Mibanco,Consumo,Tasa Activa MN,57.85
+2024-11,Mibanco,Hipotecario,Tasa Activa MN,17.1
+2024-11,Total Banca Múltiple,Consumo,Tasa Activa MN,56.61
+2024-11,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.25
+2024-12,BBVA,Consumo,Morosidad,2.8595614834623198
+2024-12,BBVA,Hipotecario,Morosidad,2.0455557098199946
+2024-12,BCP,Consumo,Morosidad,3.33530100647274
+2024-12,BCP,Hipotecario,Morosidad,2.756576960329827
+2024-12,Scotiabank,Consumo,Morosidad,3.075955051443844
+2024-12,Scotiabank,Hipotecario,Morosidad,2.790014704459774
+2024-12,Interbank,Consumo,Morosidad,3.5318746603119933
+2024-12,Interbank,Hipotecario,Morosidad,3.083463975545821
+2024-12,Mibanco,Consumo,Morosidad,3.1793222289993666
+2024-12,Mibanco,Hipotecario,Morosidad,7.02234266338964
+2024-12,Total Banca Múltiple,Consumo,Morosidad,3.2246922537551894
+2024-12,Total Banca Múltiple,Hipotecario,Morosidad,2.771957989871799
+2024-12,BBVA,Consumo,Créditos Directos Totales,3250018.27744
+2024-12,BBVA,Hipotecario,Créditos Directos Totales,16389250.846
+2024-12,BCP,Consumo,Créditos Directos Totales,5668735.47535
+2024-12,BCP,Hipotecario,Créditos Directos Totales,21020643.542
+2024-12,Scotiabank,Consumo,Créditos Directos Totales,1273929.17012
+2024-12,Scotiabank,Hipotecario,Créditos Directos Totales,10297074.527
+2024-12,Interbank,Consumo,Créditos Directos Totales,2718955.1612
+2024-12,Interbank,Hipotecario,Créditos Directos Totales,10233773.206
+2024-12,Mibanco,Consumo,Créditos Directos Totales,30863.91395
+2024-12,Mibanco,Hipotecario,Créditos Directos Totales,380772.287
+2024-12,Total Banca Múltiple,Consumo,Créditos Directos Totales,16341056.80807
+2024-12,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,63666240.219000004
+2024-12,BBVA,Consumo,Tasa Activa MN,47.48
+2024-12,BBVA,Hipotecario,Tasa Activa MN,7.66
+2024-12,BCP,Consumo,Tasa Activa MN,56.68
+2024-12,BCP,Hipotecario,Tasa Activa MN,8.67
+2024-12,Scotiabank,Consumo,Tasa Activa MN,42.97
+2024-12,Scotiabank,Hipotecario,Tasa Activa MN,8.14
+2024-12,Interbank,Consumo,Tasa Activa MN,61.89
+2024-12,Interbank,Hipotecario,Tasa Activa MN,8.0
+2024-12,Mibanco,Consumo,Tasa Activa MN,56.4
+2024-12,Mibanco,Hipotecario,Tasa Activa MN,16.12
+2024-12,Total Banca Múltiple,Consumo,Tasa Activa MN,58.23
+2024-12,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.22
+2025-01,BBVA,Consumo,Morosidad,2.6443442115294555
+2025-01,BBVA,Hipotecario,Morosidad,2.077434198064399
+2025-01,BCP,Consumo,Morosidad,3.345475101161825
+2025-01,BCP,Hipotecario,Morosidad,2.7127819110277627
+2025-01,Scotiabank,Consumo,Morosidad,2.8950657215394413
+2025-01,Scotiabank,Hipotecario,Morosidad,2.721865963290064
+2025-01,Interbank,Consumo,Morosidad,3.599425249532044
+2025-01,Interbank,Hipotecario,Morosidad,3.054417355520247
+2025-01,Mibanco,Consumo,Morosidad,2.749892973663963
+2025-01,Mibanco,Hipotecario,Morosidad,7.130433996074917
+2025-01,Total Banca Múltiple,Consumo,Morosidad,3.180476624787377
+2025-01,Total Banca Múltiple,Hipotecario,Morosidad,2.749533314144988
+2025-01,BBVA,Consumo,Créditos Directos Totales,3214326.35723
+2025-01,BBVA,Hipotecario,Créditos Directos Totales,16515422.173
+2025-01,BCP,Consumo,Créditos Directos Totales,5635323.35332
+2025-01,BCP,Hipotecario,Créditos Directos Totales,21086232.852
+2025-01,Scotiabank,Consumo,Créditos Directos Totales,1247674.42297
+2025-01,Scotiabank,Hipotecario,Créditos Directos Totales,10279026.888
+2025-01,Interbank,Consumo,Créditos Directos Totales,2675743.17299
+2025-01,Interbank,Hipotecario,Créditos Directos Totales,10266405.146
+2025-01,Mibanco,Consumo,Créditos Directos Totales,30897.92488
+2025-01,Mibanco,Hipotecario,Créditos Directos Totales,378878.939
+2025-01,Total Banca Múltiple,Consumo,Créditos Directos Totales,16055059.16875
+2025-01,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,63893776.994
+2025-01,BBVA,Consumo,Tasa Activa MN,49.33
+2025-01,BBVA,Hipotecario,Tasa Activa MN,7.6
+2025-01,BCP,Consumo,Tasa Activa MN,58.2
+2025-01,BCP,Hipotecario,Tasa Activa MN,8.76
+2025-01,Scotiabank,Consumo,Tasa Activa MN,47.84
+2025-01,Scotiabank,Hipotecario,Tasa Activa MN,8.13
+2025-01,Interbank,Consumo,Tasa Activa MN,62.72
+2025-01,Interbank,Hipotecario,Tasa Activa MN,7.83
+2025-01,Mibanco,Consumo,Tasa Activa MN,59.35
+2025-01,Mibanco,Hipotecario,Tasa Activa MN,16.86
+2025-01,Total Banca Múltiple,Consumo,Tasa Activa MN,60.43
+2025-01,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.19
+2025-02,BBVA,Consumo,Morosidad,2.564626889659132
+2025-02,BBVA,Hipotecario,Morosidad,1.9637068531341906
+2025-02,BCP,Consumo,Morosidad,3.2804766752566183
+2025-02,BCP,Hipotecario,Morosidad,2.7237703033580014
+2025-02,Scotiabank,Consumo,Morosidad,2.8352973422702012
+2025-02,Scotiabank,Hipotecario,Morosidad,2.8001943008478944
+2025-02,Interbank,Consumo,Morosidad,3.2653319327381385
+2025-02,Interbank,Hipotecario,Morosidad,2.9871324227708795
+2025-02,Mibanco,Consumo,Morosidad,2.5640688360084174
+2025-02,Mibanco,Hipotecario,Morosidad,7.199316066048079
+2025-02,Total Banca Múltiple,Consumo,Morosidad,3.0895612495579026
+2025-02,Total Banca Múltiple,Hipotecario,Morosidad,2.7242045371679002
+2025-02,BBVA,Consumo,Créditos Directos Totales,3215710.32783
+2025-02,BBVA,Hipotecario,Créditos Directos Totales,16741306.098
+2025-02,BCP,Consumo,Créditos Directos Totales,5657237.69999
+2025-02,BCP,Hipotecario,Créditos Directos Totales,21181829.676
+2025-02,Scotiabank,Consumo,Créditos Directos Totales,1239313.38173
+2025-02,Scotiabank,Hipotecario,Créditos Directos Totales,10245956.707
+2025-02,Interbank,Consumo,Créditos Directos Totales,2690560.31338
+2025-02,Interbank,Hipotecario,Créditos Directos Totales,10332177.139
+2025-02,Mibanco,Consumo,Créditos Directos Totales,31042.28688
+2025-02,Mibanco,Hipotecario,Créditos Directos Totales,376581.363
+2025-02,Total Banca Múltiple,Consumo,Créditos Directos Totales,15992347.751589997
+2025-02,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,64273461.822
+2025-02,BBVA,Consumo,Tasa Activa MN,47.49
+2025-02,BBVA,Hipotecario,Tasa Activa MN,7.62
+2025-02,BCP,Consumo,Tasa Activa MN,57.54
+2025-02,BCP,Hipotecario,Tasa Activa MN,8.73
+2025-02,Scotiabank,Consumo,Tasa Activa MN,48.6
+2025-02,Scotiabank,Hipotecario,Tasa Activa MN,8.09
+2025-02,Interbank,Consumo,Tasa Activa MN,61.18
+2025-02,Interbank,Hipotecario,Tasa Activa MN,7.89
+2025-02,Mibanco,Consumo,Tasa Activa MN,59.34
+2025-02,Mibanco,Hipotecario,Tasa Activa MN,16.4
+2025-02,Total Banca Múltiple,Consumo,Tasa Activa MN,57.76
+2025-02,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.19
+2025-03,BBVA,Consumo,Morosidad,2.7026417497746555
+2025-03,BBVA,Hipotecario,Morosidad,2.0138520365917323
+2025-03,BCP,Consumo,Morosidad,3.380732168982739
+2025-03,BCP,Hipotecario,Morosidad,2.7933145178740975
+2025-03,Scotiabank,Consumo,Morosidad,2.810625053629852
+2025-03,Scotiabank,Hipotecario,Morosidad,2.9042071867597623
+2025-03,Interbank,Consumo,Morosidad,3.384742327214875
+2025-03,Interbank,Hipotecario,Morosidad,3.128379967816572
+2025-03,Mibanco,Consumo,Morosidad,2.43065798773247
+2025-03,Mibanco,Hipotecario,Morosidad,7.69367287749341
+2025-03,Total Banca Múltiple,Consumo,Morosidad,3.1564680554171742
+2025-03,Total Banca Múltiple,Hipotecario,Morosidad,2.808370994722651
+2025-03,BBVA,Consumo,Créditos Directos Totales,3202689.57006
+2025-03,BBVA,Hipotecario,Créditos Directos Totales,16948407.728
+2025-03,BCP,Consumo,Créditos Directos Totales,5649768.76262
+2025-03,BCP,Hipotecario,Créditos Directos Totales,21286150.629
+2025-03,Scotiabank,Consumo,Créditos Directos Totales,1236388.70115
+2025-03,Scotiabank,Hipotecario,Créditos Directos Totales,10236339.113
+2025-03,Interbank,Consumo,Créditos Directos Totales,2692658.23629
+2025-03,Interbank,Hipotecario,Créditos Directos Totales,10352890.35
+2025-03,Mibanco,Consumo,Créditos Directos Totales,31715.396149999997
+2025-03,Mibanco,Hipotecario,Créditos Directos Totales,366213.359
+2025-03,Total Banca Múltiple,Consumo,Créditos Directos Totales,15950575.983910002
+2025-03,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,64600645.84799999
+2025-03,BBVA,Consumo,Tasa Activa MN,45.49
+2025-03,BBVA,Hipotecario,Tasa Activa MN,7.53
+2025-03,BCP,Consumo,Tasa Activa MN,57.53
+2025-03,BCP,Hipotecario,Tasa Activa MN,8.62
+2025-03,Scotiabank,Consumo,Tasa Activa MN,47.7
+2025-03,Scotiabank,Hipotecario,Tasa Activa MN,8.0
+2025-03,Interbank,Consumo,Tasa Activa MN,60.03
+2025-03,Interbank,Hipotecario,Tasa Activa MN,7.94
+2025-03,Mibanco,Consumo,Tasa Activa MN,59.51
+2025-03,Mibanco,Hipotecario,Tasa Activa MN,15.97
+2025-03,Total Banca Múltiple,Consumo,Tasa Activa MN,56.75
+2025-03,Total Banca Múltiple,Hipotecario,Tasa Activa MN,8.1
+2025-04,BBVA,Consumo,Morosidad,2.6547231850529087
+2025-04,BBVA,Hipotecario,Morosidad,1.9024208392485666
+2025-04,BCP,Consumo,Morosidad,3.3590956598648893
+2025-04,BCP,Hipotecario,Morosidad,2.71507858625726
+2025-04,Scotiabank,Consumo,Morosidad,2.7667585416120417
+2025-04,Scotiabank,Hipotecario,Morosidad,2.920099535194608
+2025-04,Interbank,Consumo,Morosidad,3.4223851320255556
+2025-04,Interbank,Hipotecario,Morosidad,3.0737953046879825
+2025-04,Mibanco,Consumo,Morosidad,2.3085569065474547
+2025-04,Mibanco,Hipotecario,Morosidad,8.095260589449396
+2025-04,Total Banca Múltiple,Consumo,Morosidad,3.1433221631849375
+2025-04,Total Banca Múltiple,Hipotecario,Morosidad,2.7287866606915223
+2025-04,BBVA,Consumo,Créditos Directos Totales,3283184.9218800003
+2025-04,BBVA,Hipotecario,Créditos Directos Totales,17095937.379
+2025-04,BCP,Consumo,Créditos Directos Totales,5700270.692810001
+2025-04,BCP,Hipotecario,Créditos Directos Totales,21648865.322
+2025-04,Scotiabank,Consumo,Créditos Directos Totales,1232981.28097
+2025-04,Scotiabank,Hipotecario,Créditos Directos Totales,10235715.743
+2025-04,Interbank,Consumo,Créditos Directos Totales,2721816.6582600004
+2025-04,Interbank,Hipotecario,Créditos Directos Totales,10411587.279
+2025-04,Mibanco,Consumo,Créditos Directos Totales,31505.77717
+2025-04,Mibanco,Hipotecario,Créditos Directos Totales,356264.379
+2025-04,Total Banca Múltiple,Consumo,Créditos Directos Totales,16122388.74797
+2025-04,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,65171695.964
+2025-04,BBVA,Consumo,Tasa Activa MN,46.23
+2025-04,BBVA,Hipotecario,Tasa Activa MN,7.44
+2025-04,BCP,Consumo,Tasa Activa MN,57.67
+2025-04,BCP,Hipotecario,Tasa Activa MN,8.22
+2025-04,Scotiabank,Consumo,Tasa Activa MN,48.11
+2025-04,Scotiabank,Hipotecario,Tasa Activa MN,7.93
+2025-04,Interbank,Consumo,Tasa Activa MN,59.07
+2025-04,Interbank,Hipotecario,Tasa Activa MN,7.88
+2025-04,Mibanco,Consumo,Tasa Activa MN,58.32
+2025-04,Mibanco,Hipotecario,Tasa Activa MN,16.72
+2025-04,Total Banca Múltiple,Consumo,Tasa Activa MN,57.11
+2025-04,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.9
+2025-05,BBVA,Consumo,Morosidad,2.7262395003575053
+2025-05,BBVA,Hipotecario,Morosidad,1.934515069155017
+2025-05,BCP,Consumo,Morosidad,3.4711233938985973
+2025-05,BCP,Hipotecario,Morosidad,2.8021326108076416
+2025-05,Scotiabank,Consumo,Morosidad,2.758771422786106
+2025-05,Scotiabank,Hipotecario,Morosidad,2.8602221348250185
+2025-05,Interbank,Consumo,Morosidad,3.501626886633122
+2025-05,Interbank,Hipotecario,Morosidad,3.274877729831238
+2025-05,Mibanco,Consumo,Morosidad,2.2460279008022477
+2025-05,Mibanco,Hipotecario,Morosidad,7.807958810670806
+2025-05,Total Banca Múltiple,Consumo,Morosidad,3.2229060300345695
+2025-05,Total Banca Múltiple,Hipotecario,Morosidad,2.794655874732923
+2025-05,BBVA,Consumo,Créditos Directos Totales,3347458.23862
+2025-05,BBVA,Hipotecario,Créditos Directos Totales,17040255.189
+2025-05,BCP,Consumo,Créditos Directos Totales,5705507.62717
+2025-05,BCP,Hipotecario,Créditos Directos Totales,21817640.908
+2025-05,Scotiabank,Consumo,Créditos Directos Totales,1251107.1153
+2025-05,Scotiabank,Hipotecario,Créditos Directos Totales,10252357.516
+2025-05,Interbank,Consumo,Créditos Directos Totales,2718964.31855
+2025-05,Interbank,Hipotecario,Créditos Directos Totales,10448349.284
+2025-05,Mibanco,Consumo,Créditos Directos Totales,31302.215379999998
+2025-05,Mibanco,Hipotecario,Créditos Directos Totales,354580.184
+2025-05,Total Banca Múltiple,Consumo,Créditos Directos Totales,16156899.46427
+2025-05,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,65337607.128
+2025-05,BBVA,Consumo,Tasa Activa MN,51.21
+2025-05,BBVA,Hipotecario,Tasa Activa MN,7.44
+2025-05,BCP,Consumo,Tasa Activa MN,58.73
+2025-05,BCP,Hipotecario,Tasa Activa MN,7.81
+2025-05,Scotiabank,Consumo,Tasa Activa MN,47.13
+2025-05,Scotiabank,Hipotecario,Tasa Activa MN,7.74
+2025-05,Interbank,Consumo,Tasa Activa MN,59.46
+2025-05,Interbank,Hipotecario,Tasa Activa MN,7.72
+2025-05,Mibanco,Consumo,Tasa Activa MN,58.85
+2025-05,Mibanco,Hipotecario,Tasa Activa MN,16.16
+2025-05,Total Banca Múltiple,Consumo,Tasa Activa MN,58.55
+2025-05,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.73
+2025-06,BBVA,Consumo,Morosidad,2.6674310748872374
+2025-06,BBVA,Hipotecario,Morosidad,1.8442202846188809
+2025-06,BCP,Consumo,Morosidad,3.365399527870705
+2025-06,BCP,Hipotecario,Morosidad,2.787263666284891
+2025-06,Scotiabank,Consumo,Morosidad,2.7579787091680426
+2025-06,Scotiabank,Hipotecario,Morosidad,2.8251851605024143
+2025-06,Interbank,Consumo,Morosidad,3.419811152656254
+2025-06,Interbank,Hipotecario,Morosidad,3.2349246001754905
+2025-06,Mibanco,Consumo,Morosidad,2.2876618453953212
+2025-06,Mibanco,Hipotecario,Morosidad,8.081849570073482
+2025-06,Total Banca Múltiple,Consumo,Morosidad,3.1778349064301485
+2025-06,Total Banca Múltiple,Hipotecario,Morosidad,2.7564666830915967
+2025-06,BBVA,Consumo,Créditos Directos Totales,3405385.3276
+2025-06,BBVA,Hipotecario,Créditos Directos Totales,17147155.114
+2025-06,BCP,Consumo,Créditos Directos Totales,5819219.27275
+2025-06,BCP,Hipotecario,Créditos Directos Totales,21980343.743
+2025-06,Scotiabank,Consumo,Créditos Directos Totales,1239503.51697
+2025-06,Scotiabank,Hipotecario,Créditos Directos Totales,10282717.909
+2025-06,Interbank,Consumo,Créditos Directos Totales,2727991.55828
+2025-06,Interbank,Hipotecario,Créditos Directos Totales,10531520.812
+2025-06,Mibanco,Consumo,Créditos Directos Totales,31239.06816
+2025-06,Mibanco,Hipotecario,Créditos Directos Totales,347017.619
+2025-06,Total Banca Múltiple,Consumo,Créditos Directos Totales,16408561.04856
+2025-06,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,65756219.71400001
+2025-06,BBVA,Consumo,Tasa Activa MN,51.77
+2025-06,BBVA,Hipotecario,Tasa Activa MN,7.54
+2025-06,BCP,Consumo,Tasa Activa MN,58.49
+2025-06,BCP,Hipotecario,Tasa Activa MN,7.91
+2025-06,Scotiabank,Consumo,Tasa Activa MN,47.2
+2025-06,Scotiabank,Hipotecario,Tasa Activa MN,7.69
+2025-06,Interbank,Consumo,Tasa Activa MN,58.97
+2025-06,Interbank,Hipotecario,Tasa Activa MN,7.61
+2025-06,Mibanco,Consumo,Tasa Activa MN,58.83
+2025-06,Mibanco,Hipotecario,Tasa Activa MN,15.96
+2025-06,Total Banca Múltiple,Consumo,Tasa Activa MN,58.14
+2025-06,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.81
+2025-07,BBVA,Consumo,Morosidad,2.757233035061375
+2025-07,BBVA,Hipotecario,Morosidad,1.8441965338051056
+2025-07,BCP,Consumo,Morosidad,3.3599820078933607
+2025-07,BCP,Hipotecario,Morosidad,2.743093287543207
+2025-07,Scotiabank,Consumo,Morosidad,2.759581258267584
+2025-07,Scotiabank,Hipotecario,Morosidad,2.834668501084172
+2025-07,Interbank,Consumo,Morosidad,3.3610690190163517
+2025-07,Interbank,Hipotecario,Morosidad,3.2707131121030337
+2025-07,Mibanco,Consumo,Morosidad,2.220758529685274
+2025-07,Mibanco,Hipotecario,Morosidad,8.20204608454311
+2025-07,Total Banca Múltiple,Consumo,Morosidad,3.169480245189825
+2025-07,Total Banca Múltiple,Hipotecario,Morosidad,2.7492203335382004
+2025-07,BBVA,Consumo,Créditos Directos Totales,3447178.46956
+2025-07,BBVA,Hipotecario,Créditos Directos Totales,17189712.898
+2025-07,BCP,Consumo,Créditos Directos Totales,5863909.00193
+2025-07,BCP,Hipotecario,Créditos Directos Totales,22133358.139
+2025-07,Scotiabank,Consumo,Créditos Directos Totales,1241493.53315
+2025-07,Scotiabank,Hipotecario,Créditos Directos Totales,10276695.371
+2025-07,Interbank,Consumo,Créditos Directos Totales,2736995.12714
+2025-07,Interbank,Hipotecario,Créditos Directos Totales,10590746.292
+2025-07,Mibanco,Consumo,Créditos Directos Totales,31054.033339999998
+2025-07,Mibanco,Hipotecario,Créditos Directos Totales,341809.462
+2025-07,Total Banca Múltiple,Consumo,Créditos Directos Totales,16515565.61601
+2025-07,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,66003004.91999999
+2025-07,BBVA,Consumo,Tasa Activa MN,50.33
+2025-07,BBVA,Hipotecario,Tasa Activa MN,7.63
+2025-07,BCP,Consumo,Tasa Activa MN,57.36
+2025-07,BCP,Hipotecario,Tasa Activa MN,8.01
+2025-07,Scotiabank,Consumo,Tasa Activa MN,46.2
+2025-07,Scotiabank,Hipotecario,Tasa Activa MN,7.71
+2025-07,Interbank,Consumo,Tasa Activa MN,56.57
+2025-07,Interbank,Hipotecario,Tasa Activa MN,7.54
+2025-07,Mibanco,Consumo,Tasa Activa MN,55.07
+2025-07,Mibanco,Hipotecario,Tasa Activa MN,16.57
+2025-07,Total Banca Múltiple,Consumo,Tasa Activa MN,56.73
+2025-07,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.87
+2025-08,BBVA,Consumo,Morosidad,2.641636659078998
+2025-08,BBVA,Hipotecario,Morosidad,1.8244463246008547
+2025-08,BCP,Consumo,Morosidad,3.1648372138699115
+2025-08,BCP,Hipotecario,Morosidad,2.7121146340240223
+2025-08,Scotiabank,Consumo,Morosidad,2.7561850873350955
+2025-08,Scotiabank,Hipotecario,Morosidad,2.925254093951153
+2025-08,Interbank,Consumo,Morosidad,3.2605939088347613
+2025-08,Interbank,Hipotecario,Morosidad,3.258982420245935
+2025-08,Mibanco,Consumo,Morosidad,2.112903308090924
+2025-08,Mibanco,Hipotecario,Morosidad,8.338912764464055
+2025-08,Total Banca Múltiple,Consumo,Morosidad,3.0560257898824217
+2025-08,Total Banca Múltiple,Hipotecario,Morosidad,2.7462062219577406
+2025-08,BBVA,Consumo,Créditos Directos Totales,3497066.56941
+2025-08,BBVA,Hipotecario,Créditos Directos Totales,17325775.854
+2025-08,BCP,Consumo,Créditos Directos Totales,5899217.709609999
+2025-08,BCP,Hipotecario,Créditos Directos Totales,22329995.116
+2025-08,Scotiabank,Consumo,Créditos Directos Totales,1253280.47217
+2025-08,Scotiabank,Hipotecario,Créditos Directos Totales,10281043.699
+2025-08,Interbank,Consumo,Créditos Directos Totales,2764028.92716
+2025-08,Interbank,Hipotecario,Créditos Directos Totales,10684462.899
+2025-08,Mibanco,Consumo,Créditos Directos Totales,31198.5253
+2025-08,Mibanco,Hipotecario,Créditos Directos Totales,334706.681
+2025-08,Total Banca Múltiple,Consumo,Créditos Directos Totales,16571654.334360002
+2025-08,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,66447520.30100001
+2025-08,BBVA,Consumo,Tasa Activa MN,52.05
+2025-08,BBVA,Hipotecario,Tasa Activa MN,7.74
+2025-08,BCP,Consumo,Tasa Activa MN,59.69
+2025-08,BCP,Hipotecario,Tasa Activa MN,8.03
+2025-08,Scotiabank,Consumo,Tasa Activa MN,46.51
+2025-08,Scotiabank,Hipotecario,Tasa Activa MN,7.7
+2025-08,Interbank,Consumo,Tasa Activa MN,57.35
+2025-08,Interbank,Hipotecario,Tasa Activa MN,7.54
+2025-08,Mibanco,Consumo,Tasa Activa MN,55.02
+2025-08,Mibanco,Hipotecario,Tasa Activa MN,16.65
+2025-08,Total Banca Múltiple,Consumo,Tasa Activa MN,58.0
+2025-08,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.9
+2025-09,BBVA,Consumo,Morosidad,2.5619572838631783
+2025-09,BBVA,Hipotecario,Morosidad,1.7769222419461255
+2025-09,BCP,Consumo,Morosidad,3.133539255669235
+2025-09,BCP,Hipotecario,Morosidad,2.7169224793506306
+2025-09,Scotiabank,Consumo,Morosidad,2.7249151144231405
+2025-09,Scotiabank,Hipotecario,Morosidad,2.8932962560706
+2025-09,Interbank,Consumo,Morosidad,3.21609784509862
+2025-09,Interbank,Hipotecario,Morosidad,3.1264080207374976
+2025-09,Mibanco,Consumo,Morosidad,2.0648608787946015
+2025-09,Mibanco,Hipotecario,Morosidad,8.301459845652863
+2025-09,Total Banca Múltiple,Consumo,Morosidad,2.991430361953843
+2025-09,Total Banca Múltiple,Hipotecario,Morosidad,2.710036778457166
+2025-09,BBVA,Consumo,Créditos Directos Totales,3528076.4668699997
+2025-09,BBVA,Hipotecario,Créditos Directos Totales,17444902.474
+2025-09,BCP,Consumo,Créditos Directos Totales,5969351.71449
+2025-09,BCP,Hipotecario,Créditos Directos Totales,22540696.709
+2025-09,Scotiabank,Consumo,Créditos Directos Totales,1232460.39624
+2025-09,Scotiabank,Hipotecario,Créditos Directos Totales,10295219.785
+2025-09,Interbank,Consumo,Créditos Directos Totales,2756458.60869
+2025-09,Interbank,Hipotecario,Créditos Directos Totales,10778572.63
+2025-09,Mibanco,Consumo,Créditos Directos Totales,31512.92932
+2025-09,Mibanco,Hipotecario,Créditos Directos Totales,330462.549
+2025-09,Total Banca Múltiple,Consumo,Créditos Directos Totales,16597336.294939999
+2025-09,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,66903616.302999996
+2025-09,BBVA,Consumo,Tasa Activa MN,50.5
+2025-09,BBVA,Hipotecario,Tasa Activa MN,7.77
+2025-09,BCP,Consumo,Tasa Activa MN,58.83
+2025-09,BCP,Hipotecario,Tasa Activa MN,8.05
+2025-09,Scotiabank,Consumo,Tasa Activa MN,46.2
+2025-09,Scotiabank,Hipotecario,Tasa Activa MN,7.72
+2025-09,Interbank,Consumo,Tasa Activa MN,57.52
+2025-09,Interbank,Hipotecario,Tasa Activa MN,7.65
+2025-09,Mibanco,Consumo,Tasa Activa MN,56.4
+2025-09,Mibanco,Hipotecario,Tasa Activa MN,18.08
+2025-09,Total Banca Múltiple,Consumo,Tasa Activa MN,56.69
+2025-09,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.92
+2025-10,BBVA,Consumo,Morosidad,2.456093749527786
+2025-10,BBVA,Hipotecario,Morosidad,1.7765075556349788
+2025-10,BCP,Consumo,Morosidad,3.0823006380887783
+2025-10,BCP,Hipotecario,Morosidad,2.7195726034197008
+2025-10,Scotiabank,Consumo,Morosidad,2.633356016816859
+2025-10,Scotiabank,Hipotecario,Morosidad,3.008996728198563
+2025-10,Interbank,Consumo,Morosidad,3.219872639565363
+2025-10,Interbank,Hipotecario,Morosidad,3.1640646952683724
+2025-10,Mibanco,Consumo,Morosidad,2.020252821025507
+2025-10,Mibanco,Hipotecario,Morosidad,8.050782530661676
+2025-10,Total Banca Múltiple,Consumo,Morosidad,2.929231330138614
+2025-10,Total Banca Múltiple,Hipotecario,Morosidad,2.729222223937424
+2025-10,BBVA,Consumo,Créditos Directos Totales,3608317.46217
+2025-10,BBVA,Hipotecario,Créditos Directos Totales,17586785.38
+2025-10,BCP,Consumo,Créditos Directos Totales,6074867.75245
+2025-10,BCP,Hipotecario,Créditos Directos Totales,22701093.796
+2025-10,Scotiabank,Consumo,Créditos Directos Totales,1233385.35544
+2025-10,Scotiabank,Hipotecario,Créditos Directos Totales,10299468.501
+2025-10,Interbank,Consumo,Créditos Directos Totales,2815259.46405
+2025-10,Interbank,Hipotecario,Créditos Directos Totales,10866761.153
+2025-10,Mibanco,Consumo,Créditos Directos Totales,31545.57586
+2025-10,Mibanco,Hipotecario,Créditos Directos Totales,332166.787
+2025-10,Total Banca Múltiple,Consumo,Créditos Directos Totales,16832561.06075
+2025-10,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,67331268.109
+2025-10,BBVA,Consumo,Tasa Activa MN,48.42
+2025-10,BBVA,Hipotecario,Tasa Activa MN,7.75
+2025-10,BCP,Consumo,Tasa Activa MN,58.47
+2025-10,BCP,Hipotecario,Tasa Activa MN,8.04
+2025-10,Scotiabank,Consumo,Tasa Activa MN,46.12
+2025-10,Scotiabank,Hipotecario,Tasa Activa MN,7.68
+2025-10,Interbank,Consumo,Tasa Activa MN,56.55
+2025-10,Interbank,Hipotecario,Tasa Activa MN,7.64
+2025-10,Mibanco,Consumo,Tasa Activa MN,56.66
+2025-10,Mibanco,Hipotecario,Tasa Activa MN,16.03
+2025-10,Total Banca Múltiple,Consumo,Tasa Activa MN,55.76
+2025-10,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.93
+2025-11,BBVA,Consumo,Morosidad,2.46677144239261
+2025-11,BBVA,Hipotecario,Morosidad,1.6896155530530472
+2025-11,BCP,Consumo,Morosidad,3.1228124486779794
+2025-11,BCP,Hipotecario,Morosidad,2.6964927190478094
+2025-11,Scotiabank,Consumo,Morosidad,2.524669807595034
+2025-11,Scotiabank,Hipotecario,Morosidad,2.9498900756854165
+2025-11,Interbank,Consumo,Morosidad,2.9926446966855638
+2025-11,Interbank,Hipotecario,Morosidad,3.0635734625480135
+2025-11,Mibanco,Consumo,Morosidad,1.8452845606142287
+2025-11,Mibanco,Hipotecario,Morosidad,8.142740812829375
+2025-11,Total Banca Múltiple,Consumo,Morosidad,2.8279813521471016
+2025-11,Total Banca Múltiple,Hipotecario,Morosidad,2.672049053732791
+2025-11,BBVA,Consumo,Créditos Directos Totales,3654501.9638
+2025-11,BBVA,Hipotecario,Créditos Directos Totales,17778528.724
+2025-11,BCP,Consumo,Créditos Directos Totales,6119044.575680001
+2025-11,BCP,Hipotecario,Créditos Directos Totales,22841590.581
+2025-11,Scotiabank,Consumo,Créditos Directos Totales,1263254.40597
+2025-11,Scotiabank,Hipotecario,Créditos Directos Totales,10346128.991
+2025-11,Interbank,Consumo,Créditos Directos Totales,2837333.3094
+2025-11,Interbank,Hipotecario,Créditos Directos Totales,10975480.938
+2025-11,Mibanco,Consumo,Créditos Directos Totales,30524.19368
+2025-11,Mibanco,Hipotecario,Créditos Directos Totales,327254.132
+2025-11,Total Banca Múltiple,Consumo,Créditos Directos Totales,17107835.698599998
+2025-11,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,67844035.38800001
+2025-11,BBVA,Consumo,Tasa Activa MN,50.89
+2025-11,BBVA,Hipotecario,Tasa Activa MN,7.72
+2025-11,BCP,Consumo,Tasa Activa MN,59.71
+2025-11,BCP,Hipotecario,Tasa Activa MN,8.03
+2025-11,Scotiabank,Consumo,Tasa Activa MN,47.19
+2025-11,Scotiabank,Hipotecario,Tasa Activa MN,7.62
+2025-11,Interbank,Consumo,Tasa Activa MN,56.72
+2025-11,Interbank,Hipotecario,Tasa Activa MN,7.71
+2025-11,Mibanco,Consumo,Tasa Activa MN,53.32
+2025-11,Mibanco,Hipotecario,Tasa Activa MN,15.87
+2025-11,Total Banca Múltiple,Consumo,Tasa Activa MN,57.39
+2025-11,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.93
+2025-12,BBVA,Consumo,Morosidad,2.977855157072163
+2025-12,BBVA,Hipotecario,Morosidad,1.694524198079441
+2025-12,BCP,Consumo,Morosidad,3.0538519414189857
+2025-12,BCP,Hipotecario,Morosidad,2.636517293793655
+2025-12,Scotiabank,Consumo,Morosidad,2.4795382024209673
+2025-12,Scotiabank,Hipotecario,Morosidad,2.8938475350829487
+2025-12,Interbank,Consumo,Morosidad,3.180592693624107
+2025-12,Interbank,Hipotecario,Morosidad,3.0565362995304746
+2025-12,Mibanco,Consumo,Morosidad,1.8442636653067543
+2025-12,Mibanco,Hipotecario,Morosidad,8.052900194733333
+2025-12,Total Banca Múltiple,Consumo,Morosidad,2.9284421818157833
+2025-12,Total Banca Múltiple,Hipotecario,Morosidad,2.6385303510575984
+2025-12,BBVA,Consumo,Créditos Directos Totales,3695659.7594899996
+2025-12,BBVA,Hipotecario,Créditos Directos Totales,17785996.223
+2025-12,BCP,Consumo,Créditos Directos Totales,6152507.866359999
+2025-12,BCP,Hipotecario,Créditos Directos Totales,22990821.331
+2025-12,Scotiabank,Consumo,Créditos Directos Totales,1246884.92643
+2025-12,Scotiabank,Hipotecario,Créditos Directos Totales,10354490.145
+2025-12,Interbank,Consumo,Créditos Directos Totales,2911604.03811
+2025-12,Interbank,Hipotecario,Créditos Directos Totales,11039257.308
+2025-12,Mibanco,Consumo,Créditos Directos Totales,29783.248190000002
+2025-12,Mibanco,Hipotecario,Créditos Directos Totales,323909.019
+2025-12,Total Banca Múltiple,Consumo,Créditos Directos Totales,17295473.56895
+2025-12,Total Banca Múltiple,Hipotecario,Créditos Directos Totales,68077825.049
+2025-12,BBVA,Consumo,Tasa Activa MN,51.48
+2025-12,BBVA,Hipotecario,Tasa Activa MN,7.69
+2025-12,BCP,Consumo,Tasa Activa MN,60.45
+2025-12,BCP,Hipotecario,Tasa Activa MN,8.08
+2025-12,Scotiabank,Consumo,Tasa Activa MN,50.04
+2025-12,Scotiabank,Hipotecario,Tasa Activa MN,7.63
+2025-12,Interbank,Consumo,Tasa Activa MN,58.61
+2025-12,Interbank,Hipotecario,Tasa Activa MN,7.69
+2025-12,Mibanco,Consumo,Tasa Activa MN,52.83
+2025-12,Mibanco,Hipotecario,Tasa Activa MN,16.26
+2025-12,Total Banca Múltiple,Consumo,Tasa Activa MN,58.51
+2025-12,Total Banca Múltiple,Hipotecario,Tasa Activa MN,7.9

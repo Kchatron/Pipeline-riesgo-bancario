@@ -1,10 +1,12 @@
 # Entornos virtuales
 venv/
 env/
+.venv/
 
 # Archivos de caché de Python
 __pycache__/
 *.pyc
+.pytest_cache/
 
 # Archivos del sistema operativo
 .DS_Store
