@@ -36,6 +36,7 @@ Integra indicadores macroeconómicos provistos por el **Banco Central de Reserva
 ├── data/
 │   ├── processed/
 │   │   ├── dataset_ml_features.csv          # Dataset analítico final (340 filas, 23 columnas)
+│   │   ├── ejemplo_decisiones_test_2025.csv # Artefacto de triaje operativo de riesgo (120 filas)
 │   │   └── sbs_consolidado_2023_2025.csv    # Consolidado SBS armonizado (1,296 registros)
 │   └── raw/
 │       ├── BCRP/                            # Series macroeconómicas crudas (CSV wide y long)
@@ -48,10 +49,13 @@ Integra indicadores macroeconómicos provistos por el **Banco Central de Reserva
 │   ├── features/
 │   │   └── build_features.py                # Transformación ancho/largo, rezagos y definición de targets
 │   └── models/
+│       ├── decision_rules.py                # Capa de reglas de negocio operativas sobre probabilidades
 │       └── train_models.py                  # Modelado out-of-time, evaluación y generación de gráficas
 ├── tests/
-│   └── test_calidad_datos.py                # Pruebas automatizadas de calidad (DQ) y anclas históricas
+│   ├── test_calidad_datos.py                # Pruebas automatizadas de calidad (DQ) y anclas históricas
+│   └── test_features.py                     # Validación de anti-leakage y cálculo de umbral en Train
 ├── diseno-pipeline-riesgo-bancario-pe.md    # Especificación de arquitectura y modelo de datos
+├── Informe_Parcial_Pipeline_Riesgo_Bancario.docx # Informe técnico formal con resultados y gráficas
 ├── requirements.txt                         # Dependencias exactas del proyecto
 └── README.md                                # Documentación principal
 ```
@@ -94,9 +98,12 @@ python src/data/bcrp_extractor.py
 python src/data/sbs_extractor.py
 ```
 
-### Paso 2: Validación de Calidad de Datos (Data Quality)
+### Paso 2: Validación de Calidad de Datos y Anti-Leakage (Data Quality)
 
-Verifica que el consolidado contenga exactamente las 1,296 observaciones esperadas, 0 valores nulos, y contrasta los valores extraídos contra las anclas de verdad histórica de la SBS (ej. Tasa Activa Consumo Total Banca Múltiple: Ene-23 = 49.82%, Ene-24 = 57.45%, Ene-25 = 60.43%):
+Ejecuta la suite completa de pruebas unitarias automatizadas (`test_calidad_datos.py` y `test_features.py`):
+1. Verifica que la tabla de hechos contenga exactamente 1,296 observaciones con 0 valores nulos.
+2. Valida contra anclas de verdad histórica oficial de la SBS (Tasa Activa Consumo Total Banca Múltiple: Ene-23 = 49.82%, Ene-24 = 57.45%, Ene-25 = 60.43%) y consistencia contable (regla DQ-01).
+3. Certifica que la matriz analítica tenga 340 filas, que no contenga a "Total Banca Múltiple", que los rezagos ($t-1, t-2$) no sufran fuga temporal y que el percentil 75 se calcule exclusivamente sobre el conjunto de entrenamiento:
 
 ```bash
 pytest tests/
@@ -111,13 +118,14 @@ python src/features/build_features.py
 ```
 *Salida:* `data/processed/dataset_ml_features.csv` (340 filas útiles sin nulos, 5 bancos × 2 carteras × 34 meses).
 
-### Paso 4: Entrenamiento, Evaluación y Gráficas de Modelos
+### Paso 4: Entrenamiento, Evaluación, Gráficas y Capa de Decisión
 
-Aplica un particionamiento temporal estricto (*out-of-time*), preprocesa con `ColumnTransformer` (`StandardScaler` + `OneHotEncoder`), entrena los modelos y exporta las métricas y gráficos diagnósticos:
+Aplica un particionamiento temporal estricto (*out-of-time*), preprocesa con `ColumnTransformer` (`StandardScaler` + `OneHotEncoder`), entrena los modelos, exporta las métricas y gráficos diagnósticos, y aplica la capa de reglas de negocio operativas:
 
 ```bash
 python src/models/train_models.py
 ```
+*Salida de decisión:* `data/processed/ejemplo_decisiones_test_2025.csv` (120 expedientes clasificados).
 
 ---
 
@@ -151,6 +159,16 @@ Se modela la tasa continua de morosidad para cuantificar la persistencia y la se
   - `banco_id_Mibanco` (+0.1435): Mayor prima de riesgo estructural en microfinanzas.
   - `tasa_referencia_lag1` (+0.0710): Mayor costo del dinero presiona la morosidad futura.
   - `tipo_credito_id_Hipotecario` (-0.1362): Cartera hipotecaria estructuralmente más resiliente que consumo.
+
+### 5.4 Capa de Decisión Operativa (Reglas de Negocio en Test 2025)
+
+Las probabilidades calibradas de la Regresión Logística (modelo óptimo para alerta temprana por su Recall de 83.87%) se transforman en acciones operativas de gestión crediticia para las 120 observaciones del año de prueba 2025:
+
+| Nivel de Riesgo | Banda de Probabilidad | Casos Test 2025 (%) | Acción Operativa Recomendada |
+|:---:|:---:|:---:|:---|
+| **Bajo** | $P < 0.35$ | 18 (15.0%) | Aprobación automática / Monitoreo estándar |
+| **Medio** | $0.35 \le P < 0.65$ | 65 (54.2%) | Revisión manual / Ajuste de tasa y mitigantes |
+| **Alto** | $P \ge 0.65$ | 37 (30.8%) | Rechazo preventivo / Auditoría estricta de cartera |
 
 ---
 

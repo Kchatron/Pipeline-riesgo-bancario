@@ -8,8 +8,20 @@ __pycache__/
 *.pyc
 .pytest_cache/
 
-# Archivos del sistema operativo
+# Archivos del sistema operativo e IDEs
 .DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos temporales y borradores de Office
+.~lock.*#
+~$*.docx
+~$*.xlsx
+*.tmp
+Esqueleto_Informe_Parcial.docx
 
 # (Opcional) Si tus Excels pesaran gigabytes, los ignorarías aquí, 
 # pero como son reportes pequeños de la SBS, puedes dejarlos 

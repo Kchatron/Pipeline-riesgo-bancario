@@ -44,6 +44,19 @@ from sklearn.metrics import (
     root_mean_squared_error
 )
 
+import sys
+from pathlib import Path
+
+# Permitir ejecuciones directas tanto como script (python src/models/train_models.py) como modulo (-m)
+directorio_raiz = Path(__file__).resolve().parent.parent.parent
+if str(directorio_raiz) not in sys.path:
+    sys.path.insert(0, str(directorio_raiz))
+
+try:
+    from src.models.decision_rules import aplicar_capa_decision, generar_resumen_decisiones
+except ImportError:
+    from decision_rules import aplicar_capa_decision, generar_resumen_decisiones
+
 
 def generar_graficas_comparativas(
     df_res_clf,
@@ -411,11 +424,34 @@ def entrenar_y_evaluar(ruta_data="data/processed/dataset_ml_features.csv", guard
             output_dir=output_graficas
         )
         
+    # 7. CAPA DE DECISIÓN SIMPLE (Reglas de Negocio)
+    print("\n" + "=" * 75)
+    print("CAPA DE DECISIÓN: REGLAS DE NEGOCIO (Basado en Probs. de Regresión Logística)")
+    print("=" * 75)
+    
+    probs_lr_test = probs_clf['Regresión Logística (Baseline)']
+    df_decisiones = aplicar_capa_decision(probs_lr_test, umbral_bajo=0.35, umbral_alto=0.65)
+    resumen_dec = generar_resumen_decisiones(df_decisiones)
+    
+    print("Distribución de acciones sugeridas (Test 2025, N=120):")
+    print(resumen_dec.to_string(index=False))
+    
+    # Guardar ejemplo de decisiones
+    df_test_decisiones = X_test.copy()
+    df_test_decisiones['riesgo_real'] = y_test_clf
+    df_test_decisiones['prob_riesgo'] = df_decisiones['Probabilidad'].values
+    df_test_decisiones['nivel_riesgo'] = df_decisiones['Nivel_Riesgo'].values
+    df_test_decisiones['accion'] = df_decisiones['Accion_Recomendada'].values
+    ruta_decisiones = "data/processed/ejemplo_decisiones_test_2025.csv"
+    df_test_decisiones.to_csv(ruta_decisiones, index=False)
+    print(f"\nEjemplo de decisiones exportado a: {ruta_decisiones}")
+        
     return {
         'resultados_clasificacion': df_res_clf,
         'metricas_regresion': metricas_reg,
         'coeficientes_regresion': coeficientes,
-        'modelos': modelos_entrenados
+        'modelos': modelos_entrenados,
+        'decisiones': df_decisiones
     }
 
 
