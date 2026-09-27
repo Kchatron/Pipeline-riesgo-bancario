@@ -55,7 +55,6 @@ Integra indicadores macroeconómicos provistos por el **Banco Central de Reserva
 │   ├── test_calidad_datos.py                # Pruebas automatizadas de calidad (DQ) y anclas históricas
 │   └── test_features.py                     # Validación de anti-leakage y cálculo de umbral en Train
 ├── diseno-pipeline-riesgo-bancario-pe.md    # Especificación de arquitectura y modelo de datos
-├── Informe_Parcial_Pipeline_Riesgo_Bancario.docx # Informe técnico formal con resultados y gráficas
 ├── requirements.txt                         # Dependencias exactas del proyecto
 └── README.md                                # Documentación principal
 ```
