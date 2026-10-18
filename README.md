@@ -1,5 +1,7 @@
 # Pipeline de Datos y Estimación de Riesgo de Morosidad Bancaria en el Perú (2023–2025)
 
+[![CI](https://github.com/Kchatron/Pipeline-riesgo-bancario/actions/workflows/ci.yml/badge.svg)](https://github.com/Kchatron/Pipeline-riesgo-bancario/actions/workflows/ci.yml)
+
 Pipeline integral de **Ingeniería de Datos (ETL)** y **Machine Learning Predictivo** diseñado para monitorear, integrar y proyectar el riesgo crediticio y la morosidad en el sistema bancario peruano para el periodo mensual 2023–2025. 
 
 Integra indicadores macroeconómicos provistos por el **Banco Central de Reserva del Perú (BCRP)** con boletines financieros de la **Superintendencia de Banca, Seguros y AFP (SBS)** en un modelo dimensional (esquema estrella), derivando un dataset analítico con rezagos temporales (*lags*) libres de fuga de datos (*data leakage*) para comparar modelos de clasificación y regresión.

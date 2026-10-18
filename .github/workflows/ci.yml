@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v7
+
+      - name: Preparar Python y cache de pip
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Instalar dependencias y Ruff
+        run: python -m pip install -r requirements.txt ruff==0.17.1
+
+      - name: Ejecutar Ruff
+        run: python -m ruff check src tests
+
+      - name: Ejecutar pytest
+        run: python -m pytest tests/

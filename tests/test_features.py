@@ -15,7 +15,6 @@ Verifica:
 import os
 import pandas as pd
 import numpy as np
-import pytest
 
 
 RUTA_DATASET_ML = "data/processed/dataset_ml_features.csv"

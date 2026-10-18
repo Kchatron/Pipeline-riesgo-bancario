@@ -13,7 +13,6 @@ Este módulo transforma los datos extraídos de SBS y BCRP:
 
 import os
 import pandas as pd
-import numpy as np
 
 
 def construir_dataset_analitico(
@@ -152,7 +151,7 @@ def construir_dataset_analitico(
     print(f"   - Filas: {df_modelo.shape[0]} (esperado: 340 = 34 meses × 5 bancos × 2 carteras)")
     print(f"   - Columnas: {df_modelo.shape[1]}")
     print(f"   - Total Banca Múltiple excluido: {'Total Banca Múltiple' not in df_modelo['banco_id'].values}")
-    print(f"   - Target continuo: 'morosidad_t'")
+    print("   - Target continuo: 'morosidad_t'")
     print(f"   - Target binario: 'riesgo_alto' (umbral: {umbral})")
     
     return df_modelo
