@@ -6,7 +6,6 @@ en reglas de negocio operativas (Prioridad / Acción / Revisión).
 """
 
 import pandas as pd
-import numpy as np
 
 def aplicar_capa_decision(probs, umbral_bajo=0.3, umbral_alto=0.7):
     """

@@ -1,6 +1,5 @@
 import os
 import glob
-import re
 import pandas as pd
 
 MAPEO_BANCOS = {
@@ -200,7 +199,7 @@ def ejecutar_extraccion_sbs():
         ruta_salida = "data/processed/sbs_consolidado_2023_2025.csv"
         df_final.to_csv(ruta_salida, index=False)
 
-        print(f"\n✅ AUDITORÍA Y EXTRACCIÓN EXITOSA: 108/108 ARCHIVOS PROCESADOS")
+        print("\n✅ AUDITORÍA Y EXTRACCIÓN EXITOSA: 108/108 ARCHIVOS PROCESADOS")
         print(f"Total de registros generados: {len(df_final)} (Esperado: 1296)")
         print(f"Valores nulos: {df_final.isnull().sum().sum()}")
         print(f"📁 Archivo consolidado guardado en: {ruta_salida}")

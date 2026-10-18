@@ -119,7 +119,7 @@ def generar_graficas_comparativas(
     labels = ['Normal (0)', 'Riesgo Alto (1)']
     
     for ax, cm, title in zip(axes, [cm_lr, cm_knn], ['Regresión Logística (Baseline)', 'KNN Classifier (Avanzado, k=5)']):
-        im = ax.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
+        ax.imshow(cm, interpolation='nearest', cmap=plt.cm.Blues)
         ax.set_title(title, fontsize=13, fontweight='bold', pad=10)
         tick_marks = np.arange(len(labels))
         ax.set_xticks(tick_marks)
