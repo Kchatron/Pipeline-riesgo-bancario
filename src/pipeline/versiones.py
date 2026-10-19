@@ -148,6 +148,19 @@ def verificar_paquete(paquete, ancla=h.RAIZ_REPOSITORIO / h.MANIFIESTO_REFERENCI
     return _comprobar(paquete, manifiesto, Path(ancla).read_bytes())
 
 
+def ruta_version(store, identificador):
+    if not isinstance(identificador, str) or not re.fullmatch(r"v-[0-9a-f]{64}", identificador):
+        raise ValueError("Identificador de versión inválido.")
+    return _ruta_confinada(Path(store), f"versions/{identificador}")
+
+
+def verificar_version(store, identificador, ancla=h.RAIZ_REPOSITORIO / h.MANIFIESTO_REFERENCIAS):
+    datos = verificar_paquete(ruta_version(store, identificador), ancla)
+    if datos["version_id"] != identificador:
+        raise ValueError("Nombre de versión diferente del identificador del paquete.")
+    return datos
+
+
 def _preparar_paquete(store, candidato, destino, raiz_repositorio=h.RAIZ_REPOSITORIO):
     """Prepara un directorio privado nuevo; no crea versiones/ ni escribe LATEST."""
     raiz = Path(raiz_repositorio).resolve()

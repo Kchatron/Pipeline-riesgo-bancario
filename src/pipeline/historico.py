@@ -424,11 +424,17 @@ def inicializar(store, raiz_repositorio=RAIZ_REPOSITORIO):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     comandos = parser.add_subparsers(dest="comando", required=True)
-    for nombre in ("init", "verify", "rebuild", "ingest"):
+    for nombre in ("init", "verify", "rebuild", "ingest", "publish", "resolve"):
         comando = comandos.add_parser(nombre)
         comando.add_argument("--store", required=True, type=Path)
         if nombre == "verify":
-            comando.add_argument("--candidate", default="initial")
+            selector = comando.add_mutually_exclusive_group()
+            selector.add_argument("--candidate")
+            selector.add_argument("--version")
+        elif nombre == "publish":
+            selector = comando.add_mutually_exclusive_group(required=True)
+            selector.add_argument("--candidate")
+            selector.add_argument("--resume-version")
         elif nombre in ("rebuild", "ingest"):
             comando.add_argument("--candidate", required=True)
         if nombre == "ingest":
@@ -446,14 +452,25 @@ def main(argv=None):
             from src.pipeline.ingesta import ingerir
             candidato = ingerir(args.store, args.candidate, args.month, args.sbs_dir)
             print(f"Fuentes ingeridas y validadas: {candidato.name}\nRuta: {candidato}")
+        elif args.comando == "publish":
+            from src.pipeline.publicacion import publicar
+            resultado = publicar(args.store, candidato=args.candidate, resume_version=args.resume_version)
+            print(json.dumps(resultado, ensure_ascii=False))
+        elif args.comando == "resolve":
+            from src.pipeline.publicacion import resolver_latest
+            print(json.dumps(resolver_latest(args.store).como_dict(), ensure_ascii=False))
+        elif args.version is not None:
+            from src.pipeline.versiones import verificar_version
+            resultado = verificar_version(args.store, args.version)
+            print(f"Versión verificada: {resultado['version_id']}")
         else:
-            verificar(args.store, candidato=args.candidate)
+            verificar(args.store, candidato="initial" if args.candidate is None else args.candidate)
             print("Candidato verificado: 36 particiones, referencias y recomposición correctas.")
     except (OSError, ValueError) as error:
         print(f"Error: {error}", file=sys.stderr)
         for nota in getattr(error, "__notes__", ()):
             print(nota, file=sys.stderr)
-        return 1
+        return getattr(error, "publication_exit_code", 1)
     return 0
 
 
