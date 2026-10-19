@@ -1,4 +1,4 @@
-"""CLI de inicialización, reconstrucción y verificación histórica, sin publicación."""
+"""CLI de inicialización, ingesta, reconstrucción y verificación histórica, sin publicación."""
 
 import argparse
 import csv
@@ -177,6 +177,9 @@ def verificar(store, raiz_repositorio=RAIZ_REPOSITORIO, candidato="initial"):
     etapa = preparado.get("stage")
     if etapa == "historical-rebuild":
         return _verificar_reconstruccion(store, candidato, preparado, raiz, manifiesto_bytes, contenidos)
+    if etapa == "historical-ingest":
+        from src.pipeline.ingesta import verificar_ingesta
+        return verificar_ingesta(store, candidato, preparado, raiz, manifiesto_bytes, contenidos)
     if etapa != "historical-init" or identificador != "initial":
         raise ValueError("Etapa o identificador de inicialización no reconocido.")
     esperado = {
@@ -344,13 +347,16 @@ def inicializar(store, raiz_repositorio=RAIZ_REPOSITORIO):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     comandos = parser.add_subparsers(dest="comando", required=True)
-    for nombre in ("init", "verify", "rebuild"):
+    for nombre in ("init", "verify", "rebuild", "ingest"):
         comando = comandos.add_parser(nombre)
         comando.add_argument("--store", required=True, type=Path)
         if nombre == "verify":
             comando.add_argument("--candidate", default="initial")
-        elif nombre == "rebuild":
+        elif nombre in ("rebuild", "ingest"):
             comando.add_argument("--candidate", required=True)
+        if nombre == "ingest":
+            comando.add_argument("--month", required=True)
+            comando.add_argument("--sbs-dir", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
         if args.comando == "init":
@@ -359,6 +365,10 @@ def main(argv=None):
         elif args.comando == "rebuild":
             candidato = reconstruir(args.store, candidato=args.candidate)
             print(f"Candidato reconstruido: {candidato.name}\nRuta: {candidato}")
+        elif args.comando == "ingest":
+            from src.pipeline.ingesta import ingerir
+            candidato = ingerir(args.store, args.candidate, args.month, args.sbs_dir)
+            print(f"Fuentes ingeridas y validadas: {candidato.name}\nRuta: {candidato}")
         else:
             verificar(args.store, candidato=args.candidate)
             print("Candidato verificado: 36 particiones, referencias y recomposición correctas.")
