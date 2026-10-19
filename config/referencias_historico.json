@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source_commit": "3a07619c5c2f790f68ad8cddb0443eafa997d80d",
+  "references": [
+    {
+      "path": "data/processed/dataset_ml_features.csv",
+      "sha256": "3ec738f0483c45d48bf3880ac7482d8ac7e2fe88a8405da929805ea4c503f97e"
+    },
+    {
+      "path": "data/processed/ejemplo_decisiones_test_2025.csv",
+      "sha256": "c5e19873027ccd855bcf7ac43ff8acec6b9d2232d7bd4cb29489ca4bde30dd8c"
+    },
+    {
+      "path": "data/processed/sbs_consolidado_2023_2025.csv",
+      "sha256": "48d60deb1f617df82d8b2f3a189576a1f702285a954ca8d2b7178ae4fdf4d06e"
+    },
+    {
+      "path": "data/raw/BCRP/bcrp_macro_2023_2025.csv",
+      "sha256": "cdbd8ad625d7865e9b1db794e1f0ef46f1b56411bc95ed2ae41bec66fd20d6a2"
+    },
+    {
+      "path": "data/raw/BCRP/macro_bcrp_2023_2025.csv",
+      "sha256": "4b7e5532ad5895411adb02d3889297aa4a7ae6f189f16df0f3b471417d2b0e21"
+    }
+  ]
+}
