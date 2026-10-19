@@ -19,7 +19,8 @@ def construir_dataset_analitico(
     ruta_sbs="data/processed/sbs_consolidado_2023_2025.csv",
     ruta_bcrp="data/raw/BCRP/bcrp_macro_2023_2025.csv",
     ruta_salida="data/processed/dataset_ml_features.csv",
-    umbral="p75"
+    umbral="p75",
+    observador_p75=None
 ):
     """
     Construye y guarda el dataset analítico para entrenamiento de modelos de ML.
@@ -36,6 +37,9 @@ def construir_dataset_analitico(
         Criterio para el target binario 'riesgo_alto':
         - 'p75': percentil 75 histórico por banco y tipo de crédito (cuartil superior de morosidad).
         - 'mediana': mediana histórica por banco y tipo de crédito.
+    observador_p75 : callable, opcional
+        Recibe una copia independiente de las claves, morosidad_t y umbral_corte
+        antes de calcular riesgo_alto. Sus errores se propagan.
     """
     if not os.path.exists(ruta_sbs):
         raise FileNotFoundError(f"No se encontró el consolidado SBS en {ruta_sbs}")
@@ -129,6 +133,10 @@ def construir_dataset_analitico(
         raise ValueError(f"Umbral no reconocido: '{umbral}'. Use 'p75' o 'mediana'.")
         
     df_full = pd.merge(df_full, cortes_train, on=['banco_id', 'tipo_credito_id'], how='left')
+    if observador_p75 is not None:
+        observador_p75(df_full[[
+            'fecha_id', 'banco_id', 'tipo_credito_id', 'morosidad_t', 'umbral_corte'
+        ]].copy(deep=True))
     df_full['riesgo_alto'] = (df_full['morosidad_t'] > df_full['umbral_corte']).astype(int)
     df_full = df_full.drop(columns=['umbral_corte'])
     
