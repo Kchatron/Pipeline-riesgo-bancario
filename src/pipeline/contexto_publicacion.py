@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import stat
+from contextlib import contextmanager
 
 
 CONTEXTO = "audit/publication-base.json"
@@ -71,8 +72,9 @@ def guardar_contexto(candidato, contenido):
         os.fsync(archivo.fileno())
 
 
-def capturar_contexto(store, ancla):
-    """Devuelve bytes del contexto; null solo si falta el propio LATEST."""
+@contextmanager
+def bloqueo_publicacion(store, exclusivo=False):
+    """Un solo inode estable, compartido por captura y publicación."""
     store = Path(store)
     bloqueo = store / ".publish.lock"
     opciones = os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK
@@ -83,33 +85,43 @@ def capturar_contexto(store, ancla):
     try:
         if not stat.S_ISREG(os.fstat(descriptor).st_mode):
             raise ValueError(".publish.lock debe ser un archivo regular.")
-        fcntl.flock(descriptor, fcntl.LOCK_SH)
+        fcntl.flock(descriptor, fcntl.LOCK_EX if exclusivo else fcntl.LOCK_SH)
         inode = bloqueo.lstat()
         abierto = os.fstat(descriptor)
         if (inode.st_dev, inode.st_ino) != (abierto.st_dev, abierto.st_ino):
             raise ValueError("El archivo estable .publish.lock cambió durante la captura.")
-        try:
-            puntero = os.open(store / "LATEST", os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK)
-        except FileNotFoundError:
-            base = None
-        except OSError as error:
-            raise ValueError("LATEST inválido o enlace simbólico no permitido.") from error
-        else:
-            with os.fdopen(puntero, "rb") as archivo:
-                if not stat.S_ISREG(os.fstat(archivo.fileno()).st_mode):
-                    raise ValueError("LATEST debe ser un archivo regular.")
-                base = leer_json(archivo.read())
-            validar_identidad(base)
-            from src.pipeline.versiones import archivo_paquete, verificar_paquete
-            version = store / "versions" / base["version_id"]
-            if (store / "versions").is_symlink():
-                raise ValueError("versions/ no puede ser un enlace simbólico.")
-            manifiesto = archivo_paquete(version, "manifest.json").read_bytes()
-            if hashlib.sha256(manifiesto).hexdigest() != base["manifest_sha256"]:
-                raise ValueError("Hash de manifiesto diferente del indicado por LATEST.")
-            datos = verificar_paquete(version, ancla)
-            if datos["version_id"] != base["version_id"]:
-                raise ValueError("LATEST no coincide con el identificador del paquete.")
-        return (json.dumps({"schema_version": 1, "base": base}, sort_keys=True) + "\n").encode("utf-8")
+        yield descriptor
     finally:
         os.close(descriptor)
+
+
+def leer_latest(store, ancla):
+    """Lee el puntero una vez; solo la ausencia del propio LATEST devuelve None."""
+    store = Path(store)
+    try:
+        puntero = os.open(store / "LATEST", os.O_RDONLY | os.O_NOFOLLOW | os.O_CLOEXEC | os.O_NONBLOCK)
+    except FileNotFoundError:
+        return None
+    except OSError as error:
+        raise ValueError("LATEST inválido o enlace simbólico no permitido.") from error
+    with os.fdopen(puntero, "rb") as archivo:
+        if not stat.S_ISREG(os.fstat(archivo.fileno()).st_mode):
+            raise ValueError("LATEST debe ser un archivo regular.")
+        identidad = leer_json(archivo.read())
+    validar_identidad(identidad)
+    from src.pipeline.versiones import archivo_paquete, verificar_version
+    datos = verificar_version(store, identidad["version_id"], ancla)
+    version = store / "versions" / identidad["version_id"]
+    manifiesto = archivo_paquete(version, "manifest.json").read_bytes()
+    if hashlib.sha256(manifiesto).hexdigest() != identidad["manifest_sha256"]:
+        raise ValueError("Hash de manifiesto diferente del indicado por LATEST.")
+    if datos["version_id"] != identidad["version_id"]:
+        raise ValueError("LATEST no coincide con el identificador del paquete.")
+    return identidad
+
+
+def capturar_contexto(store, ancla):
+    """Devuelve bytes del contexto; null solo si falta el propio LATEST."""
+    with bloqueo_publicacion(store):
+        base = leer_latest(store, ancla)
+        return (json.dumps({"schema_version": 1, "base": base}, sort_keys=True) + "\n").encode("utf-8")

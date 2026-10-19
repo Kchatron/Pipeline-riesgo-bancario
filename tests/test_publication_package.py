@@ -345,7 +345,7 @@ def test_destino_de_paquete_separado(caso, destino):
     assert inventario(caso["store"]) == antes
 
 
-def test_no_hay_comandos_de_publicacion():
+def test_comandos_nuevos_exigen_argumentos_y_no_hay_resume_independiente():
     for comando in ("publish", "resolve", "resume"):
         with pytest.raises(SystemExit) as salida:
             h.main([comando])
