@@ -88,7 +88,9 @@ def comprobar_resultados_independientes(candidato):
     manifiesto = json_archivo(candidato / "manifest.json")
     assert manifiesto["stage"] == "historical-rebuild"
     assert manifiesto["candidate"] == candidato.name
-    assert len(manifiesto["artifacts"]) == 82
+    assert len(manifiesto["artifacts"]) == 83
+    assert manifiesto["schema_version"] == 2
+    assert manifiesto["publication_base"] is None
     assert "manifest.json" not in manifiesto["artifacts"]
     assert manifiesto["artifacts"] == {ruta: huella for ruta, huella in inventario(candidato).items()
                                        if ruta != "manifest.json"}

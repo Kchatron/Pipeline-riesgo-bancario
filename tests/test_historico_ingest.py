@@ -119,7 +119,9 @@ def comprobar_exito(entorno, nuevo):
     assert manifiesto["source_candidate"] == {"id": "initial", "manifest_sha256": hashlib.sha256(
         (entorno["origen"] / "manifest.json").read_bytes()).hexdigest()}
     assert manifiesto["artifacts"] == {ruta: huella for ruta, huella in inventario(nuevo).items() if ruta != "manifest.json"}
-    assert len(manifiesto["artifacts"]) == 86
+    assert len(manifiesto["artifacts"]) == 87
+    assert manifiesto["schema_version"] == 2
+    assert manifiesto["publication_base"] is None
     assert not (nuevo / h.FEATURES_RECONSTRUIDAS).exists()
     assert not (nuevo / h.AUDITORIA_P75).exists()
     assert not (nuevo / "references" / h.FEATURES).exists()

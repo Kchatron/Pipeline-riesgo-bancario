@@ -10,6 +10,7 @@ import sys
 from uuid import uuid4
 
 from src.features.build_features import construir_dataset_analitico
+from src.pipeline.contexto_publicacion import CONTEXTO, campos_contexto, capturar_contexto, guardar_contexto
 
 from src.pipeline.validacion import (
     COLUMNAS_HECHOS,
@@ -56,8 +57,7 @@ def sha256(contenido):
     return hashlib.sha256(contenido).hexdigest()
 
 
-def _leer_referencias(raiz):
-    manifiesto_bytes = (raiz / MANIFIESTO_REFERENCIAS).read_bytes()
+def _hashes_referencias(manifiesto_bytes):
     manifiesto = json.loads(manifiesto_bytes)
     if not isinstance(manifiesto, dict) or set(manifiesto) != {"schema_version", "source_commit", "references"}:
         raise ValueError("Esquema incorrecto del manifiesto de referencias.")
@@ -76,6 +76,12 @@ def _leer_referencias(raiz):
         if not isinstance(huella, str) or not re.fullmatch(r"[0-9a-f]{64}", huella):
             raise ValueError(f"SHA-256 incorrecto para {ruta}.")
         hashes[ruta] = huella
+    return hashes
+
+
+def _leer_referencias(raiz):
+    manifiesto_bytes = (raiz / MANIFIESTO_REFERENCIAS).read_bytes()
+    hashes = _hashes_referencias(manifiesto_bytes)
     contenidos = {}
     for ruta, huella in hashes.items():
         archivo = raiz / ruta
@@ -184,6 +190,10 @@ def verificar(store, raiz_repositorio=RAIZ_REPOSITORIO, candidato="initial"):
         return verificar_ingesta(store, candidato, preparado, raiz, manifiesto_bytes, contenidos)
     if etapa != "historical-init" or identificador != "initial":
         raise ValueError("Etapa o identificador de inicialización no reconocido.")
+    return _verificar_initial_archivos(candidato, preparado, manifiesto_bytes, contenidos)
+
+
+def _verificar_initial_archivos(candidato, preparado, manifiesto_bytes, contenidos):
     esperado = {
         "schema_version": 1,
         "stage": "historical-init",
@@ -197,10 +207,10 @@ def verificar(store, raiz_repositorio=RAIZ_REPOSITORIO, candidato="initial"):
     return preparado
 
 
-def _manifiesto_rebuild(candidato, origen_id, origen_hash, manifiesto_bytes, contenidos, artefactos):
+def _manifiesto_rebuild(candidato, origen_id, origen_hash, manifiesto_bytes, contenidos, artefactos, esquema=1, identificador=None):
     return {
-        "schema_version": 1, "stage": "historical-rebuild", "status": "prepared",
-        "candidate": candidato.name, "source_commit": COMMIT_REFERENCIAS,
+        "schema_version": esquema, "stage": "historical-rebuild", "status": "prepared",
+        "candidate": candidato.name if identificador is None else identificador, "source_commit": COMMIT_REFERENCIAS,
         "source_candidate": {"id": origen_id, "manifest_sha256": origen_hash},
         "references_manifest_sha256": sha256(manifiesto_bytes),
         "references": {ruta: sha256(contenidos[ruta]) for ruta in REFERENCIAS},
@@ -209,6 +219,7 @@ def _manifiesto_rebuild(candidato, origen_id, origen_hash, manifiesto_bytes, con
         "results": {nombre: {"path": ruta, "sha256": artefactos[ruta]}
                     for nombre, ruta in (("features", FEATURES_RECONSTRUIDAS), ("p75", AUDITORIA_P75))},
         "artifacts": artefactos,
+        **campos_contexto(candidato, esquema),
     }
 
 
@@ -235,10 +246,15 @@ def _origen_rebuild(store, identificador, raiz):
     return origen, verificar(store, raiz, candidato=identificador)
 
 
-def _verificar_copia_rebuild(candidato, preparado, contenidos, con_resultados=False):
+def _verificar_copia_rebuild(candidato, preparado, contenidos, con_resultados=False, esquema=1):
     adicionales = (FEATURES_RECONSTRUIDAS, AUDITORIA_P75) if con_resultados else ()
+    campos_contexto(candidato, esquema)
     if preparado["stage"] == "historical-init":
+        if esquema == 2:
+            adicionales = (*adicionales, CONTEXTO)
         return _verificar_contenido(candidato, contenidos, adicionales)
+    if esquema != preparado["schema_version"]:
+        raise ValueError("El esquema y contexto deben heredarse de la ingesta, sin asignación retrospectiva.")
     from src.pipeline.ingesta import _inventario
     inventario = _inventario(candidato)
     if set(inventario) != set(preparado["artifacts"]) | set(adicionales):
@@ -256,12 +272,20 @@ def _verificar_reconstruccion(store, candidato, preparado, raiz, manifiesto_byte
     if candidato.name == "initial" or origen["id"] == candidato.name:
         raise ValueError("La reconstrucción debe proceder de initial o de una ingesta validada.")
     ruta_origen, origen_preparado = _origen_rebuild(store, origen["id"], raiz)
-    origen_hash = sha256((ruta_origen / "manifest.json").read_bytes())
+    return _verificar_rebuild_archivos(candidato, preparado, origen_preparado,
+                                      (ruta_origen / "manifest.json").read_bytes(), manifiesto_bytes, contenidos)
+
+
+def _verificar_rebuild_archivos(candidato, preparado, origen_preparado, origen_bytes, manifiesto_bytes, contenidos, identificador=None):
+    origen = preparado["source_candidate"]
+    origen_hash = sha256(origen_bytes)
     if origen["manifest_sha256"] != origen_hash:
         raise ValueError("Hash del manifiesto del origen directo diferente del registrado.")
-    artefactos = _verificar_copia_rebuild(candidato, origen_preparado, contenidos, con_resultados=True)
+    esquema = preparado.get("schema_version")
+    artefactos = _verificar_copia_rebuild(candidato, origen_preparado, contenidos, con_resultados=True, esquema=esquema)
     _verificar_resultados(candidato, contenidos)
-    esperado = _manifiesto_rebuild(candidato, origen["id"], origen_hash, manifiesto_bytes, contenidos, artefactos)
+    esperado = _manifiesto_rebuild(candidato, origen["id"], origen_hash, manifiesto_bytes, contenidos, artefactos,
+                                  esquema, identificador)
     if preparado != esperado:
         raise ValueError("Manifiesto de reconstrucción incorrecto o hashes de artefactos diferentes.")
     return preparado
@@ -276,9 +300,13 @@ def reconstruir(store, candidato="initial", raiz_repositorio=RAIZ_REPOSITORIO):
     origen_bytes = (origen / "manifest.json").read_bytes()
     if json.loads(origen_bytes) != preparado:
         raise ValueError("El manifiesto de origen cambió después de verificarlo.")
+    esquema = 2 if preparado["stage"] == "historical-init" else preparado["schema_version"]
+    contexto = capturar_contexto(store, raiz / MANIFIESTO_REFERENCIAS) if preparado["stage"] == "historical-init" else None
     nuevo = _ruta_candidato(store, f"rebuild-{uuid4().hex}")
     nuevo.mkdir(exist_ok=False)
     try:
+        if contexto is not None:
+            guardar_contexto(nuevo, contexto)
         for ruta, huella in preparado["artifacts"].items():
             contenido = (origen / ruta).read_bytes()
             if sha256(contenido) != huella:
@@ -287,7 +315,7 @@ def reconstruir(store, candidato="initial", raiz_repositorio=RAIZ_REPOSITORIO):
             destino.parent.mkdir(parents=True, exist_ok=True)
             with destino.open("xb") as archivo:
                 archivo.write(contenido)
-        _verificar_copia_rebuild(nuevo, preparado, contenidos)
+        _verificar_copia_rebuild(nuevo, preparado, contenidos, esquema=esquema)
         entradas = [nuevo / RECOMPUESTOS[ruta] for ruta in (SBS, BCRP)]
         for ruta in entradas:
             if not ruta.is_file():
@@ -316,11 +344,11 @@ def reconstruir(store, candidato="initial", raiz_repositorio=RAIZ_REPOSITORIO):
         comparar_features(resultado, contenidos[FEATURES])
         verificar_etiquetas(resultado, capturas[0])
         _verificar_resultados(nuevo, contenidos)
-        artefactos = _verificar_copia_rebuild(nuevo, preparado, contenidos, con_resultados=True)
+        artefactos = _verificar_copia_rebuild(nuevo, preparado, contenidos, con_resultados=True, esquema=esquema)
         verificar(store, raiz, candidato=candidato)
         if (origen / "manifest.json").read_bytes() != origen_bytes or _leer_referencias(raiz)[0] != manifiesto_bytes:
             raise ValueError("Las referencias o el manifiesto de origen cambiaron durante la reconstrucción.")
-        final = _manifiesto_rebuild(nuevo, candidato, sha256(origen_bytes), manifiesto_bytes, contenidos, artefactos)
+        final = _manifiesto_rebuild(nuevo, candidato, sha256(origen_bytes), manifiesto_bytes, contenidos, artefactos, esquema)
         with (nuevo / "manifest.json").open("x", encoding="utf-8") as archivo:
             json.dump(final, archivo, indent=2, ensure_ascii=False, allow_nan=False)
             archivo.write("\n")

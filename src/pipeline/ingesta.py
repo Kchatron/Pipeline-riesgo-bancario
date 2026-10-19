@@ -9,6 +9,7 @@ import pandas as pd
 
 from src.data import bcrp_extractor, sbs_extractor
 from src.pipeline import historico as h
+from src.pipeline.contexto_publicacion import CONTEXTO, campos_contexto, capturar_contexto, guardar_contexto
 from src.pipeline.validacion import (
     COLUMNAS_HECHOS, COLUMNAS_MACRO, MESES, comparar_filas,
     leer_hechos, leer_macro, macro_desde_largo,
@@ -127,7 +128,7 @@ def _particiones(candidato, origen, mes):
     return fuentes
 
 
-def _validar_contenido(candidato, origen, contenidos, mes):
+def _validar_contenido(candidato, origen, contenidos, mes, esquema=1, adicionales=()):
     inventario = _inventario(candidato)
     entradas = json.loads((candidato / PROCEDENCIA).read_bytes())
     excel = _validar_procedencia(candidato, entradas, mes)
@@ -136,6 +137,10 @@ def _validar_contenido(candidato, origen, contenidos, mes):
         | {f"partitions/{periodo}/{fuente}.csv" for periodo in MESES for fuente in ("sbs", "bcrp")}
         | set(h.RECOMPUESTOS.values()) | excel | {INFORME, PROCEDENCIA, SBS_MES, BCRP_MES, MACRO_MES}
     )
+    campos_contexto(candidato, esquema)
+    if esquema == 2:
+        esperados.add(CONTEXTO)
+    esperados.update(adicionales)
     if set(inventario) != esperados:
         raise ValueError("Inventario de ingesta incompleto o con artefactos inesperados.")
     for ruta in FUENTES:
@@ -157,10 +162,10 @@ def _validar_contenido(candidato, origen, contenidos, mes):
     return inventario, entradas
 
 
-def _manifiesto(candidato, mes, origen_bytes, referencias_bytes, contenidos, inventario, entradas):
+def _manifiesto(candidato, mes, origen_bytes, referencias_bytes, contenidos, inventario, entradas, esquema=1, identificador=None):
     return {
-        "schema_version": 1, "stage": "historical-ingest", "status": "sources-validated",
-        "candidate": candidato.name, "month": mes,
+        "schema_version": esquema, "stage": "historical-ingest", "status": "sources-validated",
+        "candidate": candidato.name if identificador is None else identificador, "month": mes,
         "source_candidate": {"id": "initial", "manifest_sha256": h.sha256(origen_bytes)},
         "source_commit": h.COMMIT_REFERENCIAS, "references_manifest_sha256": h.sha256(referencias_bytes),
         "references": {ruta: h.sha256(contenidos[ruta]) for ruta in h.REFERENCIAS},
@@ -168,6 +173,7 @@ def _manifiesto(candidato, mes, origen_bytes, referencias_bytes, contenidos, inv
         "results": {ruta: {"path": h.RECOMPUESTOS[ruta], "sha256": inventario[h.RECOMPUESTOS[ruta]]}
                     for ruta in FUENTES},
         "artifacts": inventario,
+        **campos_contexto(candidato, esquema),
     }
 
 
@@ -180,9 +186,19 @@ def verificar_ingesta(store, candidato, preparado, raiz, referencias_bytes, cont
         raise ValueError("La ingesta solo puede proceder de initial.")
     h.verificar(store, raiz, candidato="initial")
     origen = h._ruta_candidato(store, "initial")
-    inventario, entradas = _validar_contenido(candidato, origen, contenidos, mes)
-    esperado = _manifiesto(candidato, mes, (origen / "manifest.json").read_bytes(),
-                           referencias_bytes, contenidos, inventario, entradas)
+    return verificar_ingesta_archivos(candidato, preparado, origen, (origen / "manifest.json").read_bytes(),
+                                     referencias_bytes, contenidos)
+
+
+def verificar_ingesta_archivos(candidato, preparado, origen, origen_bytes, referencias_bytes, contenidos,
+                               identificador=None, adicionales=()):
+    mes = preparado.get("month")
+    validar_mes(mes)
+    esquema = preparado.get("schema_version")
+    inventario, entradas = _validar_contenido(candidato, origen, contenidos, mes, esquema, adicionales)
+    inventario = {ruta: huella for ruta, huella in inventario.items() if ruta not in adicionales}
+    esperado = _manifiesto(candidato, mes, origen_bytes, referencias_bytes, contenidos, inventario, entradas,
+                           esquema, identificador)
     if preparado != esperado:
         raise ValueError("Manifiesto de ingesta incorrecto o hashes diferentes.")
     return preparado
@@ -201,9 +217,11 @@ def ingerir(store, candidato, mes, sbs_dir, raiz_repositorio=h.RAIZ_REPOSITORIO)
         raise ValueError("El manifiesto initial cambió después de su verificación.")
     referencias_bytes, contenidos = h._leer_referencias(raiz)
     excel = resolver_excel(sbs_dir, mes)
+    contexto = capturar_contexto(store, raiz / h.MANIFIESTO_REFERENCIAS)
     nuevo = h._ruta_candidato(store, f"ingest-{uuid4().hex}")
     nuevo.mkdir(exist_ok=False)
     try:
+        guardar_contexto(nuevo, contexto)
         for ruta in FUENTES:
             _copiar(nuevo / "references" / ruta, contenidos[ruta])
         for periodo in MESES:
@@ -244,11 +262,11 @@ def ingerir(store, candidato, mes, sbs_dir, raiz_repositorio=h.RAIZ_REPOSITORIO)
         for nombre, ruta in (("SBS", h.SBS), ("BCRP", h.BCRP)):
             h._escribir_csv(nuevo / h.RECOMPUESTOS[ruta], COLUMNAS_HECHOS, fuentes[nombre])
         h._escribir_csv(nuevo / h.RECOMPUESTOS[h.MACRO], COLUMNAS_MACRO, macro_desde_largo(fuentes["BCRP"]))
-        inventario, entradas = _validar_contenido(nuevo, origen, contenidos, mes)
+        inventario, entradas = _validar_contenido(nuevo, origen, contenidos, mes, esquema=2)
         h.verificar(store, raiz, candidato="initial")
         if (origen / "manifest.json").read_bytes() != origen_bytes or h._leer_referencias(raiz)[0] != referencias_bytes:
             raise ValueError("Origen o referencias cambiaron durante la ingesta.")
-        final = _manifiesto(nuevo, mes, origen_bytes, referencias_bytes, contenidos, inventario, entradas)
+        final = _manifiesto(nuevo, mes, origen_bytes, referencias_bytes, contenidos, inventario, entradas, esquema=2)
         with (nuevo / "manifest.json").open("x", encoding="utf-8") as archivo:
             json.dump(final, archivo, indent=2, ensure_ascii=False, allow_nan=False)
             archivo.write("\n")
