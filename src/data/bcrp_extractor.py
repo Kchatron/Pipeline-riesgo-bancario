@@ -1,5 +1,6 @@
 import os
 import json
+import tempfile
 import urllib.request
 import pandas as pd
 
@@ -48,8 +49,36 @@ def parsear_fecha_bcrp(nombre_periodo):
         
     return f"{anio}-{mes_num}"
 
-def extraer_bcrp_api(series_dict=SERIES_BCRP, periodo_ini="2023-1", periodo_fin="2025-12"):
-    """Descarga y estandariza las 3 series macroeconómicas del BCRP."""
+def _guardar_csv_atomico(df, ruta_salida):
+    """Reemplaza un CSV individual solo después de completar su escritura."""
+    ruta_temporal = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", newline="",
+            dir=os.path.dirname(ruta_salida),
+            prefix=f".{os.path.basename(ruta_salida)}.", suffix=".tmp",
+            delete=False
+        ) as archivo:
+            ruta_temporal = archivo.name
+            df.to_csv(archivo, index=False)
+        os.replace(ruta_temporal, ruta_salida)
+    finally:
+        if ruta_temporal is not None:
+            try:
+                os.unlink(ruta_temporal)
+            except FileNotFoundError:
+                pass
+
+
+def extraer_bcrp_api(
+    series_dict=SERIES_BCRP, periodo_ini="2023-1", periodo_fin="2025-12",
+    directorio_salida="data/raw/BCRP"
+):
+    """Descarga las series y guarda ambos CSV en directorio_salida.
+
+    Conserva los nombres históricos y devuelve el DataFrame ancho.
+    Cada archivo se reemplaza atómicamente; el par no es una transacción.
+    """
     codigos = "-".join(series_dict.keys())
     url = f"https://estadisticas.bcrp.gob.pe/estadisticas/series/api/{codigos}/json/{periodo_ini}/{periodo_fin}"
     req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -71,20 +100,19 @@ def extraer_bcrp_api(series_dict=SERIES_BCRP, periodo_ini="2023-1", periodo_fin=
         filas.append(fila)
         
     df_macro = pd.DataFrame(filas).sort_values('fecha_id').reset_index(drop=True)
-    os.makedirs("data/raw/BCRP", exist_ok=True)
     
-    # 1. Guardar formato ancho (wide)
-    ruta_wide = "data/raw/BCRP/macro_bcrp_2023_2025.csv"
-    df_macro.to_csv(ruta_wide, index=False)
-    print(f"✅ BCRP: {len(df_macro)} periodos guardados en {ruta_wide}")
-    
-    # 2. Guardar formato largo armonizado al esquema estrella
+    # Preparar ambas representaciones antes de escribir archivos.
     df_long = df_macro.melt(id_vars=['fecha_id'], var_name='indicador_id', value_name='valor')
     df_long['banco_id'] = 'Macro'
     df_long['tipo_credito_id'] = 'Macro'
     df_long = df_long[['fecha_id', 'banco_id', 'tipo_credito_id', 'indicador_id', 'valor']]
-    ruta_long = "data/raw/BCRP/bcrp_macro_2023_2025.csv"
-    df_long.to_csv(ruta_long, index=False)
+    os.makedirs(directorio_salida, exist_ok=True)
+    ruta_wide = os.path.join(directorio_salida, "macro_bcrp_2023_2025.csv")
+    ruta_long = os.path.join(directorio_salida, "bcrp_macro_2023_2025.csv")
+
+    _guardar_csv_atomico(df_macro, ruta_wide)
+    print(f"✅ BCRP: {len(df_macro)} periodos guardados en {ruta_wide}")
+    _guardar_csv_atomico(df_long, ruta_long)
     print(f"✅ BCRP (Esquema estrella): {len(df_long)} registros guardados en {ruta_long}")
     
     return df_macro
