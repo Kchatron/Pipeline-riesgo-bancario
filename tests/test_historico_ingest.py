@@ -4,6 +4,7 @@ import csv
 from decimal import Decimal
 import hashlib
 import io
+from itertools import permutations
 import json
 from pathlib import Path
 import shutil
@@ -13,7 +14,8 @@ import pytest
 
 from src.data import bcrp_extractor, sbs_extractor
 from src.pipeline import historico as h, ingesta
-from src.pipeline.validacion import COLUMNAS_HECHOS, MESES
+from src.pipeline.validacion import COLUMNAS_HECHOS, COLUMNAS_MACRO, MESES, leer_csv
+from src.pipeline.validacion_ingest import COLUMNAS_API, leer_ancho
 
 
 REPO = Path(__file__).resolve().parents[1]
@@ -451,3 +453,97 @@ def test_cli_discrepancia_devuelve_error_y_ruta_de_evidencia(entorno, capsys):
                    "--month", MES, "--sbs-dir", str(entorno["carpeta"])]) == 1
     nuevo, _ = comprobar_bloqueado(entorno)
     assert str(nuevo) in capsys.readouterr().err
+
+
+def test_ancho_bcrp_acepta_orden_real_observado():
+    contenido = (b"fecha_id,tasa_referencia,tipo_cambio,inflacion\n"
+                 b"2023-01,7.75,3.83380476190476,8.66426700097408\n")
+    filas = leer_ancho(contenido, (MES,), COLUMNAS_API)
+    assert filas == [{"fecha_id": MES, "tipo_cambio": "3.83380476190476",
+                      "tasa_referencia": "7.75", "inflacion": "8.66426700097408"}]
+    assert tuple(filas[0]) == COLUMNAS_API
+
+
+@pytest.mark.parametrize("columnas", list(permutations(COLUMNAS_API)))
+def test_ancho_bcrp_permutaciones_preservan_indicadores_y_tokens(columnas):
+    esperado = {"fecha_id": MES, "tipo_cambio": "3.8338047619047600",
+                "tasa_referencia": "7.750", "inflacion": "8.66426700097408"}
+    texto = io.StringIO(newline="")
+    escritor = csv.writer(texto)
+    escritor.writerow(columnas)
+    escritor.writerow([esperado[columna] for columna in columnas])
+    contenido = texto.getvalue().encode("utf-8")
+    assert leer_ancho(contenido, (MES,), COLUMNAS_API) == [esperado]
+    assert tuple(leer_ancho(contenido, (MES,), COLUMNAS_API)[0]) == COLUMNAS_API
+    if columnas != COLUMNAS_MACRO:
+        with pytest.raises(ValueError, match="Esquema incorrecto"):
+            leer_csv(contenido, COLUMNAS_MACRO, "Referencia BCRP ancho")
+
+
+@pytest.mark.parametrize("encabezado", [
+    "fecha_id,tipo_cambio,tasa_referencia",
+    "fecha_id,tipo_cambio,tasa_referencia,inflacion,extra",
+    "fecha_id,tipo_cambio,tipo_cambio,inflacion",
+    "fecha_id,tipo_cambio,tasa_referencia,inflacion,tipo_cambio",
+    "fecha_id,tipo_cambio,tasa_referencia,Inflacion",
+])
+def test_ancho_bcrp_rechaza_nombres_faltantes_adicionales_y_duplicados(encabezado):
+    # Coincide el ancho de la fila para que se rechace el encabezado, no el registro.
+    valores = ",".join([MES, *(["1"] * encabezado.count(","))])
+    contenido = f"{encabezado}\n{valores}\n".encode("utf-8")
+    with pytest.raises(ValueError, match="Esquema incorrecto"):
+        leer_ancho(contenido, (MES,), COLUMNAS_API)
+
+
+@pytest.mark.parametrize("valores", [
+    "2023-01,7.75,3.83", "2023-01,7.75,3.83,8.66,extra",
+    "2023-01,7.75,,8.66", "2023-01,7.75,inf,8.66", "2023-01,NaN,3.83,8.66",
+    "2023-02,7.75,3.83,8.66", "2023-01,7.75,3.83,8.66\n2023-01,7.75,3.83,8.66",
+])
+def test_ancho_reordenado_conserva_rechazo_de_filas_invalidas(valores):
+    contenido = f"fecha_id,tasa_referencia,tipo_cambio,inflacion\n{valores}\n".encode("utf-8")
+    with pytest.raises(ValueError):
+        leer_ancho(contenido, (MES,), COLUMNAS_API)
+
+
+@pytest.mark.parametrize("indices", [(1, 0, 2), (2, 1, 0)])
+def test_api_reordenada_extractor_real_ingest_y_verify_sin_red(entorno, monkeypatch, indices):
+    payload = entorno["payload"]
+    series = payload["config"]["series"]
+    valores = payload["periods"][0]["values"]
+    payload["config"]["series"] = [series[indice] for indice in indices]
+    payload["periods"][0]["values"] = [valores[indice] for indice in indices]
+    nuevo = ejecutar(entorno)  # El fixture simula urlopen; el extractor BCRP es real.
+    informe = comprobar_exito(entorno, nuevo)
+    ruta_ancho = nuevo / ingesta.MACRO_MES
+    contenido = ruta_ancho.read_bytes()
+    esperado = {nombre: str(float(valor)) for nombre, valor in zip(bcrp_extractor.SERIES_BCRP.values(), valores)}
+    fila = leer(ruta_ancho)[0]
+    assert fila == {"fecha_id": MES, **esperado}
+    columnas = ("fecha_id", *[bcrp_extractor.SERIES_BCRP[series[indice]["name"]] for indice in indices])
+    assert tuple(fila) == columnas
+    largo = {r["indicador_id"]: r["valor"] for r in leer(nuevo / ingesta.BCRP_MES)}
+    assert largo == esperado
+    assert all(r["numeric_equal"] for r in informe["comparisons"])
+    assert len(entorno["solicitudes"]) == 1
+
+    def prohibido(*args, **opciones):
+        pytest.fail("verify no puede repetir la extracción ni consultar la red")
+
+    monkeypatch.setattr(bcrp_extractor.urllib.request, "urlopen", prohibido)
+    monkeypatch.setattr(bcrp_extractor, "extraer_bcrp_api", prohibido)
+    for nombre in FUNCIONES:
+        monkeypatch.setattr(sbs_extractor, nombre, prohibido)
+    h.verificar(entorno["store"], candidato=nuevo.name)
+    assert ruta_ancho.read_bytes() == contenido
+    assert json_leer(nuevo / ingesta.INFORME) == informe
+
+    # Incluso con el hash actualizado, verify debe recalcular y rechazar el informe falso.
+    ruta_informe = nuevo / ingesta.INFORME
+    informe["comparisons"][0]["difference"] = "999"
+    json_escribir(ruta_informe, informe)
+    manifiesto = json_leer(nuevo / "manifest.json")
+    manifiesto["artifacts"][ingesta.INFORME] = hashlib.sha256(ruta_informe.read_bytes()).hexdigest()
+    json_escribir(nuevo / "manifest.json", manifiesto)
+    with pytest.raises(ValueError, match="Informe de diferencias"):
+        h.verificar(entorno["store"], candidato=nuevo.name)

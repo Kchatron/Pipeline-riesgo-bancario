@@ -1,6 +1,8 @@
 """Validación mensual y comparaciones numéricas, sin imponer tokens históricos."""
 
+import csv
 from decimal import Decimal, localcontext
+import io
 
 from src.pipeline.validacion import (
     COLUMNAS_MACRO,
@@ -24,7 +26,13 @@ def validar_mes(mes):
 
 
 def leer_ancho(contenido, meses, columnas=COLUMNAS_MACRO):
-    filas = leer_csv(contenido, columnas, "BCRP ancho")
+    # Inspecciona nombres originales antes de construir diccionarios de valores.
+    lector = csv.reader(io.StringIO(contenido.decode("utf-8"), newline=""))
+    encabezado = tuple(next(lector, ()))
+    if len(encabezado) != len(columnas) or set(encabezado) != set(columnas):
+        raise ValueError("Esquema incorrecto en BCRP ancho: columnas faltantes, adicionales o duplicadas.")
+    filas = leer_csv(contenido, encabezado, "BCRP ancho")
+    filas = [{columna: fila[columna] for columna in columnas} for fila in filas]
     validar_claves(filas, ("fecha_id",), {(mes,) for mes in meses}, "BCRP ancho")
     validar_numeros(filas, INDICADORES_BCRP, "BCRP ancho")
     return filas
