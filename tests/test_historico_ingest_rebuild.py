@@ -142,7 +142,9 @@ def test_flujo_cli_ingest_rebuild_verify_usa_consolidados(entorno, ingerido, mon
     manifiesto = cargar(nuevo / "manifest.json")
     assert manifiesto["source_candidate"] == {"id": ingerido.name,
         "manifest_sha256": hashlib.sha256((ingerido / "manifest.json").read_bytes()).hexdigest()}
-    assert len(manifiesto["artifacts"]) == 88
+    assert len(manifiesto["artifacts"]) == 89
+    assert manifiesto["schema_version"] == 2
+    assert manifiesto["publication_base"] is None
     assert manifiesto["artifacts"] == {ruta: huella for ruta, huella in inventario(nuevo).items() if ruta != "manifest.json"}
     for ruta in cargar(ingerido / "manifest.json")["artifacts"]:
         assert (nuevo / ruta).read_bytes() == (ingerido / ruta).read_bytes()
