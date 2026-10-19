@@ -415,12 +415,14 @@ def test_verify_detecta_alteraciones_sin_red(entorno, monkeypatch, artefacto):
         h.verificar(entorno["store"], candidato=nuevo.name)
 
 
-def test_no_reconstruye_desde_ingest(entorno):
-    nuevo = ejecutar(entorno)
-    antes = inventario(entorno["store"])
-    with pytest.raises(ValueError, match="inicialización"):
-        h.reconstruir(entorno["store"], candidato=nuevo.name)
-    assert inventario(entorno["store"]) == antes
+def test_reconstruye_desde_ingest(entorno):
+    ingerido = ejecutar(entorno)
+    antes = inventario(ingerido)
+    nuevo = h.reconstruir(entorno["store"], candidato=ingerido.name)
+    manifiesto = h.verificar(entorno["store"], candidato=nuevo.name)
+    assert manifiesto["source_candidate"]["id"] == ingerido.name
+    assert manifiesto["stage"] == "historical-rebuild"
+    assert inventario(ingerido) == antes
 
 
 def test_initial_incompleto_se_rechaza_antes_de_extraer(entorno):

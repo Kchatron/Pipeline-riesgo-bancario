@@ -120,6 +120,22 @@ def verificar_auditoria(auditoria, sbs):
         raise ValueError("Auditoría P75 alterada o incompatible con la población y los cortes esperados.")
 
 
+def verificar_cortes_referencia(auditoria, sbs_referencia):
+    """Compara cortes, sin sustituir la población del candidato por la referencia."""
+    _, _, cortes = _poblacion(sbs_referencia)
+    diferencias = []
+    for panel in auditoria["panels"]:
+        clave = panel["banco_id"], panel["tipo_credito_id"]
+        referencia = float(cortes.loc[clave])
+        if panel["expected_cut"] != referencia or panel["observed_cut"] != referencia:
+            diferencias.append({"panel": clave, "reference_cut": referencia,
+                                "expected_cut": panel["expected_cut"],
+                                "observed_cut": panel["observed_cut"],
+                                "difference": panel["observed_cut"] - referencia})
+    if diferencias:
+        raise ValueError(f"P75 del candidato diferente de los cortes de referencia: {diferencias}")
+
+
 def verificar_etiquetas(resultado, auditoria):
     cortes = {(panel["banco_id"], panel["tipo_credito_id"]): panel["observed_cut"]
               for panel in auditoria["panels"]}

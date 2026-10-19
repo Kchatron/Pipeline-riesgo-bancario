@@ -27,6 +27,7 @@ from src.pipeline.validacion_rebuild import (
     comparar_features,
     leer_features_exactas,
     verificar_auditoria,
+    verificar_cortes_referencia,
     verificar_etiquetas,
 )
 
@@ -48,6 +49,7 @@ RECOMPUESTOS = {
 }
 FEATURES_RECONSTRUIDAS = "features/dataset_ml_features.csv"
 AUDITORIA_P75 = "audit/p75.json"
+DIAGNOSTICO_REBUILD = "audit/rebuild-failure.json"
 
 
 def sha256(contenido):
@@ -214,20 +216,50 @@ def _verificar_resultados(candidato, contenidos):
     resultado = leer_features_exactas((candidato / FEATURES_RECONSTRUIDAS).read_bytes())
     comparar_features(resultado, contenidos[FEATURES])
     auditoria = json.loads((candidato / AUDITORIA_P75).read_bytes())
-    verificar_auditoria(auditoria, contenidos[SBS])
+    verificar_auditoria(auditoria, (candidato / RECOMPUESTOS[SBS]).read_bytes())
+    verificar_cortes_referencia(auditoria, contenidos[SBS])
     verificar_etiquetas(resultado, auditoria)
+
+
+def _origen_rebuild(store, identificador, raiz):
+    origen = _ruta_candidato(store, identificador)
+    marcador = origen / "manifest.json"
+    if not marcador.is_file() or marcador.is_symlink():
+        raise ValueError("Candidato incompleto: falta un manifiesto preparado válido.")
+    datos = json.loads(marcador.read_bytes())
+    # Se inspecciona la etapa antes de recursar: un rebuild nunca es un origen admitido.
+    if not isinstance(datos, dict) or (datos.get("stage"), datos.get("status")) not in (
+        ("historical-init", "prepared"), ("historical-ingest", "sources-validated")
+    ):
+        raise ValueError("La reconstrucción requiere initial o una ingesta sources-validated; no admite cadenas de reconstrucción.")
+    return origen, verificar(store, raiz, candidato=identificador)
+
+
+def _verificar_copia_rebuild(candidato, preparado, contenidos, con_resultados=False):
+    adicionales = (FEATURES_RECONSTRUIDAS, AUDITORIA_P75) if con_resultados else ()
+    if preparado["stage"] == "historical-init":
+        return _verificar_contenido(candidato, contenidos, adicionales)
+    from src.pipeline.ingesta import _inventario
+    inventario = _inventario(candidato)
+    if set(inventario) != set(preparado["artifacts"]) | set(adicionales):
+        raise ValueError("Inventario de reconstrucción desde ingesta incompleto o inesperado.")
+    for ruta, huella in preparado["artifacts"].items():
+        if inventario[ruta] != huella:
+            raise ValueError(f"Fuente o evidencia copiada diferente del origen verificado: {ruta}.")
+    return inventario
 
 
 def _verificar_reconstruccion(store, candidato, preparado, raiz, manifiesto_bytes, contenidos):
     origen = preparado.get("source_candidate")
     if not isinstance(origen, dict) or set(origen) != {"id", "manifest_sha256"}:
         raise ValueError("Procedencia del candidato incorrecta.")
-    # Esta etapa solo reconstruye la inicialización, sin cadenas de reconstrucción.
-    if origen["id"] != "initial" or candidato.name == "initial":
-        raise ValueError("La reconstrucción debe proceder del candidato initial.")
-    verificar(store, raiz, candidato=origen["id"])
-    origen_hash = sha256((_ruta_candidato(store, origen["id"]) / "manifest.json").read_bytes())
-    artefactos = _verificar_contenido(candidato, contenidos, (FEATURES_RECONSTRUIDAS, AUDITORIA_P75))
+    if candidato.name == "initial" or origen["id"] == candidato.name:
+        raise ValueError("La reconstrucción debe proceder de initial o de una ingesta validada.")
+    ruta_origen, origen_preparado = _origen_rebuild(store, origen["id"], raiz)
+    origen_hash = sha256((ruta_origen / "manifest.json").read_bytes())
+    if origen["manifest_sha256"] != origen_hash:
+        raise ValueError("Hash del manifiesto del origen directo diferente del registrado.")
+    artefactos = _verificar_copia_rebuild(candidato, origen_preparado, contenidos, con_resultados=True)
     _verificar_resultados(candidato, contenidos)
     esperado = _manifiesto_rebuild(candidato, origen["id"], origen_hash, manifiesto_bytes, contenidos, artefactos)
     if preparado != esperado:
@@ -236,62 +268,79 @@ def _verificar_reconstruccion(store, candidato, preparado, raiz, manifiesto_byte
 
 
 def reconstruir(store, candidato="initial", raiz_repositorio=RAIZ_REPOSITORIO):
-    """Reconstruye en un candidato nuevo; un fallo deja archivos sin manifiesto final."""
+    """Reconstruye desde initial o ingesta validada; un fallo conserva diagnóstico."""
     raiz = Path(raiz_repositorio).resolve()
     store = _destino(store, raiz)
-    origen = _ruta_candidato(store, candidato)
-    preparado = verificar(store, raiz, candidato=candidato)
-    if preparado["stage"] != "historical-init":
-        raise ValueError("Esta etapa requiere un candidato de inicialización.")
+    origen, preparado = _origen_rebuild(store, candidato, raiz)
     manifiesto_bytes, contenidos = _leer_referencias(raiz)
     origen_bytes = (origen / "manifest.json").read_bytes()
     if json.loads(origen_bytes) != preparado:
         raise ValueError("El manifiesto de origen cambió después de verificarlo.")
     nuevo = _ruta_candidato(store, f"rebuild-{uuid4().hex}")
     nuevo.mkdir(exist_ok=False)
-    for ruta, huella in preparado["artifacts"].items():
-        contenido = (origen / ruta).read_bytes()
-        if sha256(contenido) != huella:
-            raise ValueError(f"El candidato de origen cambió durante la copia: {ruta}.")
-        destino = nuevo / ruta
-        destino.parent.mkdir(parents=True, exist_ok=True)
-        with destino.open("xb") as archivo:
-            archivo.write(contenido)
-    _verificar_contenido(nuevo, contenidos)
-    entradas = [nuevo / RECOMPUESTOS[ruta] for ruta in (SBS, BCRP)]
-    for ruta in entradas:
-        if not ruta.is_file():
-            raise ValueError(f"Entrada requerida antes del constructor: {ruta}.")
-    capturas = []
+    try:
+        for ruta, huella in preparado["artifacts"].items():
+            contenido = (origen / ruta).read_bytes()
+            if sha256(contenido) != huella:
+                raise ValueError(f"El candidato de origen cambió durante la copia: {ruta}.")
+            destino = nuevo / ruta
+            destino.parent.mkdir(parents=True, exist_ok=True)
+            with destino.open("xb") as archivo:
+                archivo.write(contenido)
+        _verificar_copia_rebuild(nuevo, preparado, contenidos)
+        entradas = [nuevo / RECOMPUESTOS[ruta] for ruta in (SBS, BCRP)]
+        for ruta in entradas:
+            if not ruta.is_file():
+                raise ValueError(f"Entrada requerida antes del constructor: {ruta}.")
+        sbs_candidato = entradas[0].read_bytes()
+        capturas = []
 
-    def observar(datos):
-        if capturas:
-            raise ValueError("El constructor invocó el observador P75 más de una vez.")
-        capturas.append(auditar_p75(datos, contenidos[SBS]))
+        def observar(datos):
+            if capturas:
+                raise ValueError("El constructor invocó el observador P75 más de una vez.")
+            captura = auditar_p75(datos, sbs_candidato)
+            verificar_cortes_referencia(captura, contenidos[SBS])
+            capturas.append(captura)
 
-    resultado = construir_dataset_analitico(
-        ruta_sbs=entradas[0], ruta_bcrp=entradas[1],
-        ruta_salida=nuevo / FEATURES_RECONSTRUIDAS, observador_p75=observar,
-    )
-    if len(capturas) != 1:
-        raise ValueError("El constructor no entregó la observación P75 requerida.")
-    comparar_features(resultado, contenidos[FEATURES])
-    verificar_etiquetas(resultado, capturas[0])
-    auditoria = nuevo / AUDITORIA_P75
-    auditoria.parent.mkdir(parents=True, exist_ok=True)
-    with auditoria.open("x", encoding="utf-8") as archivo:
-        json.dump(capturas[0], archivo, indent=2, ensure_ascii=False, allow_nan=False)
-        archivo.write("\n")
-    _verificar_resultados(nuevo, contenidos)
-    artefactos = _verificar_contenido(nuevo, contenidos, (FEATURES_RECONSTRUIDAS, AUDITORIA_P75))
-    verificar(store, raiz, candidato=candidato)
-    if (origen / "manifest.json").read_bytes() != origen_bytes or _leer_referencias(raiz)[0] != manifiesto_bytes:
-        raise ValueError("Las referencias o el manifiesto de origen cambiaron durante la reconstrucción.")
-    final = _manifiesto_rebuild(nuevo, candidato, sha256(origen_bytes), manifiesto_bytes, contenidos, artefactos)
-    with (nuevo / "manifest.json").open("x", encoding="utf-8") as archivo:
-        json.dump(final, archivo, indent=2, ensure_ascii=False, allow_nan=False)
-        archivo.write("\n")
-    return nuevo
+        resultado = construir_dataset_analitico(
+            ruta_sbs=entradas[0], ruta_bcrp=entradas[1],
+            ruta_salida=nuevo / FEATURES_RECONSTRUIDAS, observador_p75=observar,
+        )
+        if len(capturas) != 1:
+            raise ValueError("El constructor no entregó la observación P75 requerida.")
+        auditoria = nuevo / AUDITORIA_P75
+        auditoria.parent.mkdir(parents=True, exist_ok=True)
+        with auditoria.open("x", encoding="utf-8") as archivo:
+            json.dump(capturas[0], archivo, indent=2, ensure_ascii=False, allow_nan=False)
+            archivo.write("\n")
+        comparar_features(resultado, contenidos[FEATURES])
+        verificar_etiquetas(resultado, capturas[0])
+        _verificar_resultados(nuevo, contenidos)
+        artefactos = _verificar_copia_rebuild(nuevo, preparado, contenidos, con_resultados=True)
+        verificar(store, raiz, candidato=candidato)
+        if (origen / "manifest.json").read_bytes() != origen_bytes or _leer_referencias(raiz)[0] != manifiesto_bytes:
+            raise ValueError("Las referencias o el manifiesto de origen cambiaron durante la reconstrucción.")
+        final = _manifiesto_rebuild(nuevo, candidato, sha256(origen_bytes), manifiesto_bytes, contenidos, artefactos)
+        with (nuevo / "manifest.json").open("x", encoding="utf-8") as archivo:
+            json.dump(final, archivo, indent=2, ensure_ascii=False, allow_nan=False)
+            archivo.write("\n")
+        return nuevo
+    except Exception as error:
+        marcador = nuevo / "manifest.json"
+        if marcador.exists():
+            marcador.unlink()
+        diagnostico = nuevo / DIAGNOSTICO_REBUILD
+        diagnostico.parent.mkdir(parents=True, exist_ok=True)
+        with diagnostico.open("x", encoding="utf-8") as archivo:
+            json.dump({
+                "schema_version": 1, "stage": "historical-rebuild", "status": "failed",
+                "candidate": nuevo.name, "path": str(nuevo),
+                "source_candidate": {"id": candidato, "manifest_sha256": sha256(origen_bytes)},
+                "error_type": type(error).__name__, "error": str(error),
+            }, archivo, indent=2, ensure_ascii=False, allow_nan=False)
+            archivo.write("\n")
+        error.add_note(f"Reconstrucción no preparada. Diagnóstico y evidencia: {diagnostico}")
+        raise
 
 
 def inicializar(store, raiz_repositorio=RAIZ_REPOSITORIO):
@@ -374,6 +423,8 @@ def main(argv=None):
             print("Candidato verificado: 36 particiones, referencias y recomposición correctas.")
     except (OSError, ValueError) as error:
         print(f"Error: {error}", file=sys.stderr)
+        for nota in getattr(error, "__notes__", ()):
+            print(nota, file=sys.stderr)
         return 1
     return 0
 
