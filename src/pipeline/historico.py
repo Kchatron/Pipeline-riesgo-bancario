@@ -1,6 +1,7 @@
 """CLI de inicialización, ingesta, reconstrucción y verificación histórica, sin publicación."""
 
 import argparse
+from contextlib import nullcontext, redirect_stdout
 import csv
 import hashlib
 import json
@@ -421,12 +422,31 @@ def inicializar(store, raiz_repositorio=RAIZ_REPOSITORIO):
     return candidato
 
 
+def _resultado_manifiesto(operacion, ruta, preparado=None, version=False):
+    """Describe el manifiesto del destino usado, sin consultar LATEST."""
+    contenido = (ruta / "manifest.json").read_bytes()
+    manifiesto = json.loads(contenido)
+    if preparado is not None and manifiesto != preparado:
+        raise ValueError("El manifiesto cambió después de su verificación.")
+    resultado = {
+        "schema_version": 1, "operation": operacion,
+        "version_id" if version else "candidate_id": ruta.name,
+        "path": str(ruta), "manifest_sha256": sha256(contenido),
+        "stage": manifiesto["stage"], "status": manifiesto["status"],
+    }
+    for campo in ("month", "source_candidate"):
+        if campo in manifiesto:
+            resultado[campo] = manifiesto[campo]
+    return resultado
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     comandos = parser.add_subparsers(dest="comando", required=True)
     for nombre in ("init", "verify", "rebuild", "ingest", "publish", "resolve"):
         comando = comandos.add_parser(nombre)
         comando.add_argument("--store", required=True, type=Path)
+        comando.add_argument("--json", action="store_true", help="Emite un único resultado JSON de éxito; progreso en stderr.")
         if nombre == "verify":
             selector = comando.add_mutually_exclusive_group()
             selector.add_argument("--candidate")
@@ -442,30 +462,57 @@ def main(argv=None):
             comando.add_argument("--sbs-dir", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
-        if args.comando == "init":
-            candidato = inicializar(args.store)
-            print(f"Candidato preparado: {candidato}")
-        elif args.comando == "rebuild":
-            candidato = reconstruir(args.store, candidato=args.candidate)
-            print(f"Candidato reconstruido: {candidato.name}\nRuta: {candidato}")
-        elif args.comando == "ingest":
-            from src.pipeline.ingesta import ingerir
-            candidato = ingerir(args.store, args.candidate, args.month, args.sbs_dir)
-            print(f"Fuentes ingeridas y validadas: {candidato.name}\nRuta: {candidato}")
-        elif args.comando == "publish":
-            from src.pipeline.publicacion import publicar
-            resultado = publicar(args.store, candidato=args.candidate, resume_version=args.resume_version)
-            print(json.dumps(resultado, ensure_ascii=False))
-        elif args.comando == "resolve":
-            from src.pipeline.publicacion import resolver_latest
-            print(json.dumps(resolver_latest(args.store).como_dict(), ensure_ascii=False))
-        elif args.version is not None:
-            from src.pipeline.versiones import verificar_version
-            resultado = verificar_version(args.store, args.version)
-            print(f"Versión verificada: {resultado['version_id']}")
-        else:
-            verificar(args.store, candidato="initial" if args.candidate is None else args.candidate)
-            print("Candidato verificado: 36 particiones, referencias y recomposición correctas.")
+        with redirect_stdout(sys.stderr) if args.json else nullcontext():
+            if args.comando == "init":
+                candidato = inicializar(args.store)
+                if args.json:
+                    resultado = _resultado_manifiesto("init", candidato)
+                else:
+                    print(f"Candidato preparado: {candidato}")
+            elif args.comando == "rebuild":
+                candidato = reconstruir(args.store, candidato=args.candidate)
+                if args.json:
+                    resultado = _resultado_manifiesto("rebuild", candidato)
+                else:
+                    print(f"Candidato reconstruido: {candidato.name}\nRuta: {candidato}")
+            elif args.comando == "ingest":
+                from src.pipeline.ingesta import ingerir
+                candidato = ingerir(args.store, args.candidate, args.month, args.sbs_dir)
+                if args.json:
+                    resultado = _resultado_manifiesto("ingest", candidato)
+                else:
+                    print(f"Fuentes ingeridas y validadas: {candidato.name}\nRuta: {candidato}")
+            elif args.comando == "publish":
+                from src.pipeline.publicacion import publicar
+                resultado = publicar(args.store, candidato=args.candidate, resume_version=args.resume_version)
+                if args.json:
+                    resultado = {"schema_version": 1, "operation": "publish",
+                                 "status": "already-current" if resultado["already_current"] else "published", **resultado}
+                else:
+                    print(json.dumps(resultado, ensure_ascii=False))
+            elif args.comando == "resolve":
+                from src.pipeline.publicacion import resolver_latest
+                resultado = resolver_latest(args.store).como_dict()
+                if args.json:
+                    resultado = {"schema_version": 1, "operation": "resolve", "status": "resolved", **resultado}
+                else:
+                    print(json.dumps(resultado, ensure_ascii=False))
+            elif args.version is not None:
+                from src.pipeline.versiones import ruta_version, verificar_version
+                preparado = verificar_version(args.store, args.version)
+                if args.json:
+                    resultado = _resultado_manifiesto("verify", ruta_version(args.store.resolve(), args.version), preparado, version=True)
+                else:
+                    print(f"Versión verificada: {preparado['version_id']}")
+            else:
+                identificador = "initial" if args.candidate is None else args.candidate
+                preparado = verificar(args.store, candidato=identificador)
+                if args.json:
+                    resultado = _resultado_manifiesto("verify", _ruta_candidato(args.store.resolve(), identificador), preparado)
+                else:
+                    print("Candidato verificado: 36 particiones, referencias y recomposición correctas.")
+        if args.json:
+            print(json.dumps(resultado, ensure_ascii=False, allow_nan=False))
     except (OSError, ValueError) as error:
         print(f"Error: {error}", file=sys.stderr)
         for nota in getattr(error, "__notes__", ()):
