@@ -16,6 +16,13 @@ tests/**
 !tests/test_historico_cli_json.py
 !tests/test_historico_ingest.py
 !tests/test_historico_ingest_rebuild.py
+!tests/test_adaptador_cli.py
+!tests_airflow/
+tests_airflow/**
+!tests_airflow/test_historico_mensual.py
+!dags/
+dags/**
+!dags/historico_mensual.py
 !tests/test_historico_publish.py
 !tests/test_publication_package.py
 !data/
