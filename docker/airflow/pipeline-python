@@ -1,0 +1,5 @@
+#!/bin/sh
+# Solo los procesos del pipeline reciben esta umask; Airflow conserva la suya.
+umask 0022
+export PYTHONDONTWRITEBYTECODE=1 PYTHONNOUSERSITE=1
+exec /opt/pipeline-venv/bin/python "$@"
