@@ -108,7 +108,7 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m pytest -p no:cacheprovider test
 git diff --check
 ```
 
-## Integración en imagen y activación pendiente
+## Integración en imagen y validación
 
 La integración posterior se documenta en
 [README de la imagen](../docker/airflow/README.md#integración-del-dag-en-la-imagen).
@@ -118,10 +118,13 @@ Las pruebas cargan la carpeta configurada por `AIRFLOW__CORE__DAGS_FOLDER`;
 sin esa variable usan `dags/` del código fuente. Sus 16 casos se conservan.
 
 El montaje `/review` del ejemplo anterior corresponde a la validación inicial
-antes de incorporar el código en una imagen. La validación de la imagen nueva
-usa exclusivamente el código incorporado, con golden master y pruebas de ambos
-entornos. No se modifica Compose, el workflow ni los servicios. Antes de activar
-el DAG habrá que seleccionar la imagen explícitamente y validar ejecución
-integrada y cancelación real con autorización independiente.
-El CI vigente ejecuta `pytest tests/` y Ruff en `src/tests`; no ejecuta
-`tests_airflow` ni valida Compose. No se atribuyen estas pruebas locales al CI.
+antes de incorporar el código en una imagen. El job `airflow-image-and-tests`
+construye el Dockerfile y prueba exclusivamente el código incorporado; el job
+`lint-and-test` conserva `pytest tests/` y amplía Ruff a las carpetas de Airflow.
+No se instala Airflow en el venv del pipeline ni se ejecuta Compose en CI.
+
+Las ejecuciones integradas y cancelaciones ya comprobadas son pruebas manuales
+locales. Su resumen, límites y concurrencia operativa pendiente se encuentran en
+[Validación de Airflow](validacion_airflow.md). El nuevo job debe confirmarse en
+GitHub después de subir esta rama: estas comprobaciones locales no son un
+resultado remoto de Actions ni equivalen a ejecutar DagRuns en CI.
