@@ -1,10 +1,14 @@
-# Imagen del pipeline y Airflow: Etapa 2
+# Imagen del pipeline y Airflow
+
+La integración actual del DAG aprobado en el PR #16 se describe en
+[Integración del DAG en la imagen](#integración-del-dag-en-la-imagen).
+Las secciones anteriores a ella conservan la validación histórica de Etapa 2.
 
 La infraestructura posterior de **Etapa A** se documenta en
 [infraestructura.md](infraestructura.md): Compose, migraciones e inicialización
-manual. El resto de este documento conserva la validación de la imagen de Etapa 2.
+manual. Las secciones históricas siguientes conservan la validación de la imagen de Etapa 2.
 
-La construcción de la imagen no inicia servicios Airflow ni incorpora un DAG o adaptador. Las pruebas
+La construcción original de Etapa 2 no incorporaba DAG ni adaptador. Las pruebas
 son sin red y sin Excel originales. La validación numérica reconstruye desde
 las cinco referencias aprobadas; las ingestas de prueba usan fixtures simulados.
 No hay entrenamiento.
@@ -298,3 +302,123 @@ La batería de la herramienta contiene ahora 10 casos, incluido PyPy simulado
 con Linux, versión 3.14 y x86_64 válidos; comprueba el rechazo antes de leer
 requisitos, acceder a PyPI o escribir. Los 9 casos citados arriba pertenecen a
 la ejecución anterior. No se regeneró el lock ni se cambió la imagen validada.
+
+## Integración del DAG en la imagen
+
+Partida: merge `0a38a09` del PR #16, con DAG, operador y adaptador aprobados.
+Se mantienen `FROM` y su digest, `requirements.txt`, `pipeline.lock` y las cinco
+referencias. Esta integración no cambia cálculos, extractores ni publicación.
+
+- `src/` incorpora el adaptador y operador aprobados. `PYTHONPATH=/opt/project`
+  permite al Python de Airflow importarlos, sin activar el venv del pipeline.
+- Existe una sola copia del DAG: `/opt/airflow/dags/historico_mensual.py`.
+  Se fija `AIRFLOW__CORE__DAGS_FOLDER` a esa carpeta. El DAG y su carpeta son de
+  root, con modos 0444/0555; código, referencias y venv siguen sin escritura.
+- El contexto admite exactamente ese DAG, un módulo `tests_airflow` y doce
+  módulos `tests`, incluidas las 69 pruebas del adaptador. Los demás archivos
+  siguen excluidos por la lista cerrada de `.dockerignore`.
+- `validate.py` exige inventarios exactos de datos, pruebas y DAG desplegado,
+  registra sus hashes y comprueba permisos. El golden master sigue ejecutándose
+  exclusivamente con `/opt/pipeline-python` y lectura float64 `round_trip` exacta.
+- Las 16 pruebas Airflow usan su propio Python y `unittest`, con `Popen` y XCom
+  simulados. Cargan la carpeta desplegada indicada por el entorno, con fallback
+  al directorio fuente solo cuando no se configura esa variable. Este es el único
+  ajuste de las pruebas aprobadas: se conservan sus casos y comprobaciones.
+- El build ejecuta pip check de ambos entornos, golden master y esas 16 pruebas.
+  No crea un DagRun ni conecta a los servicios del host.
+
+Construir con un tag nuevo, inspeccionarlo y usar en adelante el ID completo:
+
+```sh
+docker build --platform linux/amd64 -f docker/airflow/Dockerfile -t historico-airflow:dag-review .
+docker image inspect historico-airflow:dag-review --format '{{.Id}} {{.Size}}'
+PIPELINE_IMAGE_ID=sha256:REEMPLAZAR_POR_EL_ID_NUEVO_DE_64_HEXADECIMALES
+PIPELINE_EVIDENCE=$(mktemp -d "$PWD/../airflow-dag-image-XXXXXXXX")
+PIPELINE_UID=$(id -u)
+findmnt -T "$PIPELINE_EVIDENCE"
+```
+
+No reutilizar el ID de `stage2-review`. La validación se hace sin montar código
+del host encima de la imagen, como UID del host y GID 0. Únicamente se monta una
+raíz nueva ext4 en `/validation` para resultados de pruebas y evidencia:
+
+```sh
+docker run --network none --read-only --user "$PIPELINE_UID:0" --tmpfs /tmp \
+  --env AIRFLOW_HOME=/tmp/airflow --entrypoint bash "$PIPELINE_IMAGE_ID" -euc \
+  'python --version; python -m pip check; /opt/pipeline-python -m pip check'
+
+docker run --network none --read-only --user "$PIPELINE_UID:0" --tmpfs /tmp \
+  --mount "type=bind,src=$PIPELINE_EVIDENCE,dst=/validation" \
+  --entrypoint bash "$PIPELINE_IMAGE_ID" -euc \
+  'umask 0002; exec /opt/pipeline-python docker/airflow/validate.py --store /validation/golden-store --require-ext4 --require-uid '"$PIPELINE_UID"
+
+docker run --network none --read-only --user "$PIPELINE_UID:0" --tmpfs /tmp \
+  --mount "type=bind,src=$PIPELINE_EVIDENCE,dst=/validation" \
+  --entrypoint /opt/pipeline-python "$PIPELINE_IMAGE_ID" \
+  -m pytest -p no:cacheprovider --basetemp /validation/pytest \
+  --deselect tests/test_historico_ingest.py::test_integracion_excel_sbs_reales \
+  --deselect 'tests/test_historico_ingest_rebuild.py::test_flujo_cli_ingest_rebuild_verify_usa_consolidados[reales]' tests/
+
+docker run --network none --read-only --user "$PIPELINE_UID:0" --tmpfs /tmp \
+  --env AIRFLOW_HOME=/tmp/airflow --entrypoint python "$PIPELINE_IMAGE_ID" \
+  -m unittest discover -s tests_airflow -v
+```
+
+La colección del pipeline contiene 369 casos: se ejecutan 367 y se deseleccionan
+solo los dos node ID que requieren Excel originales. Las pruebas de publicación
+crean versiones únicamente en sus temporales; ningún almacén anterior se monta.
+Las pruebas Airflow verifican importación y serialización del DAG, dependencias,
+parámetros, XCom de IDs/hashes, errores (incluido código 4) y conexión `on_kill`.
+No son una ejecución integrada del scheduler ni prueban cancelación real de
+DagRuns o persistencia real de XCom.
+
+Antes de construir se audita el contexto real con una imagen scratch que hace
+`COPY . /context`: su lista exacta y hashes deben coincidir con los archivos
+autorizados del host. La imagen final se contrasta de nuevo con ese inventario,
+incluidos el DAG desplegado, lock y lanzador. No se incluyen Excel, secretos,
+documentos personales, `.venv` ni almacenes externos.
+
+Esta etapa no modifica Compose ni selecciona una imagen para los servicios
+existentes. No instala paquetes al arrancar, no consulta BCRP, no lanza DagRuns
+ni publica versiones en almacenes de operación. La activación requiere otra
+autorización; el CI vigente aún no ejecuta build/Compose ni `tests_airflow`.
+
+### Imagen construida en esta revisión
+
+- ID completo nuevo:
+  `sha256:7f1d4f03341eaa3f5cf5ecb96e1ec326870380cdd2811bdb934aaebc78d9aa8f`.
+- Tag de construcción: `historico-airflow:dag-review`; Linux amd64,
+  3.894.823.862 bytes. El tag sirve para construir/inspeccionar; la validación
+  usa el ID completo anterior y los servicios conservan su imagen previa.
+- CPython 3.14.7, Airflow 3.3.2; pip check correcto en ambos entornos.
+- Golden master del build y del UID 1000:GID 0 sobre ext4: 340 × 23,
+  diez P75 exactos, 24 observaciones de entrenamiento por panel.
+- Pipeline de la imagen: 367 pruebas pasan, 2 deseleccionadas por requerir Excel
+  originales (252,62 s). Host: 369 pruebas pasan (200,46 s).
+- Airflow: las 16 pruebas pasan durante build y como UID 1000:GID 0 (0,16 s),
+  incluida importación del DAG desplegado y serialización. Son pruebas simuladas
+  de CLI/XCom, sin un DagRun ni escritura de resultados operativos.
+- Contexto real auditado: 47 archivos autorizados. Los 46 artefactos de código,
+  referencias, configuración y pruebas incorporados (Dockerfile excluido de la
+  imagen) coinciden por SHA-256 con el host, incluidos DAG, lock y lanzador.
+- El directorio de evidencia externo contiene `image.json`, `commands.json`,
+  `context-audit.json`, `image-artifacts.json`, versiones de ambos entornos,
+  logs de cada contenedor y `golden-store-validation/result.json`.
+
+No se detuvieron ni eliminaron recursos previos. Los cuatro servicios existentes
+siguen saludables, con los mismos IDs, inicio y número de reinicios; initial,
+autenticación y configuración externas conservan sus hashes. Las mediciones
+incluyen el trabajo del host, sin atribuir variaciones completas a esta imagen:
+
+| Recurso | Antes | Después |
+|---|---:|---:|
+| Espacio libre ext4 (`df -h`, redondeado) | 38 GiB | 38 GiB |
+| Imágenes, tamaño compartido (`docker system df`) | 19 / 8,737 GB | 21 / 8,748 GB |
+| Contenedores / activos | 30 / 7 | 35 / 7 |
+| Volúmenes / activos / tamaño | 5 / 4 / 229,6 MB | Sin cambios |
+| RAM disponible del host (instantáneas, no pico) | 6,0 GiB | 6,6 GiB |
+
+La swap pasó de 0 a 717 MiB usados durante el intervalo; no se midió un pico de
+RAM ni se atribuye esa variación exclusivamente a las pruebas. Cada contenedor
+de validación tuvo límite de 3 GiB y terminó en código 0. Se conservan la imagen
+anterior, los contenedores nuevos de comprobación y la evidencia externa.

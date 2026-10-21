@@ -11,12 +11,16 @@ import sys
 
 
 ROOT = Path("/opt/project")
+DAG_FOLDER = Path("/opt/airflow/dags")
 TESTS = {
     "test_calidad_datos.py", "test_features.py", "test_bcrp_extractor.py",
     "test_historico_init.py", "test_historico_rebuild.py", "test_historico_rebuild_cli.py",
     "test_historico_cli_json.py", "test_historico_publish.py", "test_publication_package.py",
     "test_historico_ingest.py", "test_historico_ingest_rebuild.py",
+    "test_adaptador_cli.py",
 }
+AIRFLOW_TESTS = {"test_historico_mensual.py"}
+DAGS = {"historico_mensual.py"}
 
 
 def huella(ruta):
@@ -62,6 +66,12 @@ def main():
         raise ValueError("La imagen debe contener exclusivamente los cinco CSV aprobados, sin Excel")
     if {ruta.name for ruta in (ROOT / "tests").iterdir()} != TESTS:
         raise ValueError("Inventario inesperado de pruebas en la imagen")
+    if {ruta.name for ruta in (ROOT / "tests_airflow").iterdir()} != AIRFLOW_TESTS:
+        raise ValueError("Inventario inesperado de pruebas Airflow en la imagen")
+    if {ruta.name for ruta in DAG_FOLDER.iterdir()} != DAGS:
+        raise ValueError("La carpeta desplegada debe contener exclusivamente historico_mensual.py")
+    if os.environ.get("AIRFLOW__CORE__DAGS_FOLDER") != str(DAG_FOLDER):
+        raise ValueError("Airflow debe cargar la carpeta DAG incorporada")
 
     def comprobar_referencias():
         for referencia in referencias["references"]:
@@ -102,16 +112,23 @@ def main():
         assert panel["observed_cut"] == panel["expected_cut"]
     comprobar_referencias()
     inventario = {ruta.relative_to(ROOT).as_posix(): huella(ruta)
-                  for carpeta in ("src", "config", "data", "tests", "docker")
+                  for carpeta in ("src", "config", "data", "tests", "tests_airflow", "docker")
                   for ruta in (ROOT / carpeta).rglob("*") if ruta.is_file()}
     for nombre in inventario:
         if (ROOT / nombre).stat().st_mode & 0o222:
             raise ValueError(f"Código, configuración, pruebas o referencias escribibles: {nombre}")
+    dag_hashes = {}
+    for ruta in (DAG_FOLDER, *DAG_FOLDER.iterdir()):
+        if ruta.is_symlink() or ruta.stat().st_mode & 0o222 or ruta.stat().st_uid != 0:
+            raise ValueError(f"DAG desplegado escribible, enlazado o no propiedad de root: {ruta}")
+        if ruta.is_file():
+            dag_hashes[ruta.name] = huella(ruta)
     informe = {"python": sys.version, "executable": sys.executable,
                "uid": os.getuid(), "gid": os.getgid(), "umask": oct(mascara), "filesystem": filesystem,
                "candidate": rebuilt, "features_shape": list(actual.shape), "p75": auditoria,
                "installed": {d.metadata["Name"]: d.version for d in metadata.distributions()},
-               "image_files_sha256": inventario, "references_verified": True}
+               "image_files_sha256": inventario, "dag_directory": str(DAG_FOLDER),
+               "deployed_dags_sha256": dag_hashes, "references_verified": True}
     (evidencia / "result.json").write_text(json.dumps(informe, ensure_ascii=False, indent=2, allow_nan=False))
     print(json.dumps({"status": "passed", "candidate_id": rebuilt["candidate_id"],
                       "shape": list(actual.shape), "p75_panels": 10, "evidence": str(evidencia)}))

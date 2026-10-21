@@ -2,6 +2,7 @@
 
 from copy import deepcopy
 import json
+import os
 from pathlib import Path
 import unittest
 from unittest.mock import MagicMock, patch
@@ -15,6 +16,7 @@ from src.orquestacion import adaptador_cli as a, operador_historico as o
 
 
 RAIZ = Path(__file__).resolve().parents[1]
+DAG_FOLDER = Path(os.environ.get("AIRFLOW__CORE__DAGS_FOLDER", RAIZ / "dags"))
 INGEST = "ingest-" + "a" * 32
 REBUILD = "rebuild-" + "b" * 32
 HASH_INGEST = "1" * 64
@@ -49,7 +51,7 @@ class TestHistoricoMensual(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         with patch.object(o, "AdaptadorCLI") as crear, patch.object(a.subprocess, "Popen") as iniciar:
-            cls.bag = DagBag(dag_folder=RAIZ / "dags", safe_mode=False, known_pools={"default_pool"})
+            cls.bag = DagBag(dag_folder=DAG_FOLDER, safe_mode=False, known_pools={"default_pool"})
             crear.assert_not_called()
             iniciar.assert_not_called()
         cls.dag = cls.bag.dags["historico_mensual"]

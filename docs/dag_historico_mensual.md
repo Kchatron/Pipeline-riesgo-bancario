@@ -108,12 +108,20 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m pytest -p no:cacheprovider test
 git diff --check
 ```
 
-## Integración pendiente
+## Integración en imagen y activación pendiente
 
-No se modifica Compose, Dockerfile, `.dockerignore`, el workflow ni los servicios.
-La imagen actual aún no incorpora este DAG ni el adaptador. El montaje `/review`
-es exclusivo de las pruebas, no una sustitución del código de servicios activos.
-Antes de activar el DAG habrá que incorporar código/DAG en una imagen nueva,
-validar su golden master y cancelación real, y seleccionarla explícitamente.
+La integración posterior se documenta en
+[README de la imagen](../docker/airflow/README.md#integración-del-dag-en-la-imagen).
+Incorpora este DAG en `/opt/airflow/dags`, el operador y el adaptador aprobados,
+sin modificar su lógica ni mezclar las dependencias de Airflow y del pipeline.
+Las pruebas cargan la carpeta configurada por `AIRFLOW__CORE__DAGS_FOLDER`;
+sin esa variable usan `dags/` del código fuente. Sus 16 casos se conservan.
+
+El montaje `/review` del ejemplo anterior corresponde a la validación inicial
+antes de incorporar el código en una imagen. La validación de la imagen nueva
+usa exclusivamente el código incorporado, con golden master y pruebas de ambos
+entornos. No se modifica Compose, el workflow ni los servicios. Antes de activar
+el DAG habrá que seleccionar la imagen explícitamente y validar ejecución
+integrada y cancelación real con autorización independiente.
 El CI vigente ejecuta `pytest tests/` y Ruff en `src/tests`; no ejecuta
 `tests_airflow` ni valida Compose. No se atribuyen estas pruebas locales al CI.
