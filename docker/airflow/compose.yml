@@ -1,0 +1,189 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements. See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership. The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+# Adaptado del Compose oficial de Airflow 3.3.2:
+# https://airflow.apache.org/docs/apache-airflow/3.3.2/docker-compose.yaml
+# Desarrollo local: LocalExecutor; sin Celery, Redis, worker ni DAG en esta etapa.
+name: ${COMPOSE_PROJECT_NAME:?Use el archivo local.env generado fuera del repositorio}
+
+x-airflow-common: &airflow-common
+  image: ${AIRFLOW_IMAGE:?Falta la identidad de la imagen aprobada}
+  platform: linux/amd64
+  pull_policy: never
+  user: "${AIRFLOW_UID:?Falta el UID del host}:0"
+  working_dir: /opt/project
+  env_file:
+    - path: ${AIRFLOW_SECRETS_FILE:?Falta el archivo externo de secretos}
+      required: true
+  environment:
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__PARALLELISM: "1"
+    AIRFLOW__CORE__MAX_ACTIVE_TASKS_PER_DAG: "1"
+    AIRFLOW__CORE__MAX_ACTIVE_RUNS_PER_DAG: "1"
+    AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://api-server:8080/execution/
+    AIRFLOW__CORE__AUTH_MANAGER: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "false"
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_USERS: "${AIRFLOW_ADMIN_USER:-admin}:admin"
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_PASSWORDS_FILE: /opt/airflow/auth/passwords.json
+    AIRFLOW__API__WORKERS: "1"
+    AIRFLOW__DAG_PROCESSOR__PARSING_PROCESSES: "1"
+    AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+    AIRFLOW__LOGGING__BASE_LOG_FOLDER: /opt/airflow/logs
+    AIRFLOW__LOGGING__WORKER_LOG_SERVER_PORT: "8793"
+    _PIP_ADDITIONAL_REQUIREMENTS: ""
+    PYTHONDONTWRITEBYTECODE: "1"
+  volumes:
+    - type: bind
+      source: ${AIRFLOW_LOGS_DIR:?Falta el directorio externo de logs}
+      target: /opt/airflow/logs
+      bind:
+        create_host_path: false
+  depends_on: &airflow-dependencies
+    postgres:
+      condition: service_healthy
+    airflow-init:
+      condition: service_completed_successfully
+  restart: unless-stopped
+
+services:
+  postgres:
+    # Digest del índice oficial; plataforma fijada explícitamente a amd64.
+    image: postgres:16.15-bookworm@sha256:0ea6700a3b4f0ae6ce746519073558aed4d88a79d8d07622a9a644946c7319c4
+    platform: linux/amd64
+    pull_policy: never
+    env_file:
+      - path: ${POSTGRES_SECRETS_FILE:?Falta el archivo externo de PostgreSQL}
+        required: true
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD, pg_isready, -U, airflow, -d, airflow]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+    mem_limit: 512m
+    restart: unless-stopped
+
+  airflow-init:
+    <<: *airflow-common
+    command: [db, migrate]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    mem_limit: 768m
+
+  api-server:
+    <<: *airflow-common
+    command: [api-server, --workers, "1"]
+    ports:
+      - "127.0.0.1:${AIRFLOW_PORT:-8080}:8080"
+    volumes:
+      - type: bind
+        source: ${AIRFLOW_LOGS_DIR}
+        target: /opt/airflow/logs
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${AIRFLOW_AUTH_DIR:?Falta el estado externo de autenticación}
+        target: /opt/airflow/auth
+        bind:
+          create_host_path: false
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, http://localhost:8080/api/v2/monitor/health]
+      interval: 15s
+      timeout: 10s
+      retries: 12
+      start_period: 40s
+    mem_limit: 1024m
+
+  scheduler:
+    <<: *airflow-common
+    hostname: scheduler
+    command: scheduler
+    volumes:
+      - type: bind
+        source: ${AIRFLOW_LOGS_DIR}
+        target: /opt/airflow/logs
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${PIPELINE_MOUNT_DIR:?Falta la raíz ext4 nueva del almacén}
+        target: /store
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SBS_SOURCE_DIR:?Falta el directorio SBS original}
+        target: /sources/sbs
+        read_only: true
+        bind:
+          create_host_path: false
+    depends_on:
+      <<: *airflow-dependencies
+      api-server:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD-SHELL, 'airflow jobs check --job-type SchedulerJob --hostname "$${HOSTNAME}"']
+      interval: 15s
+      timeout: 10s
+      retries: 12
+      start_period: 40s
+    mem_limit: 1536m
+
+  dag-processor:
+    <<: *airflow-common
+    command: dag-processor
+    healthcheck:
+      test: [CMD-SHELL, 'airflow jobs check --job-type DagProcessorJob --hostname "$${HOSTNAME}"']
+      interval: 15s
+      timeout: 10s
+      retries: 12
+      start_period: 40s
+    mem_limit: 768m
+
+  data-init:
+    image: ${AIRFLOW_IMAGE}
+    platform: linux/amd64
+    pull_policy: never
+    profiles: [data]
+    user: "${AIRFLOW_UID}:0"
+    working_dir: /opt/project
+    entrypoint: /bin/bash
+    command:
+      - -euc
+      - |
+        /opt/pipeline-python -m src.pipeline.historico init --store /store/historico --json
+        /opt/pipeline-python -m src.pipeline.historico verify --store /store/historico --candidate initial --json
+    volumes:
+      - type: bind
+        source: ${PIPELINE_MOUNT_DIR}
+        target: /store
+        bind:
+          create_host_path: false
+    network_mode: none
+    mem_limit: 768m
+    restart: "no"
+
+volumes:
+  postgres-data:
