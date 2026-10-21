@@ -101,6 +101,33 @@ Las dos ingestas reales partieron de `initial`: repetir el DAG no demuestra un
 replay acumulativo de 36 meses ni equivale a repetir `publish` del mismo candidato.
 Las versiones nuevas pueden tener identificadores distintos con datos iguales.
 
+### Concurrencia operativa observada
+
+Prueba local aislada del 21 de octubre de 2026, proyecto
+`historico-airflow-5bb0f8e705`, con almacenes nuevos en ext4 y la misma imagen
+operativa indicada arriba. Usó referencias CSV, sin consultas BCRP ni ingesta.
+Las barreras IPC coordinaron el avance; no se usaron pausas temporizadas para
+decidir el orden de la carrera.
+
+| Comprobación | Evidencia y resultado |
+|---|---|
+| Dos DagRuns manuales | `manual__serial_first_20261021T210345Z_3030bef6` y `manual__serial_second_20261021T210354Z_bba8eb44`: con `max_active_runs=1`, el segundo permaneció `queued`, sin intentos de tareas, mientras el primero estaba retenido. Ambos terminaron correctamente y sus tareas no se solaparon. Solo en esta instalación, `parallelism=2` y `max_active_tasks=2` evitaron que esos otros límites ocultaran el efecto. |
+| Airflow frente a CLI | `manual__publication_race_20261021T210409Z_4425daa4`: candidatos distintos con la misma base capturada. El kernel mostró la CLI independiente esperando en `locks_lock_inode_wait` sobre el mismo inode de `.publish.lock`. Airflow publicó; la CLI recibió código 3, `BaseObsoleta`, sin cambiar `LATEST` ni crear otra versión. Quedaron base y ganadora, ambas verificadas. |
+| Lector consistente | El objeto previamente resuelto conservó rutas, hashes y permisos de sus 167 archivos y un descriptor abierto de features durante la publicación. Una operación posterior resolvió la versión nueva; la operación anterior siguió usando la base. |
+
+Se utilizaron **DAGs auxiliares reales** con `HistoricoOperator`, `AdaptadorCLI`
+y publicador aprobados; no fueron dos recorridos completos de `historico_mensual`.
+La CLI externa al DagRun se lanzó mediante `docker compose exec` en el mismo
+contenedor scheduler. IPC dejó ganar a Airflow: **solo se probó ese orden de
+victoria, sin estrés aleatorio**. No se modificó código de producción.
+
+Logs, estados, XCom, identidades, bytes de `LATEST`, hashes y fixtures permanecen
+fuera del repositorio, en `airflow-concurrency-097fc8t8/evidence/`; el resumen es
+`summary.json`. También se conservó un fallo de preflight por avisos en stdout,
+anterior a cualquier DagRun. Los tres DagRuns tuvieron un intento por tarea,
+sin reintentos; ambos DAGs quedaron pausados. Referencias e instalaciones
+anteriores permanecieron intactas.
+
 ## Visibilidad, durabilidad y pendientes
 
 `os.replace` cambia atómicamente la identidad visible de `LATEST`. Cancelar
@@ -115,10 +142,11 @@ se ejecutaron `resolve`, `verify --version` y, por separado, la recuperación
 manual `publish --resume-version`. No se usó un retry del DAG para recuperarse
 ni se borraron versiones o temporales.
 
-Queda pendiente la **concurrencia operativa** de Airflow con un escritor CLI
-externo y un lector que mantiene la versión resuelta: base obsoleta, exclusión
-mutua y lectura consistente bajo esa carrera real. Existen pruebas automáticas
-con procesos CLI, pero `max_active_runs=1` solo serializa DagRuns del mismo DAG;
-no sustituye `flock` ni la comprobación de base frente a otros escritores.
+La prueba de concurrencia anterior cubre serialización de DagRuns, exclusión
+mutua, rechazo de base obsoleta y lectura consistente en el orden observado.
+Quedan pendientes el orden inverso de victoria y el estrés aleatorio.
+`max_active_runs=1` solo serializa DagRuns del mismo DAG; no sustituye `flock`
+ni la comprobación de base frente a otros escritores. La prueba local no añade
+DagRuns reales al CI, cuya cobertura sigue siendo build, golden master y SDK.
 También quedan fuera de estas pruebas SIGKILL del propio TaskRunner, procesos
 que abandonen su grupo y un replay acumulativo completo de los 36 meses.
