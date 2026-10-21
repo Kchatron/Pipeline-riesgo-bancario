@@ -1,5 +1,9 @@
 # Imagen del pipeline y Airflow
 
+El [cierre de validación](../../docs/validacion_airflow.md) describe los dos jobs
+de CI, las evidencias operativas locales y sus límites. Las secciones siguientes
+conservan el historial de construcción y revisión de la imagen.
+
 La integración actual del DAG aprobado en el PR #16 se describe en
 [Integración del DAG en la imagen](#integración-del-dag-en-la-imagen).
 Las secciones anteriores a ella conservan la validación histórica de Etapa 2.
@@ -378,10 +382,11 @@ autorizados del host. La imagen final se contrasta de nuevo con ese inventario,
 incluidos el DAG desplegado, lock y lanzador. No se incluyen Excel, secretos,
 documentos personales, `.venv` ni almacenes externos.
 
-Esta etapa no modifica Compose ni selecciona una imagen para los servicios
-existentes. No instala paquetes al arrancar, no consulta BCRP, no lanza DagRuns
-ni publica versiones en almacenes de operación. La activación requiere otra
-autorización; el CI vigente aún no ejecuta build/Compose ni `tests_airflow`.
+Esta etapa de integración no modificó Compose ni seleccionó una imagen para los
+servicios existentes. El cierre posterior incorpora un job de build y pruebas
+SDK, documentado en [Validación de Airflow](../../docs/validacion_airflow.md).
+Ese job no ejecuta Compose, consultas BCRP ni DagRuns; las comprobaciones
+operativas posteriores se realizaron manualmente en instalaciones aisladas.
 
 ### Imagen construida en esta revisión
 

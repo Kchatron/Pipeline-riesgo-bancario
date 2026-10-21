@@ -26,7 +26,46 @@ jobs:
         run: python -m pip install -r requirements.txt ruff==0.17.1
 
       - name: Ejecutar Ruff
-        run: python -m ruff check src tests
+        run: python -m ruff check src tests dags tests_airflow docker/airflow
 
       - name: Ejecutar pytest
         run: python -m pytest tests/
+
+  airflow-image-and-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v7
+
+      - name: Registrar recursos antes del build
+        run: |
+          free -h
+          df -h /
+          docker system df
+
+      - name: Construir la imagen fijada y validar el golden master
+        run: |
+          time docker build --no-cache --platform linux/amd64 \
+            --file docker/airflow/Dockerfile \
+            --iidfile "$RUNNER_TEMP/airflow-image.id" .
+          docker image inspect "$(cat "$RUNNER_TEMP/airflow-image.id")" \
+            --format 'ID={{.Id}} bytes={{.Size}}'
+
+      - name: Ejecutar las 16 pruebas con el Python de Airflow
+        run: |
+          docker run --name airflow-sdk-ci --platform linux/amd64 \
+            --network none --read-only --memory 1g --cpus 2 \
+            --tmpfs /tmp:rw,size=512m --user "$(id -u):0" \
+            --env AIRFLOW_HOME=/tmp/airflow \
+            --env AIRFLOW__CORE__LOAD_EXAMPLES=false \
+            --entrypoint python "$(cat "$RUNNER_TEMP/airflow-image.id")" \
+            -m unittest discover -s tests_airflow -v
+
+      - name: Registrar recursos al terminar
+        if: always()
+        run: |
+          free -h
+          df -h /
+          docker system df
