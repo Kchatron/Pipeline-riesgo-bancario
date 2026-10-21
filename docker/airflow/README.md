@@ -1,6 +1,10 @@
 # Imagen del pipeline y Airflow: Etapa 2
 
-No inicia servicios Airflow. No contiene Compose, DAG ni adaptador. Las pruebas
+La infraestructura posterior de **Etapa A** se documenta en
+[infraestructura.md](infraestructura.md): Compose, migraciones e inicialización
+manual. El resto de este documento conserva la validación de la imagen de Etapa 2.
+
+La construcción de la imagen no inicia servicios Airflow ni incorpora un DAG o adaptador. Las pruebas
 son sin red y sin Excel originales. La validación numérica reconstruye desde
 las cinco referencias aprobadas; las ingestas de prueba usan fixtures simulados.
 No hay entrenamiento.
